@@ -27,6 +27,7 @@ import java.util.List;
 
 import goid.kotajambi.puskesmas_ngadu.R;
 import goid.kotajambi.puskesmas_ngadu.model.bener.ResultItem_bener;
+import goid.kotajambi.puskesmas_ngadu.model.model_berita.PostsItem;
 import goid.kotajambi.puskesmas_ngadu.model.slider.IsiItem_slider;
 import goid.kotajambi.puskesmas_ngadu.view.menu.menu_detail_berita;
 
@@ -35,26 +36,27 @@ public class adapter_bener extends SliderViewAdapter<adapter_bener.SliderAdapter
 
         private Context context;
         private String jenis;
-        private List<IsiItem_slider> mSliderItems = new ArrayList<>();
+      //  private List<IsiItem_slider> mSliderItems = new ArrayList<>();
 
     public adapter_bener(Context context, List<IsiItem_slider> mList, String jenis) {
-        this.mSliderItems = mList;
+        //this.mList = mList;
+        this.mList = mList;
         this.jenis = jenis;
         this.context = context;
     }
-
+        private List<IsiItem_slider> mList ;
         public void renewItems (List<IsiItem_slider> sliderItems) {
-        this.mSliderItems = sliderItems;
+        this.mList = sliderItems;
         notifyDataSetChanged();
     }
 
         public void deleteItem ( int position){
-        this.mSliderItems.remove(position);
+        this.mList.remove(position);
         notifyDataSetChanged();
     }
 
         public void addItem (IsiItem_slider sliderItem){
-        this.mSliderItems.add(sliderItem);
+        this.mList.add(sliderItem);
         notifyDataSetChanged();
     }
 
@@ -66,7 +68,7 @@ public class adapter_bener extends SliderViewAdapter<adapter_bener.SliderAdapter
 
     @Override
     public void onBindViewHolder(SliderAdapterVH viewHolder, int position) {
-        IsiItem_slider sliderItem = mSliderItems.get(position);
+         IsiItem_slider sliderItem = mList.get(position);
 
 
         Log.i("cek_gambar", "onBindViewHolder: "+sliderItem.getImage());
@@ -89,6 +91,7 @@ public class adapter_bener extends SliderViewAdapter<adapter_bener.SliderAdapter
                 })
                 .into(viewHolder.imageViewBackground);
 
+        viewHolder.sliderItem = sliderItem;
 
     }
 
@@ -96,8 +99,7 @@ public class adapter_bener extends SliderViewAdapter<adapter_bener.SliderAdapter
 
         @Override
         public int getCount () {
-        //slider view count could be dynamic size
-        return mSliderItems.size();
+        return mList.size();
     }
 
         class SliderAdapterVH extends SliderViewAdapter.ViewHolder {
@@ -107,7 +109,7 @@ public class adapter_bener extends SliderViewAdapter<adapter_bener.SliderAdapter
             ImageView imageGifContainer;
             TextView textViewDescription;
             ProgressBar progressBar;
-
+            IsiItem_slider sliderItem;
             public SliderAdapterVH(View itemView) {
                 super(itemView);
                 try {
@@ -127,7 +129,7 @@ public class adapter_bener extends SliderViewAdapter<adapter_bener.SliderAdapter
                     @Override
                     public void onClick(View v) {
 
-                        Toast.makeText(context, "Detail", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Detail "+sliderItem.getKonten(), Toast.LENGTH_SHORT).show();
 
                     }
                 });

@@ -122,6 +122,7 @@ public class adapter_berita_kota extends RecyclerView.Adapter<adapter_berita_kot
 
     @Override
     public int getItemCount() {
+
         return mList.size();
     }
 
