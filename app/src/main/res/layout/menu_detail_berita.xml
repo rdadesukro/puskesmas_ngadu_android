@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.menu.menu_detail_berita">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView3"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageView28"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/txt_tgl"
+                app:layout_constraintEnd_toStartOf="@+id/txt_tgl"
+                app:layout_constraintTop_toTopOf="@+id/txt_tgl"
+                app:srcCompat="@drawable/ic_baseline_date_range_24" />
+
+            <TextView
+                android:id="@+id/txt_isi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="Maulana : “Jangan cepat berpuas diri, teuslah berjuang yang terbaik untuk masyarakat Kota Jambi”  JAMBI – Pemerintah Kota Jambi kembali memberi apresiasi luar biasa atas capaian prestasi yang lahir dari masyarakat Tanah Pilih Pusako Batuah Kota Jambi. Terlebih, prestasi tersebut berhasil mengharumkan nama besar masyarakat dan Pemerintah Kota Jambi.  Hal tersebut tampak saat, Wali Kota Jambi yang diwakili Wakil Wali Kota Jambi, Dr. dr. H. Maulana, MKM menyerahkan bonus bagi kafilah MTQ dan FASI yang telah sukses berprestasi mengharumkan dan mengangkat nama baik Kota Jambi dilevel Provinsi Jambi pada perhelatan MTQ dan FASI tahun lalu (2019- red.).  Acara yang berlangsung di Aula Griya Mayang Rumah Dinas Jabatan Wali Kota Jambi Jumat (6/3) itu, dihadiri ratusan kafilah MTQ dan FASI, termasuk official yang terdiri dari pelatih dan pendamping yang telah berhasil mengharumkan dan membawa Kota Jambi sebagai Juara Umum kedua pada perhelatan MTQ ke-49 Tingkat Provinsi Jambi dan juara Umum FASI ke-17 Tingkat Provinsi Jambi tahun 2019 lalu. Selain itu turut pula hadir Ketua Baznas Kota Jambi, perwakilan Kemenag Kota Jambi, perwakilan Bank Jambi, Pengurus Daerah LPTQ Kota Jambi, serta jajaran Pemerintah Kota Jambi.  Acara tersebut juga dirangkai dengan pembukaan secara resmi kegiatan Pemusatan Latihan (TC) Terpadu Kafilah MTQ Kota Jambi tahun 2020 itu.  Dalam acara pemberian apresiasi itu, Wawako Maulana tampak menyerahkan secara simbolis bonus diantaranya, berupa hadiah ibadah umroh sebanyak 25 orang, yang terdiri dari 14 orang peserta, 9 orang pendamping dan 2 orang pelatih, serta uang bonus masing-masing bernilai puluhan juta rupiah.  Kegiatan rutin tahunan yang telah diinisiasi Wali Kota Jambi Dr. H Syarif Fasha, ME tersebut, memang merupakan ajang penghargaan dan wujud apresiasi dari masyarakat dan Pemerintah Kota Jambi, atas segala upaya, kerja keras dan perjuangan yang telah dilakukan oleh para qori-qoriah, dai-daiyah terbaik, baik dewasa maupun anak-anak yang dimiliki oleh Kota Jambi selama ini.  Dalam sambutannya, Wawako Maulana menyampaikan bahwa Pemerintah Kota Jambi dan seluruh masyarakat Kota Jambi, merasa sangat bangga atas keberhasilan kafilah Kota Jambi yang telah sukses mengharumkan nama Kota Jambi, diajang kompetisi untuk membumikan Al-Quran tersebut.  “Kita semua merasa sangat bersyukur dan turut berbangga atas semua raihan prestasi yang telah diraih oleh adik-adik dan anak-anak kami semua Kafilah MTQ dan FASI Kota Jambi selama ini, tentunya juga beserta seluruh pelatih, pendamping, official dan semua pihak yang terlibat, sehingga prestasi ini kita torehkan bagi masyarakat Kota Jambi,” ujar Wawako Maulana.  Lebih lanjut, Wawako Maulana yang juga menjabat sebagai Ketua LPTQ Kota Jambi itu menyampaikan bahwa, seluruh pihak jangan cepat berpuas diri atas prestasi yang telah diraih saat ini.  “Semoga apa yang kita laksanakan malam ini menjadi motivasi untuk kita terus meningkatkan prestasi Kota Jambi dimasa yang akan datang, jangan cepat berpuas diri atas raihan prestasi yang kita peroleh saat ini. Kita berharap dengan apa yang kita berikan ini dapat menambah motivasi kita, yaitu target juara umum MTQ. Kita semua harus bersatu tekad, mengembalikan supremasi juara umum bagi masyarakat Kota Jambi,” tegas Wakil Wali Kota Jambi itu.  Sebagaimana diketahui, sejak di era kepemimpinan H. Syarif Fasha berbagai prestasi bidang keagamaan maju pesat di Kota Jambi. Selain kerap menjadi juara umum MTQ tingkat Provinsi, kafilah Kota Jambi juga kerap menjadi juara umum pada perhelatan Festival Anak Shaleh Indonesia (FASI).  Ditambah pula dengan duet kepemimpinan bersama Wawako Maulana, seolah menambah energi baru atas kemajuan yang sudah tercapai sampai dengan saat ini. Berbagai program kerja untuk membumikam Al-Quran di Kota Jambi terus dilaksanakan untuk merealisasikan upaya tersebut.  Seperti Pengajian Antara Maghrib dan Isya (PAMI), yang rutin dilaksanakan untuk membudayakan gemar baca Al-Quran dan memberantas buta aksara Al-Quran. Insentif kepada guru ngaji, pengurus masjid, bahkan pemandi jenazah pun juga dilakukan sebagai upaya penguatan syiar Islam di Kota Jambi. Termasuk pengangkatan hafizh dan hafizhoh sebagai guru ngaji diberbagai sekolah dalam Kota Jambi.  Bahkan, melalui program guru tahfiz di Kota Jambi, baru-baru ini Fasha telah sukses mewisuda 1.500 hafizh Al-Quran yang berasal dari siswa sekolah SD dan SMP negeri di Kota Jambi. Tahun 2020, Wali Kota dengan jargon Kota Jambi Terkini itu, menargetkan akan mewisuda 2000 penghafal Al-Quran yang berasal dari siswa sekolah SD dan SMP negeri di Kota Jambi."
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img_berita" />
+
+            <WebView
+                android:id="@+id/txt_judul"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="WebViewLayout" />
+
+            <WebView
+                android:id="@+id/web_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img_berita"
+                tools:ignore="WebViewLayout" />
+
+            <ImageView
+                android:id="@+id/img_berita"
+                android:layout_width="250dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_tgl"
+                app:srcCompat="@drawable/image_10" />
+
+            <ProgressBar
+                android:id="@+id/progressBar5"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/web_view"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/img_berita" />
+
+            <TextView
+                android:id="@+id/txt_tgl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="20 Mar 2020"
+                android:textSize="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_judul" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

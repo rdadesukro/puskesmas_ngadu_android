@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/data"
+        android:checked="true"
+        android:icon="@drawable/ic_baseline_house_24"
+        android:title="Home"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/lokasi"
+        android:checked="false"
+        android:icon="@drawable/ic_baseline_report_24"
+        android:title="Report"
+        android:iconTint="@color/bg_screen3"
+
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/histori"
+        android:checked="false"
+        android:icon="@drawable/ic_baseline_add_circle_outline_24"
+        android:title="News"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/profil"
+        android:checked="false"
+        android:icon="@drawable/ic_baseline_add_circle_outline_24"
+        android:title="Profil"
+        app:showAsAction="ifRoom" />
+</menu>
