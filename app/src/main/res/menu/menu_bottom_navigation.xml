@@ -25,7 +25,7 @@
     <item
         android:id="@+id/profil"
         android:checked="false"
-        android:icon="@drawable/ic_baseline_add_circle_outline_24"
+        android:icon="@drawable/ic_baseline_account_box_24"
         android:title="Profil"
         app:showAsAction="ifRoom" />
 </menu>

@@ -24,6 +24,17 @@ public class Response_login {
 	@SerializedName("nama")
 	private String nama;
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	@SerializedName("email")
+	private String email;
+
 
 
 	@SerializedName("no_hp")

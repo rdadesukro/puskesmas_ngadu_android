@@ -73,7 +73,7 @@ public class menu_login extends AppCompatActivity implements Validator.Validatio
     ProgressDialog progressDialog;
 
     Validator validator;
-
+    String status_login;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +94,16 @@ public class menu_login extends AppCompatActivity implements Validator.Validatio
 
         pDialog = new SweetAlertDialog(menu_login.this, SweetAlertDialog.PROGRESS_TYPE);
         progressDialog = new ProgressDialog(this);
+
+        status_login = Guru.getString("status_loign", "false");
+
+        if (status_login.equals("true")){
+            Intent intent  = new Intent(menu_login.this, menu_utama.class);
+            intent.putExtra("Fragmentone", 3); //pass zero for Fragmentone.
+            startActivity(intent);
+        }else {
+
+        }
     }
 
     private void signIn() {

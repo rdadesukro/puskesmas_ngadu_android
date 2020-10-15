@@ -4,8 +4,8 @@ package goid.kotajambi.puskesmas_ngadu.view;
 
 import java.util.List;
 
-import goid.kotajambi.puskesmas_ngadu.model.model_berita.PostsItem;
-import goid.kotajambi.puskesmas_ngadu.model.slider.IsiItem_slider;
+import goid.kotajambi.puskesmas_ngadu.model.komen.Result_komen;
+import goid.kotajambi.puskesmas_ngadu.model.layanan.IsiItem_layanan;
 
 /**
  * This class represents the country view interface.
@@ -14,15 +14,14 @@ import goid.kotajambi.puskesmas_ngadu.model.slider.IsiItem_slider;
  * @date 09/03/18.
  * Jesus loves you.
  */
-public interface view_home {
+public interface view_layanan {
 
    // void countriesReady(List<Result_laporan_saya> countries);
 
 
 
-    void berita(List<PostsItem> data);
 
-    void bener(List<IsiItem_slider> bener);
+    void layanan(List<IsiItem_layanan> bener);
 
 
 }

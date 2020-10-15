@@ -43,17 +43,15 @@ import butterknife.OnClick;
 import goid.kotajambi.puskesmas_ngadu.R;
 import goid.kotajambi.puskesmas_ngadu.Server.ApiRequest;
 import goid.kotajambi.puskesmas_ngadu.Server.Retroserver_server_AUTH;
-import goid.kotajambi.puskesmas_ngadu.adapter.PaginatedAdapter;
 import goid.kotajambi.puskesmas_ngadu.adapter.adapter_bener;
 import goid.kotajambi.puskesmas_ngadu.adapter.adapter_berita_kota;
-import goid.kotajambi.puskesmas_ngadu.adapter.adapter_laporan_saya;
-import goid.kotajambi.puskesmas_ngadu.model.bener.ResultItem_bener;
 import goid.kotajambi.puskesmas_ngadu.model.jumlah_laporan_saya.Response_jumlah;
 import goid.kotajambi.puskesmas_ngadu.model.model_berita.PostsItem;
 import goid.kotajambi.puskesmas_ngadu.model.slider.IsiItem_slider;
 import goid.kotajambi.puskesmas_ngadu.presenter.home;
 import goid.kotajambi.puskesmas_ngadu.view.menu.menu_lapor;
 import goid.kotajambi.puskesmas_ngadu.view.menu.menu_laporan_saya;
+import goid.kotajambi.puskesmas_ngadu.view.menu.menu_layanan;
 import goid.kotajambi.puskesmas_ngadu.view.view_home;
 import maes.tech.intentanim.CustomIntent;
 import okhttp3.CipherSuite;
@@ -216,10 +214,11 @@ public class fragment_home extends Fragment implements view_home {
 
     @Override
     public void bener(List<IsiItem_slider> bener) {
+        Log.i("isi_bener", "bener: "+bener);
         adapter_bener = new adapter_bener(getActivity(), bener, "mas_1");
         SliderView.setSliderAdapter(adapter_bener);
         SliderView.setIndicatorAnimation(IndicatorAnimations.THIN_WORM);
-        SliderView.setSliderTransformAnimation(SliderAnimations.FADETRANSFORMATION);
+        SliderView.setSliderTransformAnimation(SliderAnimations.CUBEOUTSCALINGTRANSFORMATION);
         SliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
         SliderView.setIndicatorSelectedColor(Color.WHITE);
         SliderView.setIndicatorUnselectedColor(Color.RED);
@@ -227,7 +226,7 @@ public class fragment_home extends Fragment implements view_home {
         SliderView.setAutoCycle(true);
         SliderView.startAutoCycle();
         //mRecycler.setAdapter(adapter);
-        adapter_bener.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();
 
     }
 
@@ -243,6 +242,10 @@ public class fragment_home extends Fragment implements view_home {
 
                 break;
             case R.id.card_jadwal:
+
+                 goInput = new Intent(getActivity(), menu_layanan.class);
+                getActivity().startActivity(goInput);
+                CustomIntent.customType(getActivity(), "bottom-to-up");
                 break;
         }
     }

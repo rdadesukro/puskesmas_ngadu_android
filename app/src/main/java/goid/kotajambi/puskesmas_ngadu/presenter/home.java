@@ -16,16 +16,12 @@ import java.util.List;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import goid.kotajambi.puskesmas_ngadu.Server.ApiRequest;
 import goid.kotajambi.puskesmas_ngadu.Server.Retroserver_api_berita;
-import goid.kotajambi.puskesmas_ngadu.Server.Retroserver_server;
 import goid.kotajambi.puskesmas_ngadu.Server.Retroserver_server_AUTH;
-import goid.kotajambi.puskesmas_ngadu.model.bener.Response_bener;
-import goid.kotajambi.puskesmas_ngadu.model.bener.ResultItem_bener;
 import goid.kotajambi.puskesmas_ngadu.model.jumlah_laporan_saya.Response_jumlah;
 import goid.kotajambi.puskesmas_ngadu.model.laporan_saya.Response_laporan_saya;
 import goid.kotajambi.puskesmas_ngadu.model.laporan_saya.Result_laporan_saya;
 import goid.kotajambi.puskesmas_ngadu.model.model_berita.Response_berita;
 import goid.kotajambi.puskesmas_ngadu.model.simpan.Response_simpan;
-import goid.kotajambi.puskesmas_ngadu.model.slider.IsiItem_slider;
 import goid.kotajambi.puskesmas_ngadu.model.slider.Response_slider;
 import goid.kotajambi.puskesmas_ngadu.view.view_home;
 import okhttp3.MultipartBody;
@@ -194,12 +190,13 @@ public class home {
 
                     if (response.isSuccessful()) {
                         Response_slider data = response.body();
-                        Log.i("isi_data_baner", "onResponse: "+data);
-                        if (data != null && data.getIsi() != null) {
-                            List<IsiItem_slider> result = data.getIsi();
-                            countryView.bener(result);
-                        }
-
+                        Log.i("isi_slider", "onResponse: "+data.getIsi());
+                        Log.i("data_size", "onResponse: "+data.getIsi().size());
+                        countryView.bener(data.getIsi());
+//                        if (data != null && response.body().getPosts() != null) {
+//                            List<PostsItem> result = data.getPosts();
+//                            countryView.berita(result);
+//                        }
 
 
                     } else {

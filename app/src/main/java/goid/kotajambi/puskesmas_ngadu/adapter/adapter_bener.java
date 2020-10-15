@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -20,43 +19,42 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.github.squti.guru.Guru;
 import com.smarteist.autoimageslider.SliderViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import goid.kotajambi.puskesmas_ngadu.R;
-import goid.kotajambi.puskesmas_ngadu.model.bener.ResultItem_bener;
-import goid.kotajambi.puskesmas_ngadu.model.model_berita.PostsItem;
 import goid.kotajambi.puskesmas_ngadu.model.slider.IsiItem_slider;
-import goid.kotajambi.puskesmas_ngadu.view.menu.menu_detail_berita;
+import goid.kotajambi.puskesmas_ngadu.view.menu.menu_detail_slider;
+import maes.tech.intentanim.CustomIntent;
 
 
 public class adapter_bener extends SliderViewAdapter<adapter_bener.SliderAdapterVH> {
 
         private Context context;
         private String jenis;
-      //  private List<IsiItem_slider> mSliderItems = new ArrayList<>();
+        private List<IsiItem_slider> mSliderItems = new ArrayList<>();
 
     public adapter_bener(Context context, List<IsiItem_slider> mList, String jenis) {
-        //this.mList = mList;
-        this.mList = mList;
+        this.mSliderItems = mList;
         this.jenis = jenis;
         this.context = context;
     }
-        private List<IsiItem_slider> mList ;
+
         public void renewItems (List<IsiItem_slider> sliderItems) {
-        this.mList = sliderItems;
+        this.mSliderItems = sliderItems;
         notifyDataSetChanged();
     }
 
         public void deleteItem ( int position){
-        this.mList.remove(position);
+        this.mSliderItems.remove(position);
         notifyDataSetChanged();
     }
 
         public void addItem (IsiItem_slider sliderItem){
-        this.mList.add(sliderItem);
+        this.mSliderItems.add(sliderItem);
         notifyDataSetChanged();
     }
 
@@ -68,7 +66,7 @@ public class adapter_bener extends SliderViewAdapter<adapter_bener.SliderAdapter
 
     @Override
     public void onBindViewHolder(SliderAdapterVH viewHolder, int position) {
-         IsiItem_slider sliderItem = mList.get(position);
+        IsiItem_slider sliderItem = mSliderItems.get(position);
 
 
         Log.i("cek_gambar", "onBindViewHolder: "+sliderItem.getImage());
@@ -91,7 +89,22 @@ public class adapter_bener extends SliderViewAdapter<adapter_bener.SliderAdapter
                 })
                 .into(viewHolder.imageViewBackground);
 
-        viewHolder.sliderItem = sliderItem;
+
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, ""+sliderItem.getId(), Toast.LENGTH_SHORT).show();
+                Intent goInput = new Intent(context, menu_detail_slider.class);
+                Guru.putString("judul", sliderItem.getJudul());
+                Guru.putString("isi", sliderItem.getKonten());
+                Guru.putString("foto", sliderItem.getImage());
+                Guru.putString("tgl", sliderItem.getCreatedAt());
+                context.startActivity(goInput);
+                CustomIntent.customType(context, "fadein-to-fadeout");
+
+            }
+        });
+
 
     }
 
@@ -99,7 +112,8 @@ public class adapter_bener extends SliderViewAdapter<adapter_bener.SliderAdapter
 
         @Override
         public int getCount () {
-        return mList.size();
+        //slider view count could be dynamic size
+        return mSliderItems.size();
     }
 
         class SliderAdapterVH extends SliderViewAdapter.ViewHolder {
@@ -109,7 +123,7 @@ public class adapter_bener extends SliderViewAdapter<adapter_bener.SliderAdapter
             ImageView imageGifContainer;
             TextView textViewDescription;
             ProgressBar progressBar;
-            IsiItem_slider sliderItem;
+
             public SliderAdapterVH(View itemView) {
                 super(itemView);
                 try {
@@ -124,18 +138,7 @@ public class adapter_bener extends SliderViewAdapter<adapter_bener.SliderAdapter
                 imageGifContainer = itemView.findViewById(R.id.iv_gif_container);
 
                 this.itemView = itemView;
-
-                itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        Toast.makeText(context, "Detail "+sliderItem.getKonten(), Toast.LENGTH_SHORT).show();
-
-                    }
-                });
-
             }
-
         }
 
 

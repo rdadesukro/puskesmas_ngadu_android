@@ -1,8 +1,11 @@
 package goid.kotajambi.puskesmas_ngadu.view.menu_fragment;
 
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
@@ -37,6 +41,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import goid.kotajambi.puskesmas_ngadu.R;
+import goid.kotajambi.puskesmas_ngadu.presenter.login;
+import goid.kotajambi.puskesmas_ngadu.view.menu.menu_detail_laporan;
+import goid.kotajambi.puskesmas_ngadu.view.menu.menu_login;
+import maes.tech.intentanim.CustomIntent;
 import okhttp3.CipherSuite;
 import okhttp3.ConnectionSpec;
 import okhttp3.TlsVersion;
@@ -71,8 +79,11 @@ public class fragment_profil extends Fragment {
     @BindView(R.id.txt_nama)
     TextView txtNama;
     BottomSheetDialog dialog;
+    ProgressDialog progressDialog;
+    EditText pass_lama, pass_baru;
+    @BindView(R.id.card_keluar)
+    CardView cardKeluar;
 
-    EditText pass_lama,pass_baru;
     public fragment_profil() {
         // Required empty public constructor
     }
@@ -110,8 +121,10 @@ public class fragment_profil extends Fragment {
         txtEmail.setText(Guru.getString("email", "false"));
         txtNoHp.setText(Guru.getString("no_hp", "false"));
         txtNama.setText(Guru.getString("nama", "false"));
+        txtEmail.setText(Guru.getString("email", "false"));
+        Log.i("foto", "onCreateView: "+Guru.getString("foto", "false"));
         Glide.with(this)
-                .load("http://192.168.1.71/puskesmas_ngadu/public/uploads/profil/"+ Guru.getString("foto", "false"))
+                .load("http://192.168.1.71/puskesmas_ngadu/public/uploads/profil/" + Guru.getString("foto", "false"))
                 .listener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -197,7 +210,9 @@ public class fragment_profil extends Fragment {
 
                             pass_baru.requestFocus();
                         } else {
-//                            updatepass();
+//
+                            login countryPresenter = new login(null, getActivity());
+                            countryPresenter.update_password(pass_lama.getText().toString().trim(), pass_baru.getText().toString().trim(), progressDialog);
 
 
                         }
@@ -211,5 +226,14 @@ public class fragment_profil extends Fragment {
             case R.id.btn_email:
                 break;
         }
+    }
+
+    @OnClick(R.id.card_keluar)
+    public void onViewClicked() {
+        Intent goInput = new Intent(getActivity(), menu_login.class);
+        Guru.putString("status_loign", "false");
+        startActivity(goInput);
+        CustomIntent.customType(getActivity(), "fadein-to-fadeout");
+
     }
 }

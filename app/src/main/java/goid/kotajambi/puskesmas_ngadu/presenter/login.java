@@ -62,12 +62,13 @@ public class login {
 
                 if (kode.equals("1")) {
                     finalPDialog.dismiss();
-                     Guru.putString("status_loign", "true");
+                    Guru.putString("status_loign", "true");
                     Guru.putString("auth", response.body().getAccessToken());
                     Guru.putString("nama", response.body().getNama());
                     Guru.putString("alamat", response.body().getAlamat());
                     Guru.putString("no_hp", response.body().getNoHp());
                     Guru.putString("foto", response.body().getFoto());
+                    Guru.putString("email", response.body().getEmail());
                     Guru.putString("id_user", String.valueOf(response.body().getIdUser()));
                     Intent intent = new Intent((Activity) ctx, menu_utama.class);
                     intent.putExtra("Fragmentone", 3); //pass zero for Fragmentone.
@@ -210,6 +211,47 @@ public class login {
 
                 } else {
                     new GlideToast.makeToast((Activity) ctx, "" + response.body().getMessage(), GlideToast.LENGTHLONG, GlideToast.WARNINGTOAST, GlideToast.CENTER).show();
+                }
+
+            }
+            @Override
+            public void onFailure(Call<Response_login> call, Throwable t) {
+
+                Log.d("RETRO", "Falure : " + "Gagal Mengirim Request");
+            }
+        });
+
+    }
+
+    public void update_password(String password,String password_baru,ProgressDialog pDialog) {
+
+        pDialog = new ProgressDialog(ctx);
+        pDialog.setTitle("Mohon Tunggu!!!");
+        pDialog.setMessage("Update Password...");
+        pDialog.setCancelable(false);
+        pDialog.setCanceledOnTouchOutside(false);
+        pDialog.show();
+        ApiRequest api = Retroserver_server_AUTH.getClient().create(ApiRequest.class);
+        Call<Response_login> sendbio = api.edit_pass(password,password_baru);
+
+        ProgressDialog finalPDialog = pDialog;
+        sendbio.enqueue(new Callback<Response_login>() {
+            @Override
+            public void onResponse(Call<Response_login> call, Response<Response_login> response) {
+
+                String kode = response.body().getKode();
+                Log.i("kode", "onResponse: " + kode);
+
+                if (kode.equals("1")) {
+                    finalPDialog.dismiss();
+                    new GlideToast.makeToast((Activity) ctx, "" + response.body().getMessage(), GlideToast.LENGTHLONG, GlideToast.SUCCESSTOAST, GlideToast.CENTER).show();
+
+                } else if (kode.equals("3")){
+                    finalPDialog.dismiss();
+                    new GlideToast.makeToast((Activity) ctx, "" + response.body().getMessage(), GlideToast.LENGTHLONG, GlideToast.WARNINGTOAST, GlideToast.CENTER).show();
+                }else {
+                    new GlideToast.makeToast((Activity) ctx, "" + response.body().getMessage(), GlideToast.LENGTHLONG, GlideToast.WARNINGTOAST, GlideToast.CENTER).show();
+
                 }
 
             }

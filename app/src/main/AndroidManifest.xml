@@ -27,7 +27,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.menu.menu_lupa_password"></activity>
+        <activity android:name=".view.menu.menu_detail_layanan"></activity>
+        <activity android:name=".view.menu.menu_layanan" />
+        <activity
+            android:name=".view.menu.menu_login"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
+        <activity android:name=".view.menu.menu_detail_slider" />
+        <activity android:name=".view.menu.menu_lupa_password" />
         <activity
             android:name=".view.menu.menu_register"
             android:windowSoftInputMode="stateVisible|adjustResize" />
@@ -50,7 +56,8 @@
             android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity android:name=".view.menu.menu_utama" />
         <activity
-            android:name=".view.menu.menu_login"
+            android:name=".view.menu.menu_pembuka"
+            android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateVisible|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -58,6 +65,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".firebase.NotificationService"
+            android:stopWithTask="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
 
         <meta-data
             android:name="preloaded_fonts"

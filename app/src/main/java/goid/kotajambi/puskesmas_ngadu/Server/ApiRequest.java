@@ -5,6 +5,7 @@ import goid.kotajambi.puskesmas_ngadu.model.bener.Response_bener;
 import goid.kotajambi.puskesmas_ngadu.model.jumlah_laporan_saya.Response_jumlah;
 import goid.kotajambi.puskesmas_ngadu.model.komen.Response_komen;
 import goid.kotajambi.puskesmas_ngadu.model.laporan_saya.Response_laporan_saya;
+import goid.kotajambi.puskesmas_ngadu.model.layanan.Response_layanan;
 import goid.kotajambi.puskesmas_ngadu.model.login.Response_login;
 import goid.kotajambi.puskesmas_ngadu.model.model_berita.Response_berita;
 import goid.kotajambi.puskesmas_ngadu.model.simpan.Response_simpan;
@@ -51,6 +52,15 @@ public interface ApiRequest {
             @Field("password") String password);
 
 
+
+
+    @FormUrlEncoded
+    @POST("edit_pass")
+    Call<Response_login> edit_pass(
+            @Field("password") String password,
+            @Field("password_baru") String password_baru);
+
+
     @FormUrlEncoded
     @POST("cek_email")
     Call<Response_simpan> cek_email(
@@ -79,6 +89,9 @@ public interface ApiRequest {
 
     @GET("tampil_komen")
     Call<Response_komen> get_komen(@Query("id_lapor") String id_lapor);
+
+    @POST("tampil_layanan")
+    Call<Response_layanan> get_layanan();
 
 
     @Multipart
