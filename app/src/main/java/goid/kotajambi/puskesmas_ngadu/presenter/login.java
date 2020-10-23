@@ -42,7 +42,7 @@ public class login {
             this.countryService = new Retroserver_server_AUTH();
         }
     }
-    public void login(String email, String password, ProgressDialog pDialog) {
+    public void login(String email, String password,String token, ProgressDialog pDialog) {
 
         pDialog = new ProgressDialog(ctx);
         pDialog.setMessage("Logging In...");
@@ -50,7 +50,7 @@ public class login {
         pDialog.setCanceledOnTouchOutside(false);
         pDialog.show();
         ApiRequest api = Retroserver_server_AUTH.getClient().create(ApiRequest.class);
-        Call<Response_login> sendbio = api.login(email,password);
+        Call<Response_login> sendbio = api.login(email,password,token);
 
         ProgressDialog finalPDialog = pDialog;
         sendbio.enqueue(new Callback<Response_login>() {
@@ -67,7 +67,7 @@ public class login {
                     Guru.putString("nama", response.body().getNama());
                     Guru.putString("alamat", response.body().getAlamat());
                     Guru.putString("no_hp", response.body().getNoHp());
-                    Guru.putString("foto", response.body().getFoto());
+                    Guru.putString("foto_profil", response.body().getFoto());
                     Guru.putString("email", response.body().getEmail());
                     Guru.putString("id_user", String.valueOf(response.body().getIdUser()));
                     Intent intent = new Intent((Activity) ctx, menu_utama.class);
@@ -140,7 +140,7 @@ public class login {
 
     }
 
-    public  void  register(String nama,String password,String email, String no_hp, String alamaat, ProgressDialog pDialog ){
+    public  void  register(String nama,String password,String email, String no_hp, String alamaat,String token, ProgressDialog pDialog ){
 //        pDialog = new SweetAlertDialog((Activity) ctx, SweetAlertDialog.PROGRESS_TYPE);
 //        pDialog.getProgressHelper().setBarColor(Color.parseColor("#3395ff"));
 //        pDialog.setTitleText("Simpan Data");
@@ -157,7 +157,7 @@ public class login {
         ProgressDialog finalPDialog = pDialog;
         ApiRequest api = Retroserver_server_AUTH.getClient().create(ApiRequest.class);
 
-        Call<Response_simpan> sendbio = api.register(nama,password,password,email,no_hp,alamaat);
+        Call<Response_simpan> sendbio = api.register(nama,password,password,email,no_hp,alamaat,token);
         sendbio.enqueue(new Callback<Response_simpan>() {
             @Override
             public void onResponse(Call<Response_simpan> call, Response<Response_simpan> response) {
@@ -167,7 +167,7 @@ public class login {
 
                 if (kode.equals("1")) {
                     finalPDialog.dismiss();
-                    login_new(email,password);
+                    login_new(email,password,token);
                     new GlideToast.makeToast((Activity) ctx, "" + response.body().getMessage(), GlideToast.LENGTHLONG, GlideToast.SUCCESSTOAST, GlideToast.CENTER).show();
 
                 } else {
@@ -185,9 +185,9 @@ public class login {
 
     }
 
-    public void login_new(String email, String password) {
+    public void login_new(String email, String password,String token) {
         ApiRequest api = Retroserver_server_AUTH.getClient().create(ApiRequest.class);
-        Call<Response_login> sendbio = api.login(email,password);
+        Call<Response_login> sendbio = api.login(email,password,token);
 
         sendbio.enqueue(new Callback<Response_login>() {
             @Override
@@ -202,7 +202,7 @@ public class login {
                     Guru.putString("nama", response.body().getNama());
                     Guru.putString("alamat", response.body().getAlamat());
                     Guru.putString("no_hp", response.body().getNoHp());
-                    Guru.putString("foto", response.body().getFoto());
+                    Guru.putString("foto_profil", response.body().getFoto());
                     Guru.putString("id_user", String.valueOf(response.body().getIdUser()));
                     Intent intent = new Intent((Activity) ctx, menu_utama.class);
                     intent.putExtra("Fragmentone", 3); //pass zero for Fragmentone.
@@ -261,6 +261,64 @@ public class login {
                 Log.d("RETRO", "Falure : " + "Gagal Mengirim Request");
             }
         });
+
+    }
+
+
+    public  void  simpan_token(String id_uses,String token){
+        ApiRequest api = Retroserver_server_AUTH.getClient().create(ApiRequest.class);
+        Call<Response_simpan> sendbio = api.simpan_token(id_uses,token);
+        sendbio.enqueue(new Callback<Response_simpan>() {
+            @Override
+            public void onResponse(Call<Response_simpan> call, Response<Response_simpan> response) {
+
+                String kode = response.body().getKode();
+                Log.i("kode", "onResponse: " + kode);
+
+                if (kode.equals("1")) {
+
+                    new GlideToast.makeToast((Activity) ctx, "" + response.body().getMessage(), GlideToast.LENGTHLONG, GlideToast.SUCCESSTOAST, GlideToast.CENTER).show();
+
+                } else {
+
+                    new GlideToast.makeToast((Activity) ctx, "" + response.body().getMessage(), GlideToast.LENGTHLONG, GlideToast.WARNINGTOAST, GlideToast.CENTER).show();
+                }
+
+            }
+            @Override
+            public void onFailure(Call<Response_simpan> call, Throwable t) {
+
+                Log.d("RETRO", "Falure : " + "Gagal Mengirim Request");
+            }
+        });
+
+    }
+    public  void  hapus_token(String token){
+
+        ApiRequest api = Retroserver_server_AUTH.getClient().create(ApiRequest.class);
+        Call<Response_simpan> sendbio = api.hapus_token(token);
+
+        sendbio.enqueue(new Callback<Response_simpan>() {
+            @Override
+            public void onResponse(Call<Response_simpan> call, Response<Response_simpan> response) {
+
+                String kode = response.body().getKode();
+                Log.i("kode", "onResponse: " + kode);
+
+                if (kode.equals("1")) {
+
+                } else {
+
+                }
+
+            }
+            @Override
+            public void onFailure(Call<Response_simpan> call, Throwable t) {
+
+                Log.d("RETRO", "Falure : " + "Gagal Mengirim Request");
+            }
+        });
+
 
     }
 

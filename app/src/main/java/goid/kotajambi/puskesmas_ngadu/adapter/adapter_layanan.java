@@ -106,8 +106,8 @@ public class adapter_layanan extends RecyclerView.Adapter<adapter_layanan.Holder
                 @Override
                 public void onClick(View v) {
                     Intent goInput = new Intent(ctx, menu_detail_layanan.class);
-                    Guru.putString("nama", dm.getNama());
-                    Guru.putString("isi", dm.getData());
+                    Guru.putString("nama_layanan", dm.getNama());
+                    Guru.putString("isi_layanan", dm.getData());
                     ctx.startActivity(goInput);
                     CustomIntent.customType(ctx, "fadein-to-fadeout");
 

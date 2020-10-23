@@ -23,6 +23,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.jpegkit.Jpeg;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
@@ -64,7 +65,7 @@ public class menu_login_with_google extends AppCompatActivity implements Validat
     SweetAlertDialog pDialog;
     ProgressDialog progressDialog;
     Validator validator;
-
+    String token;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +85,9 @@ public class menu_login_with_google extends AppCompatActivity implements Validat
         progressDialog = new ProgressDialog(this);
         editUser.setText(Guru.getString("email", "false"));
         editPass.requestFocus();
+        token = FirebaseInstanceId.getInstance().getToken();
+        Guru.putString("token",token);
+
     }
 
     private void signIn() {
@@ -145,7 +149,7 @@ public class menu_login_with_google extends AppCompatActivity implements Validat
     @Override
     public void onValidationSucceeded() {
         login countryPresenter = new login(null, menu_login_with_google.this);
-        countryPresenter.login(editUser.getText().toString().trim(), editPass.getText().toString().trim(), progressDialog);
+        countryPresenter.login(editUser.getText().toString().trim(), editPass.getText().toString().trim(),token, progressDialog);
     }
 
     @Override

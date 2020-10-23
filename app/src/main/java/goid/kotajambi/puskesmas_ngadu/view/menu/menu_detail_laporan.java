@@ -38,6 +38,7 @@ import goid.kotajambi.puskesmas_ngadu.R;
 import goid.kotajambi.puskesmas_ngadu.Util.PhotoFullPopupWindow;
 import goid.kotajambi.puskesmas_ngadu.adapter.adapter_komen;
 import goid.kotajambi.puskesmas_ngadu.model.komen.Result_komen;
+import goid.kotajambi.puskesmas_ngadu.model.laporan_komen.ResultItem_laporan_komen;
 import goid.kotajambi.puskesmas_ngadu.presenter.komen;
 import goid.kotajambi.puskesmas_ngadu.view.view_komen;
 
@@ -170,6 +171,11 @@ public class menu_detail_laporan extends AppCompatActivity implements view_komen
     @Override
     public void komen(List<Result_komen> kom) {
         Log.i("isi_komen", "komen: " + kom.size());
+        for (int i =0;i<kom.size();i++){
+            Log.i("id_user", "komen: "+kom.get(i).getUsersId());
+        }
+
+
 
         adapter_komen = new adapter_komen(this, kom, 1);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
@@ -182,6 +188,11 @@ public class menu_detail_laporan extends AppCompatActivity implements view_komen
             txtKomen.setVisibility(View.GONE);
             progressBar.setVisibility(View.GONE);
         }
+
+    }
+
+    @Override
+    public void laporan_komen(List<ResultItem_laporan_komen> laporan_komen) {
 
     }
 

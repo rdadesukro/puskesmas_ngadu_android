@@ -11,9 +11,10 @@
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        app:cardCornerRadius="8dp"
         android:layout_marginBottom="8dp"
+        app:cardCornerRadius="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/txt_tgl"
@@ -37,6 +38,7 @@
                 android:text="Pintaria merupakan portal pendidikan yang menawarkan produk kuliah S1/S2 dengan metode blended learning dan program kursus lainnya. Pintaria bekerjasama dengan kampus-kampus unggulan yang terakreditasi BAN-PT di Indonesia."
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="@color/grey_40"
+                android:textSize="14dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -51,6 +53,7 @@
         android:text="Wed, 20 Jan 19, 05:08 PM"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
         android:textColor="@color/grey_40"
+        android:textSize="12dp"
         app:layout_constraintStart_toStartOf="@+id/txt_nama"
         app:layout_constraintTop_toBottomOf="@+id/txt_nama" />
 
@@ -61,8 +64,10 @@
         android:layout_marginStart="8dp"
         android:maxLines="3"
         android:text="Budi"
+        android:background="@drawable/bg_nama"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        android:textColor="@color/grey_80"
+        android:textColor="#ffffff"
+        android:textSize="14dp"
         app:fontFamily="sans-serif-medium"
         app:layout_constraintStart_toEndOf="@+id/cardView"
         app:layout_constraintTop_toTopOf="@+id/cardView" />

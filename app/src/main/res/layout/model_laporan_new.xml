@@ -70,22 +70,24 @@
 
             <TextView
                 android:id="@+id/txt_nama"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
+                android:background="@drawable/bg_nama"
+                android:ellipsize="end"
+                android:lines="1"
                 android:maxLines="1"
-                android:text="BUDI SETIAWAN XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+                android:singleLine="false"
+                android:text="BUDI"
                 android:textAllCaps="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                android:textColor="@color/grey_95"
-                android:textSize="16dp"
+                android:textColor="#FFFFFF"
+                android:textSize="14dp"
                 android:textStyle="bold"
                 app:fontFamily="sans-serif-medium"
-                app:layout_constraintBottom_toBottomOf="@+id/cardViedadadw"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/view7"
                 app:layout_constraintStart_toEndOf="@+id/cardViedadadw"
-                app:layout_constraintTop_toTopOf="@+id/cardViedadadw" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/txt_komen"
@@ -95,6 +97,7 @@
                 android:text="1 Komentar"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 android:textColor="@color/grey_40"
+                android:textSize="12dp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView2"
                 app:layout_constraintStart_toEndOf="@+id/imageView2"
                 app:layout_constraintTop_toTopOf="@+id/imageView2" />
@@ -179,6 +182,7 @@
                 android:text="Wed, 20 Jan 19, 05:08 PM"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 android:textColor="@color/grey_40"
+                android:textSize="12dp"
                 app:layout_constraintStart_toStartOf="@+id/txt_judul"
                 app:layout_constraintTop_toBottomOf="@+id/txt_judul" />
 
@@ -187,6 +191,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
 
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:ellipsize="end"
@@ -194,9 +199,10 @@
                 android:singleLine="false"
                 android:text="Pintaria merupakan portal pendidikan yang menawarkan produk kuliah S1/S2 dengan metode blended learning dan program kursus lainnya. Pintaria bekerjasama dengan kampus-kampus unggulan yang terakreditasi BAN-PT di Indonesia."
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="@color/grey_40"
+                android:textColor="@color/grey_60"
+                android:textSize="14dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/cardView"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
             <TextView
@@ -208,6 +214,7 @@
                 android:text="Judul Laporan"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                 android:textColor="@color/grey_80"
+                android:textSize="16dp"
                 app:fontFamily="sans-serif-medium"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/cardViedadadw"

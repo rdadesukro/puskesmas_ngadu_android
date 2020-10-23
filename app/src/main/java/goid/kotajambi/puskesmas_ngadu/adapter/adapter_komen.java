@@ -1,5 +1,6 @@
 package goid.kotajambi.puskesmas_ngadu.adapter;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -53,6 +54,7 @@ public class adapter_komen extends RecyclerView.Adapter<adapter_komen.HolderData
     }
 
 
+    @SuppressLint("ResourceAsColor")
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onBindViewHolder(final HolderData holder, int position) {
@@ -61,6 +63,10 @@ public class adapter_komen extends RecyclerView.Adapter<adapter_komen.HolderData
         String month= Mydate.konversi_bulan(dm.getCreatedAt().substring(5,7));
         String year =dm.getCreatedAt().substring(0,4);
         holder.tanggal.setText(date+"-"+month+"-"+year);
+
+        if (dm.getName().equals("admin")){
+            holder.nama.setBackgroundResource(R.drawable.bg_admin);
+        }
         holder.nama.setText(dm.getName());
         holder.isi.setText(dm.getKonten());
 

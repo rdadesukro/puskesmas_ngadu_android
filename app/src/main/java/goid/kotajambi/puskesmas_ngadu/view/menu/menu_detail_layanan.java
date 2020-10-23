@@ -25,11 +25,11 @@ public class menu_detail_layanan extends AppCompatActivity {
         setContentView(R.layout.menu_detail_layanan);
         ButterKnife.bind(this);
 
-        txtNama.setText(Guru.getString("nama", "false"));
+        txtNama.setText(Guru.getString("nama_layanan", "false"));
         webview.requestFocus();
         webview.getSettings().setLightTouchEnabled(true);
         webview.getSettings().setJavaScriptEnabled(true);
 
-        webview.loadDataWithBaseURL("", Guru.getString("isi", "false"), "text/html", "UTF-8", "");
+        webview.loadDataWithBaseURL("", Guru.getString("isi_layanan", "false"), "text/html", "UTF-8", "");
     }
 }

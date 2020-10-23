@@ -119,11 +119,11 @@ public class fragment_report extends Fragment {
                 imgData2.setVisibility(View.GONE);
                 txtData2.setVisibility(View.GONE);
                 if (sama!=new_page){
-                    //progressBar.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.VISIBLE);
                 }else {
                     progressBar.setVisibility(View.GONE);
                 }
-               // progressBar.setVisibility(View.VISIBLE);
+                // progressBar.setVisibility(View.VISIBLE);
                 getNewItems(page);
 
             }
@@ -140,6 +140,8 @@ public class fragment_report extends Fragment {
         swifeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                adapter.clear();
+                data.clear();
                 adapter = new adapter_laporan_saya(getActivity());
                 adapter.setDefaultRecyclerView(getActivity(), rvAku);
 
@@ -203,7 +205,6 @@ public class fragment_report extends Fragment {
                                 int jumlah = response.body().getResult().getPerPage();
                                 adapter.setPageSize(response.body().getResult().getPerPage());
                                 sama = response.body().getResult().getLastPage();
-                                //adapter = new adapter_laporan_saya(getContext());
 
                                 onGetDate(data);
                                 swifeRefresh.setRefreshing(false);

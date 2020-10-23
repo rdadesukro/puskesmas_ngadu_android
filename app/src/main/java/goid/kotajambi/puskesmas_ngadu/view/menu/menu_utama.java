@@ -128,4 +128,8 @@ public class menu_utama extends AppCompatActivity {
         adapter.addFragment(profil);
         vg.setAdapter(adapter);
     }
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
+    }
 }

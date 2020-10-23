@@ -25,6 +25,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.jpegkit.Jpeg;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
@@ -74,6 +75,7 @@ public class menu_login extends AppCompatActivity implements Validator.Validatio
 
     Validator validator;
     String status_login;
+    String token;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,7 +87,8 @@ public class menu_login extends AppCompatActivity implements Validator.Validatio
                 .requestEmail()
                 .build();
         getSupportActionBar().hide();
-
+        token = FirebaseInstanceId.getInstance().getToken();
+        Guru.putString("token",token);
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this, this)
@@ -189,7 +192,7 @@ public class menu_login extends AppCompatActivity implements Validator.Validatio
     public void onValidationSucceeded() {
        //progressBar2.setVisibility(View.VISIBLE);
         login countryPresenter = new login(null, menu_login.this);
-        countryPresenter.login(editUser.getText().toString().trim(), editPass.getText().toString().trim(), progressDialog);
+        countryPresenter.login(editUser.getText().toString().trim(), editPass.getText().toString().trim(),token, progressDialog);
     }
 
     @Override

@@ -456,6 +456,16 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/photo_female_7" />
+
+                    <ProgressBar
+                        android:id="@+id/progres_foto"
+                        style="?android:attr/progressBarStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="@+id/img_foto_profil"
+                        app:layout_constraintEnd_toEndOf="@+id/img_foto_profil"
+                        app:layout_constraintStart_toStartOf="@+id/img_foto_profil"
+                        app:layout_constraintTop_toTopOf="@+id/img_foto_profil" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 

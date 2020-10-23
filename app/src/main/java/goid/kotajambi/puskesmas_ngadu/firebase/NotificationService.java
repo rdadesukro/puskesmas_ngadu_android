@@ -13,12 +13,14 @@ import android.util.Log;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.github.squti.guru.Guru;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 import org.jetbrains.annotations.NotNull;
 
 import goid.kotajambi.puskesmas_ngadu.R;
+import goid.kotajambi.puskesmas_ngadu.view.menu.menu_komen_laporan_masuk;
 import goid.kotajambi.puskesmas_ngadu.view.menu.menu_utama;
 
 
@@ -31,28 +33,25 @@ public class NotificationService extends FirebaseMessagingService {
         String title = "";
         String body = "";
         String click_action="";
+        String lapor_id="";
 
         Intent intent;
         PendingIntent pendingIntent = null;
         title = remoteMessage.getNotification().getTitle();
         body = remoteMessage.getNotification().getBody();
+        lapor_id = remoteMessage.getNotification().getTag();
         click_action=remoteMessage.getNotification().getClickAction();
+        Guru.putString("id_lapor_komen", lapor_id);
 //        if (remoteMessage.getNotification() != null) {
 //
 //            Log.i("ckckckck", "onMessageReceived: "+click_action);
 //
 //
-//            if (click_action.equals("admin")) {
-//                intent = new Intent(this, menu_utama_pejabat.class);
-//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
-//            }
 //
-//            else if (click_action.equals("warga")) {
-//                intent = new Intent(this, menu_utama.class);
+//                intent = new Intent(this, menu_komen_laporan_masuk.class);
 //                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //                pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
-//            }
+//
 //
 //        }
 
@@ -70,21 +69,25 @@ public class NotificationService extends FirebaseMessagingService {
         if (click_action==null){
 
 //            Toast.makeText(this, "Kosong", Toast.LENGTH_SHORT).show();
-            intent = new Intent(this, menu_utama.class);
+            intent = new Intent(this, menu_komen_laporan_masuk.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
         }else {
-            if (click_action.equals("admin")) {
-                intent = new Intent(this, menu_utama.class);
+
+            if (click_action.equals("user")) {
+                intent = new Intent(this, menu_komen_laporan_masuk.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
             }
 
-            else if (click_action.equals("warga")) {
-                intent = new Intent(this, menu_utama.class);
+            else if (click_action.equals("user")) {
+                intent = new Intent(this, menu_komen_laporan_masuk.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
             }
+
+
+
         }
 
 

@@ -2,8 +2,10 @@ package goid.kotajambi.puskesmas_ngadu.Server;
 
 
 import goid.kotajambi.puskesmas_ngadu.model.bener.Response_bener;
+import goid.kotajambi.puskesmas_ngadu.model.event.Response_events;
 import goid.kotajambi.puskesmas_ngadu.model.jumlah_laporan_saya.Response_jumlah;
 import goid.kotajambi.puskesmas_ngadu.model.komen.Response_komen;
+import goid.kotajambi.puskesmas_ngadu.model.laporan_komen.Response_laporan_komen;
 import goid.kotajambi.puskesmas_ngadu.model.laporan_saya.Response_laporan_saya;
 import goid.kotajambi.puskesmas_ngadu.model.layanan.Response_layanan;
 import goid.kotajambi.puskesmas_ngadu.model.login.Response_login;
@@ -43,13 +45,21 @@ public interface ApiRequest {
             @Field("password_confirmation") String password_confirmation,
             @Field("email") String email,
             @Field("no_hp") String no_hp,
-            @Field("alamat") String alamat);
+            @Field("alamat") String alamat,
+            @Field("token") String token);
+
+    @FormUrlEncoded
+    @POST("simpan_token")
+    Call<Response_simpan> simpan_token(
+            @Field("users_id") String users_id,
+            @Field("token") String token);
 
     @FormUrlEncoded
     @POST("login")
-    Call<Response_login> login(
+    Call<Response_login>login(
             @Field("email") String username,
-            @Field("password") String password);
+            @Field("password") String password,
+            @Field("token") String token);
 
 
 
@@ -65,6 +75,11 @@ public interface ApiRequest {
     @POST("cek_email")
     Call<Response_simpan> cek_email(
             @Field("email") String email);
+
+    @FormUrlEncoded
+    @POST("hapus_token")
+    Call<Response_simpan> hapus_token(
+            @Field("token") String token);
 
     @FormUrlEncoded
     @POST("simpan_komen")
@@ -89,6 +104,12 @@ public interface ApiRequest {
 
     @GET("tampil_komen")
     Call<Response_komen> get_komen(@Query("id_lapor") String id_lapor);
+
+    @GET("tampil_event")
+    Call<Response_events> get_event();
+
+    @GET("tampil_lapor_komen")
+    Call<Response_laporan_komen> tampil_lapor_komen(@Query("lapor_id") String lapor_id);
 
     @POST("tampil_layanan")
     Call<Response_layanan> get_layanan();

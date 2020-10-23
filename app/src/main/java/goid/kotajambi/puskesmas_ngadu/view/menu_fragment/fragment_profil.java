@@ -14,6 +14,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -42,7 +43,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import goid.kotajambi.puskesmas_ngadu.R;
 import goid.kotajambi.puskesmas_ngadu.presenter.login;
-import goid.kotajambi.puskesmas_ngadu.view.menu.menu_detail_laporan;
 import goid.kotajambi.puskesmas_ngadu.view.menu.menu_login;
 import maes.tech.intentanim.CustomIntent;
 import okhttp3.CipherSuite;
@@ -83,6 +83,8 @@ public class fragment_profil extends Fragment {
     EditText pass_lama, pass_baru;
     @BindView(R.id.card_keluar)
     CardView cardKeluar;
+    @BindView(R.id.progres_foto)
+    ProgressBar progresFoto;
 
     public fragment_profil() {
         // Required empty public constructor
@@ -122,21 +124,23 @@ public class fragment_profil extends Fragment {
         txtNoHp.setText(Guru.getString("no_hp", "false"));
         txtNama.setText(Guru.getString("nama", "false"));
         txtEmail.setText(Guru.getString("email", "false"));
-        Log.i("foto", "onCreateView: "+Guru.getString("foto", "false"));
+        Log.i("isi_foto", "onCreateView: " + Guru.getString("foto", "false"));
         Glide.with(this)
-                .load("http://192.168.1.71/puskesmas_ngadu/public/uploads/profil/" + Guru.getString("foto", "false"))
+                .load("http://192.168.1.71/puskesmas_ngadu/public/uploads/profil/" + Guru.getString("foto_profil", "false"))
                 .listener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        progresFoto.setVisibility(View.GONE);
                         return false;
                     }
 
                     @Override
                     public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        progresFoto.setVisibility(View.GONE);
                         return false;
                     }
                 })
-                .error(R.drawable.photo_male_3)
+                .error(R.drawable.man)
                 .centerCrop()
                 .circleCrop()
                 .into(imgFotoProfil);
@@ -234,6 +238,8 @@ public class fragment_profil extends Fragment {
         Guru.putString("status_loign", "false");
         startActivity(goInput);
         CustomIntent.customType(getActivity(), "fadein-to-fadeout");
+        login countryPresenter = new login(null, getActivity());
+        countryPresenter.hapus_token(Guru.getString("token", "false"));
 
     }
 }

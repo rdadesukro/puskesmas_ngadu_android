@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -56,6 +57,7 @@ public class adapter_laporan_saya extends PaginatedAdapter<DataItem, adapter_lap
         TextView tgl,judul;
         TextView jenis,detail,nama,komen;
         ImageView foto,foto_profi;
+        CardView cardView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -67,6 +69,7 @@ public class adapter_laporan_saya extends PaginatedAdapter<DataItem, adapter_lap
             judul = itemView.findViewById(R.id.txt_judul);
             foto_profi = itemView.findViewById(R.id.img_foto_frofil);
             komen = itemView.findViewById(R.id.txt_komen);
+            cardView = itemView.findViewById(R.id.cardView);
 
         }
 
@@ -75,6 +78,9 @@ public class adapter_laporan_saya extends PaginatedAdapter<DataItem, adapter_lap
             jenis.setText(user.getIsiLaporan());
             judul.setText(user.getJudul());
             komen.setText(user.getJumlahKoment()+" Comment");
+
+            nama.setBackgroundResource(R.drawable.bg_nama);
+
             nama.setText(user.getUser().getName());
 
             Glide.with(ctx)
@@ -95,7 +101,7 @@ public class adapter_laporan_saya extends PaginatedAdapter<DataItem, adapter_lap
 
 
 
-            if (user.getFotoLaporan()!=null){
+            if (user.getFotoLaporan()!=""){
                 Glide.with(ctx)
                         .load("http://192.168.1.71/puskesmas_ngadu/public/uploads/laporan/"+user.getFotoLaporan())
                         .listener(new RequestListener<Drawable>() {
@@ -114,7 +120,7 @@ public class adapter_laporan_saya extends PaginatedAdapter<DataItem, adapter_lap
 
             }else {
                 Glide.with(ctx)
-                        .load("https://sisamsul.jambikota.go.id/AndroFile/image/tugukeris.jpg")
+                        .load("http://192.168.1.71/puskesmas_ngadu/public/uploads/laporan/"+user.getFotoLaporan())
                         .listener(new RequestListener<Drawable>() {
                             @Override
                             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -126,7 +132,9 @@ public class adapter_laporan_saya extends PaginatedAdapter<DataItem, adapter_lap
                                 return false;
                             }
                         })
+                        .error(R.drawable.ic_baseline_broken_image_24)
                         .into(foto);
+
 
 
             }

@@ -15,6 +15,7 @@ import com.github.squti.guru.Guru;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.ConfirmPassword;
@@ -67,6 +68,7 @@ public class menu_register extends AppCompatActivity implements Validator.Valida
     Validator validator;
     SweetAlertDialog pd_new;
     ProgressDialog progressDialog;
+    String token;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +81,8 @@ public class menu_register extends AppCompatActivity implements Validator.Valida
         pd_new = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
         progressDialog = new ProgressDialog(this);
         getSupportActionBar().hide();
-
+        token = FirebaseInstanceId.getInstance().getToken();
+        Guru.putString("token",token);
     }
 
     @OnClick({R.id.btn_batal, R.id.btn_register})
@@ -113,7 +116,7 @@ public class menu_register extends AppCompatActivity implements Validator.Valida
         String no_hp = editNoHp.getText().toString().trim();
         Guru.putString("password", password);
         login countryPresenter = new login(null,menu_register.this);
-        countryPresenter.register(nama,password,email,no_hp,alamat,progressDialog);
+        countryPresenter.register(nama,password,email,no_hp,alamat,token,progressDialog);
     }
 
     @Override

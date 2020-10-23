@@ -13,22 +13,23 @@ import java.util.List;
 
 import goid.kotajambi.puskesmas_ngadu.Server.ApiRequest;
 import goid.kotajambi.puskesmas_ngadu.Server.Retroserver_server_AUTH;
-import goid.kotajambi.puskesmas_ngadu.model.komen.Response_komen;
-import goid.kotajambi.puskesmas_ngadu.model.komen.Result_komen;
-import goid.kotajambi.puskesmas_ngadu.model.laporan_komen.Response_laporan_komen;
-import goid.kotajambi.puskesmas_ngadu.model.laporan_komen.ResultItem_laporan_komen;
+import goid.kotajambi.puskesmas_ngadu.model.event.IsiItem_events;
+import goid.kotajambi.puskesmas_ngadu.model.event.Response_events;
+import goid.kotajambi.puskesmas_ngadu.model.layanan.IsiItem_layanan;
+import goid.kotajambi.puskesmas_ngadu.model.layanan.Response_layanan;
 import goid.kotajambi.puskesmas_ngadu.model.simpan.Response_simpan;
-import goid.kotajambi.puskesmas_ngadu.view.view_komen;
+import goid.kotajambi.puskesmas_ngadu.view.view_event;
+import goid.kotajambi.puskesmas_ngadu.view.view_layanan;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class komen {
+public class event {
 
     private Context ctx;
-    private view_komen countryView;
+    private view_event countryView;
     private Retroserver_server_AUTH countryService;
-    public komen(view_komen view, Context ctx) {
+    public event(view_event view, Context ctx) {
         this.countryView = view;
         this.ctx = ctx;
 
@@ -37,22 +38,21 @@ public class komen {
         }
     }
 
-    public void get_komen(String id_lapor){
-        Log.i("id_lapor", "get_komen: "+id_lapor);
+    public void get_event(){
         ApiRequest api = Retroserver_server_AUTH.getClient().create(ApiRequest.class);
-        Call<Response_komen> call = api.get_komen(id_lapor);
-        call.enqueue(new Callback<Response_komen>() {
+        Call<Response_events> call = api.get_event();
+        call.enqueue(new Callback<Response_events>() {
             @Override
-            public void onResponse(Call<Response_komen> call, Response<Response_komen> response) {
+            public void onResponse(Call<Response_events> call, Response<Response_events> response) {
 
                 try {
 
                     if (response.isSuccessful()) {
-                        Response_komen data = response.body();
+                        Response_events data = response.body();
                         Log.i("isi_komen", "onResponse: "+data);
-                        if (data != null && data.getResult() != null) {
-                            List<Result_komen> result = data.getResult();
-                            countryView.komen(result);
+                        if (data != null && data.getIsi() != null) {
+                            List<IsiItem_events> result = data.getIsi();
+                            countryView.event(result);
                         }
 
 
@@ -82,7 +82,7 @@ public class komen {
 
 
             @Override
-            public void onFailure(Call<Response_komen> call, Throwable t) {
+            public void onFailure(Call<Response_events> call, Throwable t) {
                 t.printStackTrace();
                 //  sliderView_bener.setBackgroundResource(R.drawable.bg_no_item_city);
                 Log.i("ewkwkwkwkw", "onFailure: " + t);
@@ -109,7 +109,7 @@ public class komen {
         Call<Response_simpan> sendbio = api.simpan_komen(id_lapor,id_user,isi);
         sendbio.enqueue(new Callback<Response_simpan>() {
             @Override
-            public void onResponse(Call<Response_simpan> call, retrofit2.Response<Response_simpan> response) {
+            public void onResponse(Call<Response_simpan> call, Response<Response_simpan> response) {
 
                 String kode = response.body().getKode();
                 String pesan = response.body().getMessage();
@@ -149,65 +149,6 @@ public class komen {
             }
         });
 
-
-    }
-    public void get_laporan_komen(String id_lapor){
-        Log.i("id_lapor", "get_komen: "+id_lapor);
-        ApiRequest api = Retroserver_server_AUTH.getClient().create(ApiRequest.class);
-        Call<Response_laporan_komen> call = api.tampil_lapor_komen(id_lapor);
-        call.enqueue(new Callback<Response_laporan_komen>() {
-            @Override
-            public void onResponse(Call<Response_laporan_komen> call, Response<Response_laporan_komen> response) {
-
-                try {
-
-                    if (response.isSuccessful()) {
-                        Response_laporan_komen data = response.body();
-                        Log.i("isi_komen", "onResponse: "+data);
-                        if (data != null && data.getResult() != null) {
-                            List<ResultItem_laporan_komen> result = data.getResult();
-                            countryView.laporan_komen(result);
-                        }
-
-
-
-                    } else {
-                        // error case
-                        switch (response.code()) {
-                            case 404:
-                                Toast.makeText(ctx, "not found", Toast.LENGTH_SHORT).show();
-                                break;
-                            case 500:
-                                Toast.makeText(ctx,"server broken", Toast.LENGTH_SHORT).show();
-                                break;
-                            default:
-                                Toast.makeText(ctx, "unknown error", Toast.LENGTH_SHORT).show();
-                                break;
-                        }
-                    }
-
-                } catch (Exception e) {
-                    Log.e("onResponse", "There is an error" + e);
-                    //data();
-                    e.printStackTrace();
-                }
-
-            }
-
-
-            @Override
-            public void onFailure(Call<Response_laporan_komen> call, Throwable t) {
-                t.printStackTrace();
-                //  sliderView_bener.setBackgroundResource(R.drawable.bg_no_item_city);
-                Log.i("ewkwkwkwkw", "onFailure: " + t);
-                if (t instanceof IOException) {
-
-                } else {
-
-                }
-
-            }
-        });
 
     }
 
