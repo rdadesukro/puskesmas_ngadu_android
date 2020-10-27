@@ -22,9 +22,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.security.ProviderInstaller;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.jpegkit.Jpeg;
 import com.mobsandgeeks.saripaar.ValidationError;
@@ -34,7 +37,11 @@ import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.trncic.library.DottedProgressBar;
 
 import java.io.File;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
+
+import javax.net.ssl.SSLContext;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -81,6 +88,16 @@ public class menu_login extends AppCompatActivity implements Validator.Validatio
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_login);
         ButterKnife.bind(this);
+        try {
+            ProviderInstaller.installIfNeeded(this);
+            SSLContext sslContext;
+            sslContext = SSLContext.getInstance("TLSv1.2");
+            sslContext.init(null, null, null);
+            sslContext.createSSLEngine();
+        } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException
+                | NoSuchAlgorithmException | KeyManagementException e) {
+            e.printStackTrace();
+        }
         validator = new Validator(this);
         validator.setValidationListener(this);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)

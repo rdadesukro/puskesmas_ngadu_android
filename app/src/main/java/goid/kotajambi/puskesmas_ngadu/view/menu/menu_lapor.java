@@ -1,5 +1,6 @@
 package goid.kotajambi.puskesmas_ngadu.view.menu;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -35,6 +36,11 @@ import androidx.transition.TransitionManager;
 
 import com.github.squti.guru.Guru;
 import com.jpegkit.Jpeg;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
@@ -94,11 +100,25 @@ public class menu_lapor extends AppCompatActivity implements Validator.Validatio
     @BindView(R.id.card_foto)
     CardView cardFoto;
     ProgressDialog progressDialog;
+
+    public static final int MEDIA_TYPE_IMAGE = 1;
+    public static final int MEDIA_TYPE_VIDEO = 2;
+
+    // Bitmap sampling size
+    public static final int BITMAP_SAMPLE_SIZE = 8;
+
+    // Gallery directory name to store the images or videos
+    public static final String GALLERY_DIRECTORY_NAME = "Hello Camera";
+
+    // Image and Video file extensions
+    public static final String IMAGE_EXTENSION = "jpg";
+    public static final String VIDEO_EXTENSION = "mp4";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_lapor);
         ButterKnife.bind(this);
+        cek();
         validator = new Validator(this);
         validator.setValidationListener(this);
         pd_new = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
@@ -309,5 +329,17 @@ public class menu_lapor extends AppCompatActivity implements Validator.Validatio
             arrowBtn.setBackgroundResource(R.drawable.ic_baseline_arrow_drop_up_24);
             arrowBtn.setBackgroundResource(R.drawable.ic_baseline_arrow_drop_down_24);
         }
+    }
+    void cek(){
+        Dexter.withContext(this)
+                .withPermissions(
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.READ_CONTACTS,
+                        Manifest.permission.RECORD_AUDIO,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ).withListener(new MultiplePermissionsListener() {
+            @Override public void onPermissionsChecked(MultiplePermissionsReport report) {/* ... */}
+            @Override public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {/* ... */}
+        }).check();
     }
 }

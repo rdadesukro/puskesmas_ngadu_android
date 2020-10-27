@@ -84,6 +84,7 @@ public class login {
             }
             @Override
             public void onFailure(Call<Response_login> call, Throwable t) {
+                Log.i("cek_login", "onFailure: "+t);
 
                 Log.d("RETRO", "Falure : " + "Gagal Mengirim Request");
             }

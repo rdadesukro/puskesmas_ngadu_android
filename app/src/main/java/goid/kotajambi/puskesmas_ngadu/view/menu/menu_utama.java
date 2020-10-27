@@ -1,16 +1,26 @@
 package goid.kotajambi.puskesmas_ngadu.view.menu;
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+
+import java.util.List;
 
 import butterknife.ButterKnife;
 import goid.kotajambi.puskesmas_ngadu.R;
@@ -31,7 +41,7 @@ public class menu_utama extends AppCompatActivity {
 
     MenuItem prevMenuItem;
     ViewPager vg;
-
+    public static final int MEDIA_TYPE_IMAGE = 1;
     private ActionBar toolbar;
     int value;
 
@@ -40,11 +50,12 @@ public class menu_utama extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_utama);
         ButterKnife.bind(this);
+        requestCameraPermission(MEDIA_TYPE_IMAGE);
 
         toolbar = getSupportActionBar();
         toolbar.setTitle("Home");
         toolbar.setIcon(R.drawable.ic_baseline_add_circle_outline_24);
-
+        value = getIntent().getIntExtra("Fragmentone", 3);
 
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         vg = (ViewPager) findViewById(R.id.vg);
@@ -131,5 +142,49 @@ public class menu_utama extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         finishAffinity();
+    }
+
+    private void showPermissionsAlert() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Permissions required!")
+                .setMessage("Camera needs few permissions to work properly. Grant them in settings.")
+                .setPositiveButton("GOTO SETTINGS", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        CameraUtils.openSettings(menu_utama.this);
+                    }
+                })
+                .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                }).show();
+    }
+
+    private void requestCameraPermission(final int type) {
+        Dexter.withActivity(this)
+                .withPermissions(
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
+
+                .withListener(new MultiplePermissionsListener() {
+                    @Override
+                    public void onPermissionsChecked(MultiplePermissionsReport report) {
+                        if (report.areAllPermissionsGranted()) {
+
+                            if (type == MEDIA_TYPE_IMAGE) {
+
+                            } else {
+                            }
+
+                        } else if (report.isAnyPermissionPermanentlyDenied()) {
+                            showPermissionsAlert();
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+                        token.continuePermissionRequest();
+                    }
+                }).check();
     }
 }

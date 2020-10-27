@@ -73,7 +73,7 @@ public class adapter_bener extends SliderViewAdapter<adapter_bener.SliderAdapter
         viewHolder.textViewDescription.setText(sliderItem.getJudul());
 
         Glide.with(viewHolder.itemView)
-                .load("http://192.168.1.71/puskesmas_ngadu/public/uploads/sliders/"+sliderItem.getImage())
+                .load("https://ramahpkmhandil.jambikota.go.id/uploads/sliders/"+sliderItem.getImage())
                 .listener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {

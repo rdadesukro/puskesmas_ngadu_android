@@ -151,9 +151,7 @@ public class menu_laporan_saya extends AppCompatActivity {
     }
 
     private void getNewItems(final int page) {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
+
 
                 ApiRequest api = Retroserver_server_AUTH.getClient().create(ApiRequest.class);
                 Call<Response_laporan_saya> call = api.pagni_saya(page);
@@ -226,7 +224,6 @@ public class menu_laporan_saya extends AppCompatActivity {
                         }
                     }
                 });
-            }
-        }, 2500);
+
     }
 }

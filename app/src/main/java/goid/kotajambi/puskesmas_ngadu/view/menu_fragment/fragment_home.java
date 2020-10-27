@@ -49,6 +49,7 @@ import goid.kotajambi.puskesmas_ngadu.model.jumlah_laporan_saya.Response_jumlah;
 import goid.kotajambi.puskesmas_ngadu.model.model_berita.PostsItem;
 import goid.kotajambi.puskesmas_ngadu.model.slider.IsiItem_slider;
 import goid.kotajambi.puskesmas_ngadu.presenter.home;
+import goid.kotajambi.puskesmas_ngadu.view.menu.menu_event;
 import goid.kotajambi.puskesmas_ngadu.view.menu.menu_lapor;
 import goid.kotajambi.puskesmas_ngadu.view.menu.menu_laporan_saya;
 import goid.kotajambi.puskesmas_ngadu.view.menu.menu_layanan;
@@ -91,6 +92,8 @@ public class fragment_home extends Fragment implements view_home {
     TextView txtJumlah;
     @BindView(R.id.swifeRefresh)
     SwipeRefreshLayout swifeRefresh;
+    @BindView(R.id.card_event)
+    CardView cardEvent;
     private RecyclerView.LayoutManager mManager;
     private List<PostsItem> data = new ArrayList<>();
     private adapter_bener adapter_bener;
@@ -214,7 +217,7 @@ public class fragment_home extends Fragment implements view_home {
 
     @Override
     public void bener(List<IsiItem_slider> bener) {
-        Log.i("isi_bener", "bener: "+bener);
+        Log.i("isi_bener", "bener: " + bener);
         adapter_bener = new adapter_bener(getActivity(), bener, "mas_1");
         SliderView.setSliderAdapter(adapter_bener);
         SliderView.setIndicatorAnimation(IndicatorAnimations.THIN_WORM);
@@ -243,7 +246,7 @@ public class fragment_home extends Fragment implements view_home {
                 break;
             case R.id.card_jadwal:
 
-                 goInput = new Intent(getActivity(), menu_layanan.class);
+                goInput = new Intent(getActivity(), menu_layanan.class);
                 getActivity().startActivity(goInput);
                 CustomIntent.customType(getActivity(), "bottom-to-up");
                 break;
@@ -280,4 +283,11 @@ public class fragment_home extends Fragment implements view_home {
     }
 
 
+    @OnClick(R.id.card_event)
+    public void card_event() {
+        Intent goInput = new Intent(getActivity(), menu_event.class);
+        getActivity().startActivity(goInput);
+        CustomIntent.customType(getActivity(), "bottom-to-up");
+
+    }
 }

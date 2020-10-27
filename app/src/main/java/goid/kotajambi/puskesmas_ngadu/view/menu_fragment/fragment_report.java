@@ -1,10 +1,15 @@
 package goid.kotajambi.puskesmas_ngadu.view.menu_fragment;
 
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -12,7 +17,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.SearchView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -38,6 +45,8 @@ import goid.kotajambi.puskesmas_ngadu.adapter.adapter_laporan_saya;
 import goid.kotajambi.puskesmas_ngadu.model.laporan_saya.DataItem;
 import goid.kotajambi.puskesmas_ngadu.model.laporan_saya.Response_laporan_saya;
 import goid.kotajambi.puskesmas_ngadu.model.laporan_saya.Result_laporan_saya;
+import goid.kotajambi.puskesmas_ngadu.view.menu.menu_utama;
+import maes.tech.intentanim.CustomIntent;
 import okhttp3.CipherSuite;
 import okhttp3.ConnectionSpec;
 import okhttp3.TlsVersion;
@@ -69,6 +78,11 @@ public class fragment_report extends Fragment {
     int new_page;
     int sama;
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
     public fragment_report() {
         // Required empty public constructor
     }
@@ -141,18 +155,25 @@ public class fragment_report extends Fragment {
             @Override
             public void onRefresh() {
                 adapter.clear();
-                data.clear();
                 adapter = new adapter_laporan_saya(getActivity());
                 adapter.setDefaultRecyclerView(getActivity(), rvAku);
 
                 adapter.setOnPaginationListener(new PaginatedAdapter.OnPaginationListener() {
                     @Override
                     public void onCurrentPage(int page) {
-                        // Toast.makeText(getActivity(), "Page " + page + " loaded!", Toast.LENGTH_SHORT).show();
+                        //  Toast.makeText(getActivity(), "Page " + page + " loaded!", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onNextPage(int page) {
+                        new_page=page;
+                        imgData2.setVisibility(View.GONE);
+                        txtData2.setVisibility(View.GONE);
+                        if (sama!=new_page){
+                            progressBar.setVisibility(View.VISIBLE);
+                        }else {
+                            progressBar.setVisibility(View.GONE);
+                        }
                         progressBar.setVisibility(View.VISIBLE);
                         getNewItems(page);
 
@@ -160,12 +181,13 @@ public class fragment_report extends Fragment {
 
                     @Override
                     public void onFinish() {
-                        //Toast.makeText(getActivity(), "finish", Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(getActivity(), "finish", Toast.LENGTH_SHORT).show();
                     }
                 });
 
 
                 getNewItems(1);
+
 
             }
         });
@@ -181,9 +203,7 @@ public class fragment_report extends Fragment {
     }
 
     private void getNewItems(final int page) {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
+
 
                 ApiRequest api = Retroserver_server_AUTH.getClient().create(ApiRequest.class);
                 Call<Response_laporan_saya> call = api.pagni(page);
@@ -195,19 +215,21 @@ public class fragment_report extends Fragment {
                         try {
 
                             if (response.isSuccessful()) {
+
                                 progressBar.setVisibility(View.VISIBLE);
+                                swifeRefresh.setRefreshing(false);
                                 // Pd.hide();
                                 data = response.body().getResult().getData();
                                 int page1 = response.body().getResult().getTotal();
                                 Log.i("isi_data", "onResponse: " + data);
                                 Log.i("data_size", "onResponse: " + data.size());
-                                Toast.makeText(getActivity(), "" + response.body().getResult().getTo(), Toast.LENGTH_SHORT).show();
+                               // Toast.makeText(getActivity(), "" + response.body().getResult().getTo(), Toast.LENGTH_SHORT).show();
                                 int jumlah = response.body().getResult().getPerPage();
                                 adapter.setPageSize(response.body().getResult().getPerPage());
                                 sama = response.body().getResult().getLastPage();
 
                                 onGetDate(data);
-                                swifeRefresh.setRefreshing(false);
+
 
                                 if (response.body().getResult().getLastPage()!=new_page){
                                     progressBar.setVisibility(View.VISIBLE);
@@ -263,9 +285,25 @@ public class fragment_report extends Fragment {
                         }
                     }
                 });
-            }
-        }, 2500);
+
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.tes, menu);
+        MenuItem refres = menu.findItem(R.id.refres);
+        refres.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Intent intent = new Intent((Activity) getActivity(), menu_utama.class);
+                intent.putExtra("Fragmentone", 1); //pass zero for Fragmentone.
+                startActivity(intent);
+                CustomIntent.customType((Activity) getActivity(),"fadein-to-fadeout");
+
+                return false;
+            }
+        });
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 
 }

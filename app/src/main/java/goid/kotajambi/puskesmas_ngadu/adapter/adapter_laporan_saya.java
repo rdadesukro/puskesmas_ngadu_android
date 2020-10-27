@@ -84,7 +84,7 @@ public class adapter_laporan_saya extends PaginatedAdapter<DataItem, adapter_lap
             nama.setText(user.getUser().getName());
 
             Glide.with(ctx)
-                    .load("http://192.168.1.71/puskesmas_ngadu/public/uploads/profil/"+user.getUser().getFoto())
+                    .load("https://ramahpkmhandil.jambikota.go.id/uploads/profil/"+user.getUser().getFoto())
                     .listener(new RequestListener<Drawable>() {
                         @Override
                         public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -102,8 +102,9 @@ public class adapter_laporan_saya extends PaginatedAdapter<DataItem, adapter_lap
 
 
             if (user.getFotoLaporan()!=""){
+                cardView.setVisibility(View.VISIBLE);
                 Glide.with(ctx)
-                        .load("http://192.168.1.71/puskesmas_ngadu/public/uploads/laporan/"+user.getFotoLaporan())
+                        .load("https://ramahpkmhandil.jambikota.go.id/uploads/laporan/"+user.getFotoLaporan())
                         .listener(new RequestListener<Drawable>() {
                             @Override
                             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -119,8 +120,9 @@ public class adapter_laporan_saya extends PaginatedAdapter<DataItem, adapter_lap
                         .into(foto);
 
             }else {
+                cardView.setVisibility(View.GONE);
                 Glide.with(ctx)
-                        .load("http://192.168.1.71/puskesmas_ngadu/public/uploads/laporan/"+user.getFotoLaporan())
+                        .load("https://ramahpkmhandil.jambikota.go.id/uploads/laporan/"+user.getFotoLaporan())
                         .listener(new RequestListener<Drawable>() {
                             @Override
                             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -149,7 +151,7 @@ public class adapter_laporan_saya extends PaginatedAdapter<DataItem, adapter_lap
                     Intent goInput = new Intent(ctx, menu_detail_laporan.class);
                     Guru.putString("judul", user.getJudul());
                     Guru.putString("isi", user.getIsiLaporan());
-                    Guru.putString("foto", user.getFotoLaporan());
+                    Guru.putString("foto_laporan", user.getFotoLaporan());
                     Guru.putString("tgl", user.getCreatedAt());
                     Guru.putString("tgl", user.getCreatedAt());
                     Guru.putString("foto_pelapor", user.getUser().getFoto());

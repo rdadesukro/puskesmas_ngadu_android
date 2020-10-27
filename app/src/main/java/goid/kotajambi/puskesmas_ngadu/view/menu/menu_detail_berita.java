@@ -148,50 +148,28 @@ public class menu_detail_berita extends AppCompatActivity {
 //
 //
 
-
-    private ShareActionProvider mShareActionProvider;
     @Override
-
     public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_share,menu);
+        MenuItem share = menu.findItem(R.id.share);
+        share.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Intent shareIntent = new Intent();
+                shareIntent.setAction(Intent.ACTION_SEND);
+                  shareIntent.putExtra(Intent.EXTRA_SUBJECT,"Android Development Tutorials");
+                     shareIntent.putExtra(Intent.EXTRA_TEXT, url);
+                         shareIntent.setType("text/plain");
+                          startActivity(shareIntent);
+                return false;
+            }
+        });
 
-        getMenuInflater().inflate(R.menu.menu_share, menu);
-        MenuItem item = menu.findItem(R.id.menu_item_share);
-        mShareActionProvider = (ShareActionProvider)MenuItemCompat.getActionProvider(item);
-
-//        Intent shareIntent = new Intent();
-//        shareIntent.setAction(Intent.ACTION_SEND);
-//        shareIntent.putExtra(Intent.EXTRA_SUBJECT,"Android Development Tutorials");
-//        shareIntent.putExtra(Intent.EXTRA_TEXT, url);
-//        shareIntent.setType("text/plain");
-//        startActivity(shareIntent);
-
-
-        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-        sharingIntent.setType("text/plain");
-        String shareBody = "here goes your share content body";
-        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Share Subject");
-        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-
-        //then set the sharingIntent
-        mShareActionProvider.setShareIntent(sharingIntent);
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.menu_item_share) {
-
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }
 
 

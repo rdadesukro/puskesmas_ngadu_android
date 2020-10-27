@@ -69,7 +69,7 @@ public class adapter_laporan_komen extends RecyclerView.Adapter<adapter_laporan_
         holder.txt_komen.setText(""+dm.getJumlahKoment());
 
         Glide.with(ctx)
-                .load("http://192.168.1.71/puskesmas_ngadu/public/uploads/profil/"+dm.getUser().getFoto())
+                .load("https://ramahpkmhandil.jambikota.go.id/uploads/profil/"+dm.getUser().getFoto())
                 .listener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -87,8 +87,9 @@ public class adapter_laporan_komen extends RecyclerView.Adapter<adapter_laporan_
 
 
         if (dm.getFotoLaporan()!=null){
+            holder.cardView.setVisibility(View.VISIBLE);
             Glide.with(ctx)
-                    .load("http://192.168.1.71/puskesmas_ngadu/public/uploads/laporan/"+dm.getFotoLaporan())
+                    .load("https://ramahpkmhandil.jambikota.go.id/uploads/laporan/"+dm.getFotoLaporan())
                     .listener(new RequestListener<Drawable>() {
                         @Override
                         public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -170,7 +171,7 @@ public class adapter_laporan_komen extends RecyclerView.Adapter<adapter_laporan_
                     Intent goInput = new Intent(ctx, menu_detail_laporan.class);
                     Guru.putString("judul", dm.getJudul());
                     Guru.putString("isi", dm.getIsiLaporan());
-                    Guru.putString("foto", dm.getFotoLaporan());
+                    Guru.putString("foto_laporan", dm.getFotoLaporan());
                     Guru.putString("tgl", dm.getCreatedAt());
                     Guru.putString("tgl", dm.getCreatedAt());
                     Guru.putString("foto_pelapor", dm.getUser().getFoto());

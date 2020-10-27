@@ -118,7 +118,7 @@ public class menu_detail_laporan extends AppCompatActivity implements view_komen
         }
 
         Glide.with(this)
-                .load("http://192.168.1.71/puskesmas_ngadu/public/uploads/laporan/" + Guru.getString("foto", "false"))
+                .load("https://ramahpkmhandil.jambikota.go.id/uploads/laporan/" + Guru.getString("foto_laporan", "false"))
                 .listener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -133,7 +133,7 @@ public class menu_detail_laporan extends AppCompatActivity implements view_komen
                 .into(imgFoto);
 
         Glide.with(this)
-                .load("http://192.168.1.71/puskesmas_ngadu/public/uploads/profil/" + Guru.getString("foto_pelapor", "false"))
+                .load("https://ramahpkmhandil.jambikota.go.id/uploads/profil/" + Guru.getString("foto_pelapor", "false"))
                 .listener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -220,12 +220,12 @@ public class menu_detail_laporan extends AppCompatActivity implements view_komen
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.img_foto_pelapor:
-                new PhotoFullPopupWindow(this, R.layout.popup_photo_full, imgFotoPelapor, "http://192.168.1.71/puskesmas_ngadu/public/uploads/profil/" + Guru.getString("foto_pelapor", "false"), null);
+                new PhotoFullPopupWindow(this, R.layout.popup_photo_full, imgFotoPelapor, "https://ramahpkmhandil.jambikota.go.id/uploads/profil/" + Guru.getString("foto_pelapor", "false"), null);
 
 
                 break;
             case R.id.img_foto:
-                new PhotoFullPopupWindow(this, R.layout.popup_photo_full, imgFotoPelapor, "http://192.168.1.71/puskesmas_ngadu/public/uploads/laporan/" + Guru.getString("foto", "false"), null);
+                new PhotoFullPopupWindow(this, R.layout.popup_photo_full, imgFotoPelapor, "https://ramahpkmhandil.jambikota.go.id/uploads/laporan/" + Guru.getString("foto_laporan", "false"), null);
 
                 break;
         }

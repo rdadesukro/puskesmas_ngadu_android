@@ -112,5 +112,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:20.0.0'
     implementation 'com.google.firebase:firebase-core:16.0.4'
 
+    //dexter
+    implementation 'com.karumi:dexter:6.2.1'
+
 }
 apply plugin: 'com.google.gms.google-services'

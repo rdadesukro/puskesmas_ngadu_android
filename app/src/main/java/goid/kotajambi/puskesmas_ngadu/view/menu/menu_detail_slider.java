@@ -35,7 +35,7 @@ public class menu_detail_slider extends AppCompatActivity {
         txtIsi.setText(Guru.getString("isi", "false"));
         this.setTitle(Guru.getString("judul", "false"));
         Glide.with(this)
-                .load("http://192.168.1.71/puskesmas_ngadu/public/uploads/sliders/" + Guru.getString("foto", "false"))
+                .load("https://ramahpkmhandil.jambikota.go.id/uploads/sliders/" + Guru.getString("foto", "false"))
                 .listener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
