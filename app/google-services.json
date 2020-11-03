@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1048874869102",
+    "firebase_url": "https://amin-401f1.firebaseio.com",
+    "project_id": "amin-401f1",
+    "storage_bucket": "amin-401f1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1048874869102:android:4546f56fdc21b0f734617f",
+        "android_client_info": {
+          "package_name": "goid.kotajambi.puskesmas_ngadu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1048874869102-lbca4q92ucno2j5260cv6tfa971cujra.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "goid.kotajambi.puskesmas_ngadu",
+            "certificate_hash": "f420ce997015830da5c6ca77d693ae5b433b8719"
+          }
+        },
+        {
+          "client_id": "1048874869102-dqfhut6oacco2609vpu9q64fm19qsspn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDr6qleM7RV5Pw006gulsD7TlY0obQPyPo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1048874869102-h4l2fmilkaqgag7b4sm3or7pn1qng9po.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

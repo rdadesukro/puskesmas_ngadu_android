@@ -109,8 +109,8 @@ public class menu_detail_laporan extends AppCompatActivity implements view_komen
         }
 
 
-        foto = Guru.getString("foto", "false");
-        Log.i("foto", "onCreate: " + foto);
+        foto = Guru.getString("foto_laporan", "false");
+        Log.i("foto_laporan", "onCreate: " + foto);
         if (foto.equals("false") || foto.equals("")) {
             cardFoto.setVisibility(View.GONE);
         } else {

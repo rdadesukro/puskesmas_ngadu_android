@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -93,11 +94,13 @@ public class adapter_laporan_komen extends RecyclerView.Adapter<adapter_laporan_
                     .listener(new RequestListener<Drawable>() {
                         @Override
                         public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            holder.ProgressBar.setVisibility(View.GONE);
                             return false;
                         }
 
                         @Override
                         public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            holder.ProgressBar.setVisibility(View.GONE);
                             return false;
                         }
                     })
@@ -130,6 +133,9 @@ public class adapter_laporan_komen extends RecyclerView.Adapter<adapter_laporan_
 
         @BindView(R.id.txt_jenis)
         TextView txt_jenis;
+
+        @BindView(R.id.progressBar)
+        ProgressBar ProgressBar;
 
         @BindView(R.id.txt_detail)
         TextView txt_detail;

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,6 +59,7 @@ public class adapter_laporan_saya extends PaginatedAdapter<DataItem, adapter_lap
         TextView jenis,detail,nama,komen;
         ImageView foto,foto_profi;
         CardView cardView;
+        ProgressBar progressBar;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -67,6 +69,7 @@ public class adapter_laporan_saya extends PaginatedAdapter<DataItem, adapter_lap
             foto = itemView.findViewById(R.id.img_foto);
             detail = itemView.findViewById(R.id.txt_detail);
             judul = itemView.findViewById(R.id.txt_judul);
+            progressBar = itemView.findViewById(R.id.progressBar);
             foto_profi = itemView.findViewById(R.id.img_foto_frofil);
             komen = itemView.findViewById(R.id.txt_komen);
             cardView = itemView.findViewById(R.id.cardView);
@@ -108,11 +111,13 @@ public class adapter_laporan_saya extends PaginatedAdapter<DataItem, adapter_lap
                         .listener(new RequestListener<Drawable>() {
                             @Override
                             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                progressBar.setVisibility(View.GONE);
                                 return false;
                             }
 
                             @Override
                             public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                progressBar.setVisibility(View.GONE);
                                 return false;
                             }
                         })

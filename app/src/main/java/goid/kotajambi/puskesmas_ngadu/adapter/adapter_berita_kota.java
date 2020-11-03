@@ -63,11 +63,13 @@ public class adapter_berita_kota extends RecyclerView.Adapter<adapter_berita_kot
         final PostsItem dm = mList.get(position);
         String waktu;
       //  holder.judul.setText(dm.getUrl());
-        holder.judul.requestFocus();
-        holder.judul.getSettings().setLightTouchEnabled(true);
-        holder.judul.getSettings().setJavaScriptEnabled(true);
+//        holder.judul.requestFocus();
+//        holder.judul.getSettings().setLightTouchEnabled(true);
+//        holder.judul.getSettings().setJavaScriptEnabled(true);
+//
+//        holder.judul.loadDataWithBaseURL("", dm.getTitle(), "text/html", "UTF-8", "");
 
-        holder.judul.loadDataWithBaseURL("", dm.getTitle(), "text/html", "UTF-8", "");
+        holder.judul.setText(dm.getTitle());
 
 
         String date =dm.getDate().substring(8,10);
@@ -130,7 +132,7 @@ public class adapter_berita_kota extends RecyclerView.Adapter<adapter_berita_kot
     class HolderData extends  RecyclerView.ViewHolder{
 
         @BindView(R.id.txt_judul)
-        WebView judul;
+        TextView judul;
 
         @BindView(R.id.txt_tgl)
         TextView tanggal;

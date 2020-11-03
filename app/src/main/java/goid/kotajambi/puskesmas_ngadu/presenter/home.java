@@ -281,6 +281,58 @@ public class home {
         pDialog.show();
     }
 
+    public  void  edit_foto(MultipartBody.Part foto, ProgressDialog pDialog ){
+        pDialog = new ProgressDialog(ctx);
+        pDialog.setTitle("Mohon Tunggu!!!");
+        pDialog.setMessage("Simpan Laporan...");
+        pDialog.setCancelable(false);
+        pDialog.setCanceledOnTouchOutside(false);
+        pDialog.show();
+        ProgressDialog finalPDialog = pDialog;
+//        pDialog = new SweetAlertDialog((Activity) ctx, SweetAlertDialog.PROGRESS_TYPE);
+//        pDialog.getProgressHelper().setBarColor(Color.parseColor("#3395ff"));
+//        pDialog.setTitleText("Simpan Laporan");
+//        pDialog.setContentText("Mohon tunggu sedang memproses...");
+//        pDialog.setCancelable(false);
+//        pDialog.show();
+//        SweetAlertDialog finalPDialog = pDialog;
+       // Log.i("isi_data", "lapor: "+id_user+" "+kode + " "+judul+" "+isi+" "+foto);
+        ApiRequest api = Retroserver_server_AUTH.getClient().create(ApiRequest.class);
+
+        Call<Response_simpan> sendbio = api.edit_foto(foto);
+
+
+        sendbio.enqueue(new Callback<Response_simpan>() {
+            @Override
+            public void onResponse(Call<Response_simpan> call, Response<Response_simpan> response) {
+
+                String kode = response.body().getKode();
+                Log.i("kode", "onResponse: " + kode);
+
+                if (kode.equals("1")) {
+                    // Toast.makeText(ctx, ""+response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    finalPDialog.dismiss();
+                    sukses();
+                    //new GlideToast.makeToast((Activity) ctx, "" + response.body().getMessage(), GlideToast.LENGTHLONG, GlideToast.SUCCESSTOAST, GlideToast.CENTER).show();
+
+                } else {
+                    // Toast.makeText(ctx, ""+response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    finalPDialog.dismiss();
+                    gagal();
+                    new GlideToast.makeToast((Activity) ctx, "" + response.body().getMessage(), GlideToast.LENGTHLONG, GlideToast.WARNINGTOAST, GlideToast.CENTER).show();
+                }
+
+            }
+            @Override
+            public void onFailure(Call<Response_simpan> call, Throwable t) {
+                Log.i("cek_error", "onFailure: "+t);
+
+                Log.d("RETRO", "Falure : " + "Gagal Mengirim Request");
+            }
+        });
+
+    }
+
 
     }
 

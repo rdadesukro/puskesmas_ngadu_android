@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-
 android {
     compileSdkVersion 30
     buildToolsVersion "29.0.3"
@@ -21,6 +20,11 @@ android {
 
     buildTypes {
         release {
+            lintOptions {
+                disable 'MissingTranslation'
+                checkReleaseBuilds false
+                abortOnError false
+            }
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -33,6 +37,7 @@ android {
         maven {
             url "https://oss.sonatype.org/content/repositories/snapshots/"
         }
+
     }
 }
 
@@ -114,6 +119,9 @@ dependencies {
 
     //dexter
     implementation 'com.karumi:dexter:6.2.1'
+
+    //apk apdate
+    implementation 'com.github.javiersantos:AppUpdater:2.7'
 
 }
 apply plugin: 'com.google.gms.google-services'

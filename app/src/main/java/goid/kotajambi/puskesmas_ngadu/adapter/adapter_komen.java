@@ -75,13 +75,13 @@ public class adapter_komen extends RecyclerView.Adapter<adapter_komen.HolderData
                     .listener(new RequestListener<Drawable>() {
                         @Override
                         public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                           // holder.progressBar.setVisibility(View.GONE);
+                           holder.progressBar.setVisibility(View.GONE);
                             return false;
                         }
 
                         @Override
                         public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                           // holder.progressBar.setVisibility(View.GONE);
+                           holder.progressBar.setVisibility(View.GONE);
                             return false;
                         }
                     })
@@ -112,6 +112,9 @@ public class adapter_komen extends RecyclerView.Adapter<adapter_komen.HolderData
 
         @BindView(R.id.txt_tgl)
         TextView tanggal;
+
+        @BindView(R.id.progressBar)
+        ProgressBar progressBar;
 
         @BindView(R.id.img_foto)
         ImageView img_foto;

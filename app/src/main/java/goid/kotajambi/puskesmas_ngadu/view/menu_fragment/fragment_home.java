@@ -149,12 +149,14 @@ public class fragment_home extends Fragment implements view_home {
 //        RecyclerView.setHasFixedSize(true);
         home countryPresenter = new home(this, getActivity());
         countryPresenter.baner();
+        countryPresenter.berita();
         get_jumlah();
 
         swifeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 countryPresenter.baner();
+                countryPresenter.berita();
                 get_jumlah();
 
 
@@ -187,9 +189,7 @@ public class fragment_home extends Fragment implements view_home {
     @Override
     public void berita(List<PostsItem> result) {
         try {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
+
                     Log.i("datasaadad", "berita: " + result.size());
 
                     adapter = new adapter_berita_kota(getContext(), result, 1);
@@ -204,9 +204,7 @@ public class fragment_home extends Fragment implements view_home {
 
                     }
 
-                }
 
-            }, 2500);
 
         } catch (Exception E) {
             Log.i("cek_eror", "berita: " + E);

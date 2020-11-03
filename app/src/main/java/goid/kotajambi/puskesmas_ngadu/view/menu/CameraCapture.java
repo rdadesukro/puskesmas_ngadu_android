@@ -27,6 +27,7 @@ import com.jpegkit.JpegImageView;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 import goid.kotajambi.puskesmas_ngadu.R;
 
@@ -212,11 +213,15 @@ CameraCapture extends DialogFragment {
                                         FileOutputStream outputStream = new FileOutputStream(savedPhoto.getPath());
                                         outputStream.write(photo);
                                         outputStream.close();
-                                    } catch (java.io.IOException e) {
+                                        onInputListener.onSimpanClick(jpeg, savedPhoto);
+                                        getDialog().cancel();
+                                    } catch (IOException e) {
+                                        Log.i("cek_eror_foto", "run: "+e);
                                         e.printStackTrace();
                                     }
-                                    onInputListener.onSimpanClick(jpeg, savedPhoto);
-                                    getDialog().cancel();
+
+                                    Log.i("cek_foto", "run: "+jpeg+" "+savedPhoto);
+
                                 }
                             });
                         }

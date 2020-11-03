@@ -5,7 +5,6 @@ package goid.kotajambi.puskesmas_ngadu.view;
 import java.util.List;
 
 import goid.kotajambi.puskesmas_ngadu.model.event.IsiItem_events;
-import goid.kotajambi.puskesmas_ngadu.model.layanan.IsiItem_layanan;
 
 /**
  * This class represents the country view interface.
@@ -21,7 +20,7 @@ public interface view_event {
 
 
 
-    void event(List<IsiItem_events> bener);
+    void event(List<IsiItem_events> event);
 
 
 }

@@ -168,6 +168,7 @@ public class menu_login extends AppCompatActivity implements Validator.Validatio
                 }, 3000);
 
             } else {
+                Toast.makeText(this, "gagal", Toast.LENGTH_SHORT).show();
 
             }
         } catch (Exception e) {

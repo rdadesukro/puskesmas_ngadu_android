@@ -101,7 +101,7 @@ public class NotificationService extends FirebaseMessagingService {
                 .setContentTitle(title)
                 .setContentText(body)
                 .setAutoCancel(true)
-                .setSmallIcon(R.drawable.ic_baseline_add_24)
+                .setSmallIcon(R.drawable.logoramah)
                 .setColor(notificationColor)
                 .setShowWhen(true)
                 .setNumber(2)
@@ -139,9 +139,9 @@ public class NotificationService extends FirebaseMessagingService {
 
     private int getNotificationIcon() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            return R.mipmap.ic_launcher;
+            return R.drawable.logoramah;
         }
-        return R.mipmap.ic_launcher;
+        return  R.drawable.logoramah;
     }
 
     @Override
