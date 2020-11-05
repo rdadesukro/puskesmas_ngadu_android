@@ -72,7 +72,7 @@ public class FileUtils {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    static File getFile (Context context, Uri uri) {
+    public static File getFile(Context context, Uri uri) {
         String path = getPath(context, uri);
         assert path != null;
         return new File(path);

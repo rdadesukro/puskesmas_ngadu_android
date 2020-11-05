@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -142,6 +143,9 @@ public class adapter_berita_kota extends RecyclerView.Adapter<adapter_berita_kot
         @BindView(R.id.img_berita)
         ImageView img_berita ;
 
+        @BindView(R.id.card)
+        CardView card ;
+
 
         PostsItem dm;
 
@@ -172,6 +176,27 @@ public class adapter_berita_kota extends RecyclerView.Adapter<adapter_berita_kot
 
                 }
             });
+
+            card.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent goInput = new Intent(ctx, menu_detail_berita.class);
+                    goInput.putExtra("judul", dm.getTitle());
+                    goInput.putExtra("isi", dm.getContent());
+                    goInput.putExtra("tgl", dm.getDate());
+                    goInput.putExtra("mas","mas");
+                    goInput.putExtra("url", dm.getUrl());
+                    if (!dm.getAttachments().isEmpty()){
+                        goInput.putExtra("foto", dm.getAttachments().get(0).getUrl());
+                    }else {
+                        goInput.putExtra("foto", "https://sisamsul.jambikota.go.id/AndroFile/image/logo_pemkot_bg.png");
+                    }
+                    ctx.startActivity(goInput);
+
+                }
+            });
+
 
 
         }

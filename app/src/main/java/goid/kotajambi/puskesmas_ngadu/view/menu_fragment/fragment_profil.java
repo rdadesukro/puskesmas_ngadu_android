@@ -2,6 +2,7 @@ package goid.kotajambi.puskesmas_ngadu.view.menu_fragment;
 
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -11,11 +12,14 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -38,6 +42,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -47,6 +52,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.github.squti.guru.Guru;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -63,6 +69,7 @@ import java.io.File;
 import java.io.IOException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Objects;
 
 import javax.net.ssl.SSLContext;
 
@@ -74,6 +81,7 @@ import goid.kotajambi.puskesmas_ngadu.presenter.home;
 import goid.kotajambi.puskesmas_ngadu.presenter.login;
 
 import goid.kotajambi.puskesmas_ngadu.view.menu.CameraCapture;
+import goid.kotajambi.puskesmas_ngadu.view.menu.FileUtils;
 import goid.kotajambi.puskesmas_ngadu.view.menu.menu_lapor;
 import goid.kotajambi.puskesmas_ngadu.view.menu.menu_login;
 import goid.kotajambi.puskesmas_ngadu.view.menu.menu_utama;
@@ -84,6 +92,9 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.TlsVersion;
+
+import static android.app.Activity.RESULT_CANCELED;
+import static androidx.core.provider.FontsContractCompat.FontRequestCallback.RESULT_OK;
 
 
 /**
@@ -128,12 +139,16 @@ public class fragment_profil extends Fragment  implements CameraCapture_new.OnIn
     Uri tempUri;
     String imageTempName;
     File file;
-
+    Bitmap bitmap;
+    public final int SELECT_FILE = 1;
+    private static final int CAMERA_CAPTURE_IMAGE_REQUEST_CODE = 100;
+    private static String imageStoragePath;
     private FragmentActivity myContext;
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setHasOptionsMenu(true);
+
     }
     public fragment_profil() {
         // Required empty public constructor
@@ -178,24 +193,24 @@ public class fragment_profil extends Fragment  implements CameraCapture_new.OnIn
         txtNama.setText(Guru.getString("nama", "false"));
         txtEmail.setText(Guru.getString("email", "false"));
         Log.i("isi_foto", "onCreateView: " + Guru.getString("foto", "false"));
-//        Glide.with(this)
-//                .load("https://ramahpkmhandil.jambikota.go.id/uploads/profil/" + Guru.getString("foto_profil", "false"))
-//                .listener(new RequestListener<Drawable>() {
-//                    @Override
-//                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-//                        progresFoto.setVisibility(View.GONE);
-//                        return false;
-//                    }
-//
-//                    @Override
-//                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-//                        progresFoto.setVisibility(View.GONE);
-//                        return false;
-//                    }
-//                })
-//                .circleCrop()
-//                .error(R.drawable.us)
-//                .into(imgFotoProfil);
+        Glide.with(this)
+                .load("https://ramahpkmhandil.jambikota.go.id/uploads/profil/" + Guru.getString("foto_profil", "false"))
+                .listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        progresFoto.setVisibility(View.GONE);
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        progresFoto.setVisibility(View.GONE);
+                        return false;
+                    }
+                })
+                .circleCrop()
+                .error(R.drawable.us)
+                .into(imgFotoProfil);
         return view;
 
 
@@ -312,22 +327,21 @@ public class fragment_profil extends Fragment  implements CameraCapture_new.OnIn
                     public void onClick(DialogInterface dialog, int item) {
                         if (items[item].equals("Camera")) {
 
-                            FragmentManager fm = myContext.getSupportFragmentManager();
-                            CameraCapture_new editNameDialogFragment = new  CameraCapture_new();
-                            editNameDialogFragment.show(fm, "fragment_camera");
+//                            FragmentManager fm = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
+//                            CameraCapture_new editNameDialogFragment = new  CameraCapture_new();
+//                            editNameDialogFragment.show(fm, "fragment_camera");
+
+//                            CameraCapture_new dialo = new CameraCapture_new ();
+//                            dialo .show(getFragmentManager(), "fragment_camera");
+
+                            CameraCapture_new add = new CameraCapture_new();
+                            add.show(getActivity().getSupportFragmentManager(),"fragment_camera");
 
                         } else if (items[item].equals("Galeri")) {
-                            if(ActivityCompat.checkSelfPermission(getActivity(),
-                                    Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-                            {
-                                requestPermissions(
-                                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                                        2000);
-                            }
-                            else {
-                                Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                                startActivityForResult(i, 90);
-                            }
+                            Intent intent = new Intent();
+                            intent.setType("image/*");
+                            intent.setAction(Intent.ACTION_GET_CONTENT);
+                            startActivityForResult(Intent.createChooser(intent, "Select Picture"), SELECT_FILE);
 
 
                         } else if (items[item].equals("Cancel")) {
@@ -343,79 +357,6 @@ public class fragment_profil extends Fragment  implements CameraCapture_new.OnIn
         });
         super.onCreateOptionsMenu(menu, inflater);
     }
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != Activity.RESULT_CANCELED) {
-
-            if (requestCode == 100) {
-
-
-            } else if (requestCode == 90) {
-
-                onCaptureImageResult1(data);
-
-            } else {
-            }
-
-
-        }
-
-    }
-    @NonNull
-    private RequestBody createPartFromString(String descriptionString) {
-        return RequestBody.create(MediaType.parse(FileUtils.MIME_TYPE_TEXT), descriptionString);
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    private void onCaptureImageResult1(Intent data2) {
-        Uri uri = data2.getData();
-        try {
-            decoded = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), uri);
-
-            tempUri = getImageUri(getContext().getApplicationContext(), decoded, imageTempName);
-            String picturePath = getRealPathFromURI(tempUri);
-            file = FileUtils.getFile(getContext(), tempUri);
-            int file_size = Integer.parseInt(String.valueOf(file.length() / 1024));
-            Log.i("isi_file", "onCaptureImageResult1: " + file.getName() + " " + file_size);
-            setToImageView(getResizedBitmap(decoded, max_resolution_image));
-
-            MultipartBody.Part body = null;
-            RequestBody requestFile;
-            if (file == null) {
-                Toast.makeText(getActivity(), "File Kosong", Toast.LENGTH_SHORT).show();
-            } else {
-                requestFile = RequestBody.create(MediaType.parse("image/*"), file);
-                body = MultipartBody.Part.createFormData("foto_laporan", file.getName(), requestFile);
-            }
-            home countryPresenter = new home(null, getActivity());
-            countryPresenter.edit_foto(body, progressDialog);
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    private String getRealPathFromURI(Uri contentUri) {
-        String[] proj = {MediaStore.Images.Media.DATA};
-        CursorLoader loader = new CursorLoader(getContext().getApplicationContext(), contentUri, proj, null, null, null);
-        Cursor cursor = loader.loadInBackground();
-        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-        cursor.moveToFirst();
-        String result = cursor.getString(column_index);
-        cursor.close();
-        return result;
-    }
-
-
-    public Uri getImageUri(Context inContext, Bitmap inImage, String imageName) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
-        String path = MediaStore.Images.Media.insertImage(getContext().getContentResolver(), inImage, imageName, null);
-        return Uri.parse(path);
-    }
 
 
     private void setToImageView(Bitmap bmp) {
@@ -423,7 +364,7 @@ public class fragment_profil extends Fragment  implements CameraCapture_new.OnIn
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.JPEG, bitmap_size, bytes);
         decoded = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-        Log.i("isi_foto", "setToImageView: "+decoded);
+        //menampilkan gambar yang dipilih dari camera/gallery ke ImageView
         imgFotoProfil.setImageBitmap(decoded);
 
     }
@@ -443,27 +384,130 @@ public class fragment_profil extends Fragment  implements CameraCapture_new.OnIn
         return Bitmap.createScaledBitmap(image, width, height, true);
     }
 
-    @Override
-    public void onSimpanClick(Jpeg data, File file) {
+    public String getStringImage(Bitmap bmp) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, bitmap_size, baos);
+        byte[] imageBytes = baos.toByteArray();
+        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
 
+        //Log.i(TAG, "getStringImage: "+encodedImage);
+        return encodedImage;
     }
 
 
-//    @Override
-//    public void onSimpanClick(Jpeg data, File file1) {
-//        try {
-//            file = file1;
-//
-//
-//            String filePath = file1.getPath();
-//            decoded = BitmapFactory.decodeFile(filePath);
-//            imgFotoProfil.setImageBitmap(decoded);
-//            int file_size = Integer.parseInt(String.valueOf(file1.length() / 1024));
-//            Log.i("isi_foto", "onSimpanClick: " + file1.getName() + " " + file_size);
-//
-//        } catch (Exception e) {
-//            Log.i("eeee", "onSimpanClick: " + e);
-//
-//        }
-//    }
+    @Override
+    public void onSimpanClick(Jpeg data, File file1) {
+        try {
+            file = file1;
+
+
+            String filePath = file1.getPath();
+            decoded = BitmapFactory.decodeFile(filePath);
+            imgFotoProfil.setImageBitmap(decoded);
+            int file_size = Integer.parseInt(String.valueOf(file1.length() / 1024));
+            Log.i("isi_foto", "onSimpanClick: " + file1.getName() + " " + file_size);
+
+        } catch (Exception e) {
+            Log.i("eeee", "onSimpanClick: " + e);
+
+        }
+    }
+
+    void foto(Uri uri) {
+        Glide.with(getActivity())
+                .load(uri)
+                .apply(new RequestOptions()
+                        .fitCenter()
+                        .circleCrop()
+                        .error(R.drawable.us))
+                .into(imgFotoProfil);
+    }
+    @SuppressLint({"MissingSuperCall", "RestrictedApi"})
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+
+        if (requestCode == CAMERA_CAPTURE_IMAGE_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+
+                try {
+
+
+                    BitmapFactory.Options bounds = new BitmapFactory.Options();
+                    bounds.inJustDecodeBounds = true;
+                    BitmapFactory.decodeFile(imageStoragePath, bounds);
+
+                    BitmapFactory.Options opts = new BitmapFactory.Options();
+                    Bitmap bm = BitmapFactory.decodeFile(imageStoragePath, opts);
+                    ExifInterface exif = new ExifInterface(imageStoragePath);
+                    String orientString = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
+                    int orientation = orientString != null ? Integer.parseInt(orientString) :  ExifInterface.ORIENTATION_NORMAL;
+
+                    int rotationAngle = 0;
+                    if (orientation == ExifInterface.ORIENTATION_ROTATE_90) rotationAngle = 90;
+                    if (orientation == ExifInterface.ORIENTATION_ROTATE_180) rotationAngle = 180;
+                    if (orientation == ExifInterface.ORIENTATION_ROTATE_270) rotationAngle = 270;
+
+                    Matrix matrix = new Matrix();
+                    matrix.setRotate(rotationAngle, (float) bm.getWidth() / 2, (float) bm.getHeight() / 2);
+                    Bitmap rotatedBitmap = Bitmap.createBitmap(bm, 0, 0, bounds.outWidth, bounds.outHeight, matrix, true);
+
+
+                    setToImageView(getResizedBitmap(rotatedBitmap, max_resolution_image));
+                    imgFotoProfil.setImageBitmap(rotatedBitmap);
+
+
+
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
+
+
+            } else if (resultCode == RESULT_CANCELED) {
+
+            }
+            else {
+
+            }
+        }
+
+        if (requestCode == SELECT_FILE && data != null && data.getData() != null) {
+            try {
+
+
+                // mengambil gambar dari Gallery
+                bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
+                setToImageView(getResizedBitmap(bitmap, max_resolution_image));
+                getStringImage(decoded);
+                Uri tempUri = getImageUri(getActivity().getApplicationContext(), bitmap);
+                foto(tempUri);
+
+                file = FileUtils.getFile(getContext(), tempUri);
+                int file_size = Integer.parseInt(String.valueOf(file.length() / 1024));
+                Log.i("isi_file", "onCaptureImageResult1: " + file.getName() + " " + file_size);
+                setToImageView(getResizedBitmap(decoded, max_resolution_image));
+
+                MultipartBody.Part body = null;
+                RequestBody requestFile;
+                if (file == null) {
+                    Toast.makeText(getActivity(), "File Kosong", Toast.LENGTH_SHORT).show();
+                } else {
+                    requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+                    body = MultipartBody.Part.createFormData("foto_laporan", file.getName(), requestFile);
+                }
+                home countryPresenter = new home(null, getActivity());
+                countryPresenter.edit_foto(body, progressDialog);
+
+                //  foto(tempUri);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
 }

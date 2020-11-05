@@ -7,6 +7,18 @@ public class Response_simpan {
 	@SerializedName("kode")
 	private String kode;
 
+
+	public String getNama() {
+		return nama;
+	}
+
+	public void setNama(String nama) {
+		this.nama = nama;
+	}
+
+	@SerializedName("nama")
+	private String nama;
+
 	@SerializedName("message")
 	private String message;
 

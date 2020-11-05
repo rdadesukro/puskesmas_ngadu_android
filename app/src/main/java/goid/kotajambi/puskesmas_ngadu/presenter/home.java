@@ -3,11 +3,13 @@ package goid.kotajambi.puskesmas_ngadu.presenter;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
 import android.widget.Toast;
 
 
+import com.github.squti.guru.Guru;
 import com.jeevandeshmukh.glidetoastlib.GlideToast;
 
 import java.io.IOException;
@@ -23,7 +25,10 @@ import goid.kotajambi.puskesmas_ngadu.model.laporan_saya.Result_laporan_saya;
 import goid.kotajambi.puskesmas_ngadu.model.model_berita.Response_berita;
 import goid.kotajambi.puskesmas_ngadu.model.simpan.Response_simpan;
 import goid.kotajambi.puskesmas_ngadu.model.slider.Response_slider;
+import goid.kotajambi.puskesmas_ngadu.view.menu.menu_riset_password;
+import goid.kotajambi.puskesmas_ngadu.view.menu.menu_utama;
 import goid.kotajambi.puskesmas_ngadu.view.view_home;
+import maes.tech.intentanim.CustomIntent;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -118,7 +123,7 @@ public class home {
                 if (kode.equals("1")) {
                    // Toast.makeText(ctx, ""+response.body().getMessage(), Toast.LENGTH_SHORT).show();
                    finalPDialog.dismiss();
-                    sukses();
+                    dialog_berhasil("Berhasil Lapor","");
                     //new GlideToast.makeToast((Activity) ctx, "" + response.body().getMessage(), GlideToast.LENGTHLONG, GlideToast.SUCCESSTOAST, GlideToast.CENTER).show();
 
                 } else {
@@ -265,6 +270,25 @@ public class home {
             }
         });
     }
+    void dialog_berhasil(String judul,String pesan) {
+        SweetAlertDialog pDialog = new SweetAlertDialog(ctx, SweetAlertDialog.SUCCESS_TYPE);
+        pDialog.setCancelable(false);
+        pDialog.setTitleText(judul);
+        pDialog.setConfirmText("Ok");
+        pDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                sweetAlertDialog.dismissWithAnimation();
+                CustomIntent.customType(ctx, "fadein-to-fadeout");
+                Intent intent = new Intent((Activity) ctx, menu_utama.class);
+                intent.putExtra("Fragmentone", 0); //pass zero for Fragmentone.
+                ctx.startActivity(intent);
+            }
+        });
+        pDialog.setCanceledOnTouchOutside(false);
+        pDialog.show();
+
+    }
 
     void  sukses(){
         SweetAlertDialog  pDialog = new SweetAlertDialog((Activity) ctx, SweetAlertDialog.SUCCESS_TYPE);
@@ -310,15 +334,16 @@ public class home {
                 Log.i("kode", "onResponse: " + kode);
 
                 if (kode.equals("1")) {
+                    Guru.putString("foto_profil", response.body().getNama());
                     // Toast.makeText(ctx, ""+response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     finalPDialog.dismiss();
-                    sukses();
-                    //new GlideToast.makeToast((Activity) ctx, "" + response.body().getMessage(), GlideToast.LENGTHLONG, GlideToast.SUCCESSTOAST, GlideToast.CENTER).show();
+                   // sukses();
+                    new GlideToast.makeToast((Activity) ctx, "" + response.body().getMessage(), GlideToast.LENGTHLONG, GlideToast.SUCCESSTOAST, GlideToast.CENTER).show();
 
                 } else {
                     // Toast.makeText(ctx, ""+response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     finalPDialog.dismiss();
-                    gagal();
+                    //gagal();
                     new GlideToast.makeToast((Activity) ctx, "" + response.body().getMessage(), GlideToast.LENGTHLONG, GlideToast.WARNINGTOAST, GlideToast.CENTER).show();
                 }
 

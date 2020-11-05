@@ -16,12 +16,14 @@ import com.jeevandeshmukh.glidetoastlib.GlideToast;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import goid.kotajambi.puskesmas_ngadu.Server.ApiRequest;
+import goid.kotajambi.puskesmas_ngadu.Server.Retroserver_server;
 import goid.kotajambi.puskesmas_ngadu.Server.Retroserver_server_AUTH;
 import goid.kotajambi.puskesmas_ngadu.model.login.Response_login;
 import goid.kotajambi.puskesmas_ngadu.model.simpan.Response_simpan;
 import goid.kotajambi.puskesmas_ngadu.view.menu.menu_login;
 import goid.kotajambi.puskesmas_ngadu.view.menu.menu_login_with_google;
 import goid.kotajambi.puskesmas_ngadu.view.menu.menu_register;
+import goid.kotajambi.puskesmas_ngadu.view.menu.menu_riset_password;
 import goid.kotajambi.puskesmas_ngadu.view.menu.menu_utama;
 import goid.kotajambi.puskesmas_ngadu.view.view_komen;
 import maes.tech.intentanim.CustomIntent;
@@ -309,6 +311,7 @@ public class login {
                 if (kode.equals("1")) {
 
                 } else {
+                    new GlideToast.makeToast((Activity) ctx, "" + response.body().getMessage(), GlideToast.LENGTHLONG, GlideToast.WARNINGTOAST, GlideToast.CENTER).show();
 
                 }
 
@@ -320,6 +323,145 @@ public class login {
             }
         });
 
+    }
+    public  void  send_email(String email,ProgressDialog pDialog){
+
+        pDialog = new ProgressDialog(ctx);
+        pDialog.setTitle("Mohon Tunggu!!!");
+        pDialog.setMessage("Cek Email...");
+        pDialog.setCancelable(false);
+        pDialog.setCanceledOnTouchOutside(false);
+        pDialog.show();
+        ProgressDialog finalPDialog = pDialog;
+
+        ApiRequest api = Retroserver_server.getClient().create(ApiRequest.class);
+        Call<Response_simpan> sendbio = api.send_email(email);
+
+        sendbio.enqueue(new Callback<Response_simpan>() {
+            @Override
+            public void onResponse(Call<Response_simpan> call, Response<Response_simpan> response) {
+
+                String kode = response.body().getKode();
+                String pesan = response.body().getMessage();
+                Log.i("kode", "onResponse: " + kode);
+
+                if (kode.equals("1")) {
+                    dialog_berhasil("Berhasil Kirim Kode",pesan);
+                    finalPDialog.dismiss();
+
+
+                } else {
+                    dialog_gagal("OPPS!!!",pesan);
+                    finalPDialog.dismiss();
+
+                }
+
+            }
+            @Override
+            public void onFailure(Call<Response_simpan> call, Throwable t) {
+
+                Log.d("RETRO", "Falure : " + "Gagal Mengirim Request");
+            }
+        });
+
+
+    }
+    public  void edit_password(String kode,String password,ProgressDialog pDialog){
+
+        pDialog = new ProgressDialog(ctx);
+        pDialog.setTitle("Mohon Tunggu!!!");
+        pDialog.setMessage("Riset Password...");
+        pDialog.setCancelable(false);
+        pDialog.setCanceledOnTouchOutside(false);
+        pDialog.show();
+        ProgressDialog finalPDialog = pDialog;
+
+        ApiRequest api = Retroserver_server.getClient().create(ApiRequest.class);
+        Call<Response_simpan> sendbio = api.edit_password(kode,password);
+
+        sendbio.enqueue(new Callback<Response_simpan>() {
+            @Override
+            public void onResponse(Call<Response_simpan> call, Response<Response_simpan> response) {
+
+                String kode = response.body().getKode();
+                String pesan = response.body().getMessage();
+                Log.i("kode", "onResponse: " + kode);
+
+                if (kode.equals("1")) {
+                    dialog_berhasil_riset("Berhasil",pesan);
+                    finalPDialog.dismiss();
+
+
+                } else {
+                    dialog_gagal("OPPS!!!",pesan);
+                    finalPDialog.dismiss();
+
+                }
+
+            }
+            @Override
+            public void onFailure(Call<Response_simpan> call, Throwable t) {
+
+                Log.d("RETRO", "Falure : " + "Gagal Mengirim Request");
+            }
+        });
+
+
+    }
+    void dialog_berhasil(String judul,String pesan) {
+        SweetAlertDialog pDialog = new SweetAlertDialog(ctx, SweetAlertDialog.SUCCESS_TYPE);
+        pDialog.setCancelable(false);
+        pDialog.setTitleText(judul);
+        pDialog.setContentText(pesan);
+        pDialog.setConfirmText("Ok");
+        pDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                sweetAlertDialog.dismissWithAnimation();
+                CustomIntent.customType(ctx, "fadein-to-fadeout");
+                Intent intent = new Intent((Activity) ctx, menu_riset_password.class);
+                intent.putExtra("Fragmentone", 3); //pass zero for Fragmentone.
+                ctx.startActivity(intent);
+            }
+        });
+        pDialog.setCanceledOnTouchOutside(false);
+        pDialog.show();
+
+    }
+    void dialog_berhasil_riset(String judul,String pesan) {
+        SweetAlertDialog pDialog = new SweetAlertDialog(ctx, SweetAlertDialog.SUCCESS_TYPE);
+        pDialog.setCancelable(false);
+        pDialog.setTitleText(judul);
+        pDialog.setContentText(pesan);
+        pDialog.setConfirmText("Ok");
+        pDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                sweetAlertDialog.dismissWithAnimation();
+                CustomIntent.customType(ctx, "fadein-to-fadeout");
+                Intent intent = new Intent((Activity) ctx, menu_login.class);
+                intent.putExtra("Fragmentone", 3); //pass zero for Fragmentone.
+                ctx.startActivity(intent);
+            }
+        });
+        pDialog.setCanceledOnTouchOutside(false);
+        pDialog.show();
+
+    }
+    void dialog_gagal(String judul,String pesan) {
+        SweetAlertDialog pDialog = new SweetAlertDialog(ctx, SweetAlertDialog.WARNING_TYPE);
+        pDialog.setCancelable(false);
+        pDialog.setTitleText(judul);
+        pDialog.setContentText(pesan);
+        pDialog.setConfirmText("Ok");
+        pDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                sweetAlertDialog.dismissWithAnimation();
+            }
+        });
+        pDialog.setCanceledOnTouchOutside(false);
+        pDialog.show();
 
     }
 

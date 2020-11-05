@@ -1,6 +1,7 @@
 package goid.kotajambi.puskesmas_ngadu.view.menu;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -10,6 +11,9 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Matrix;
+import android.icu.util.Calendar;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -113,6 +117,10 @@ public class menu_lapor extends AppCompatActivity implements Validator.Validatio
     // Image and Video file extensions
     public static final String IMAGE_EXTENSION = "jpg";
     public static final String VIDEO_EXTENSION = "mp4";
+
+    private static final int CAMERA_CAPTURE_IMAGE_REQUEST_CODE = 100;
+    private static String imageStoragePath;
+    Bitmap bitmap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -214,8 +222,10 @@ public class menu_lapor extends AppCompatActivity implements Validator.Validatio
                     dialog_new.show(fm, "fragment_camera");
 
                 } else if (items[item].equals("Galeri")) {
-                    Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(i, 90);
+                    Intent intent = new Intent();
+                    intent.setType("image/*");
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    startActivityForResult(Intent.createChooser(intent, "Select Picture"), SELECT_FILE);
                 } else if (items[item].equals("Cancel")) {
                     dialog.dismiss();
                 }
@@ -226,70 +236,84 @@ public class menu_lapor extends AppCompatActivity implements Validator.Validatio
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != Activity.RESULT_CANCELED) {
-
-            if (requestCode == 100) {
+    @SuppressLint("MissingSuperCall")
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 
-            } else if (requestCode == 90) {
+        if (requestCode == CAMERA_CAPTURE_IMAGE_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
 
-                onCaptureImageResult1(data);
+                try {
 
-            } else {
+
+                    BitmapFactory.Options bounds = new BitmapFactory.Options();
+                    bounds.inJustDecodeBounds = true;
+                    BitmapFactory.decodeFile(imageStoragePath, bounds);
+
+                    BitmapFactory.Options opts = new BitmapFactory.Options();
+                    Bitmap bm = BitmapFactory.decodeFile(imageStoragePath, opts);
+                    ExifInterface exif = new ExifInterface(imageStoragePath);
+                    String orientString = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
+                    int orientation = orientString != null ? Integer.parseInt(orientString) :  ExifInterface.ORIENTATION_NORMAL;
+
+                    int rotationAngle = 0;
+                    if (orientation == ExifInterface.ORIENTATION_ROTATE_90) rotationAngle = 90;
+                    if (orientation == ExifInterface.ORIENTATION_ROTATE_180) rotationAngle = 180;
+                    if (orientation == ExifInterface.ORIENTATION_ROTATE_270) rotationAngle = 270;
+
+                    Matrix matrix = new Matrix();
+                    matrix.setRotate(rotationAngle, (float) bm.getWidth() / 2, (float) bm.getHeight() / 2);
+                    Bitmap rotatedBitmap = Bitmap.createBitmap(bm, 0, 0, bounds.outWidth, bounds.outHeight, matrix, true);
+
+
+                    setToImageView(getResizedBitmap(rotatedBitmap, max_resolution_image));
+                    imgLapor.setImageBitmap(rotatedBitmap);
+
+
+
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
+
+
+            } else if (resultCode == RESULT_CANCELED) {
+
             }
+            else {
 
-
+            }
         }
 
-    }
+        if (requestCode == SELECT_FILE && data != null && data.getData() != null) {
+            try {
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    private void onCaptureImageResult1(Intent data2) {
-        Uri uri = data2.getData();
-        try {
-            decoded = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
 
-            tempUri = getImageUri(getApplicationContext(), decoded, imageTempName);
-            String picturePath = getRealPathFromURI(tempUri);
-            file = FileUtils.getFile(this, tempUri);
-            int file_size = Integer.parseInt(String.valueOf(file.length() / 1024));
-            Log.i("isi_file", "onCaptureImageResult1: " + file.getName() + " " + file_size);
-            setToImageView(getResizedBitmap(decoded, max_resolution_image));
-
-        } catch (IOException e) {
-            e.printStackTrace();
+                // mengambil gambar dari Gallery
+                bitmap = MediaStore.Images.Media.getBitmap(menu_lapor.this.getContentResolver(), data.getData());
+                setToImageView(getResizedBitmap(bitmap, max_resolution_image));
+                getStringImage(decoded);
+                Uri tempUri = getImageUri(getApplicationContext(), bitmap);
+                file = FileUtils.getFile(this, tempUri);
+                //  foto(tempUri);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-
     }
-
-    private String getRealPathFromURI(Uri contentUri) {
-        String[] proj = {MediaStore.Images.Media.DATA};
-        CursorLoader loader = new CursorLoader(getApplicationContext(), contentUri, proj, null, null, null);
-        Cursor cursor = loader.loadInBackground();
-        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-        cursor.moveToFirst();
-        String result = cursor.getString(column_index);
-        cursor.close();
-        return result;
-    }
-
-
-    public Uri getImageUri(Context inContext, Bitmap inImage, String imageName) {
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
-        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, imageName, null);
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
         return Uri.parse(path);
     }
-
 
     private void setToImageView(Bitmap bmp) {
         //compress image
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.JPEG, bitmap_size, bytes);
         decoded = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+        //menampilkan gambar yang dipilih dari camera/gallery ke ImageView
         imgLapor.setImageBitmap(decoded);
 
     }
@@ -314,8 +338,13 @@ public class menu_lapor extends AppCompatActivity implements Validator.Validatio
         bmp.compress(Bitmap.CompressFormat.JPEG, bitmap_size, baos);
         byte[] imageBytes = baos.toByteArray();
         String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+
+        //Log.i(TAG, "getStringImage: "+encodedImage);
         return encodedImage;
     }
+
+
+
 
     @OnClick(R.id.arrowBtn)
     public void onViewClicked() {

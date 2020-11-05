@@ -27,8 +27,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.menu.menu_event"
-            android:label="Events"></activity>
+        <activity android:name=".view.menu.menu_riset_password"
+            android:windowSoftInputMode="stateVisible|adjustResize"></activity>
+        <activity
+            android:name=".view.menu.menu_event"
+            android:label="Events" />
         <activity android:name=".view.menu.menu_komen_laporan_masuk" />
         <activity android:name=".view.menu.menu_detail_layanan" />
         <activity android:name=".view.menu.menu_layanan" />
@@ -36,7 +39,8 @@
             android:name=".view.menu.menu_login"
             android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity android:name=".view.menu.menu_detail_slider" />
-        <activity android:name=".view.menu.menu_lupa_password" />
+        <activity android:name=".view.menu.menu_lupa_password"
+            android:windowSoftInputMode="stateVisible|adjustResize"/>
         <activity
             android:name=".view.menu.menu_register"
             android:windowSoftInputMode="stateVisible|adjustResize" />

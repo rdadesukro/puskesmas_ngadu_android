@@ -7,7 +7,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Retroserver_server {
-    private  static  final String base_url = "https://ppid.jambikota.go.id/api_android/";
+    private  static  final String base_url = "http://192.168.1.71/puskesmas_ngadu/public/api/auth/";
    //private  static  final String base_url =    "http://192.168.56.1/e_pelayanan/";
 
     public static  final String base_url_image_before = "https://sipaten.jambikota.go.id/android/images/before/";

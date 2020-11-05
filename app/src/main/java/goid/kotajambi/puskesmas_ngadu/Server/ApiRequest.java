@@ -79,6 +79,17 @@ public interface ApiRequest {
             @Field("email") String email);
 
     @FormUrlEncoded
+    @POST("send_email")
+    Call<Response_simpan> send_email(
+            @Field("email") String email);
+
+    @FormUrlEncoded
+    @POST("riset_password")
+    Call<Response_simpan> edit_password(
+            @Field("kode") String kode,
+            @Field("password_baru") String password_baru);
+
+    @FormUrlEncoded
     @POST("hapus_token")
     Call<Response_simpan> hapus_token(
             @Field("token") String token);

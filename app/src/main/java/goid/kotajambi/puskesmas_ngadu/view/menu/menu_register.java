@@ -39,7 +39,7 @@ public class menu_register extends AppCompatActivity implements Validator.Valida
     @BindView(R.id.btn_register)
     Button btnRegister;
 
-    @ConfirmPassword
+    @ConfirmPassword(message = "Konfirmasi Password tidak sama")
     @NotEmpty
     @BindView(R.id.edit_confirmasi)
     EditText editConfirmasi;

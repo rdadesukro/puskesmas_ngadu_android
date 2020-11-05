@@ -1,5 +1,6 @@
 package goid.kotajambi.puskesmas_ngadu.view.menu;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -49,6 +50,7 @@ import butterknife.OnClick;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import goid.kotajambi.puskesmas_ngadu.R;
 import goid.kotajambi.puskesmas_ngadu.presenter.login;
+import maes.tech.intentanim.CustomIntent;
 
 public class menu_login extends AppCompatActivity implements Validator.ValidationListener, CameraCapture.OnInputListener, GoogleApiClient.OnConnectionFailedListener {
     private static final int RC_SIGN_IN = 007;
@@ -265,12 +267,20 @@ public class menu_login extends AppCompatActivity implements Validator.Validatio
 
                 signIn();
                 break;
+            case R.id.btn_lupa:
+                Intent intent = new Intent(menu_login.this, menu_lupa_password.class);
+                intent.putExtra("Fragmentone", 3); //pass zero for Fragmentone.
+                startActivity(intent);
+                CustomIntent.customType(menu_login.this,"fadein-to-fadeout");
+
+                break;
 
         }
     }
 
     @OnClick(R.id.btn_login)
     public void onViewClicked() {
+
         validator.validate();
     }
 }

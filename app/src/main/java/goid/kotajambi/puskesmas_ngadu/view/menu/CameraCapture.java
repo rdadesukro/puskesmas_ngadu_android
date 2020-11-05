@@ -214,7 +214,7 @@ CameraCapture extends DialogFragment {
                                         outputStream.write(photo);
                                         outputStream.close();
                                         onInputListener.onSimpanClick(jpeg, savedPhoto);
-                                        getDialog().cancel();
+                                       // getDialog().cancel();
                                     } catch (IOException e) {
                                         Log.i("cek_eror_foto", "run: "+e);
                                         e.printStackTrace();
