@@ -107,7 +107,7 @@ public class menu_login extends AppCompatActivity implements Validator.Validatio
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
-        getSupportActionBar().hide();
+       getSupportActionBar().hide();
         token = FirebaseInstanceId.getInstance().getToken();
         Guru.putString("token",token);
 
@@ -260,7 +260,7 @@ public class menu_login extends AppCompatActivity implements Validator.Validatio
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
+        Log.i("cek_logi", "onConnectionFailed:" + connectionResult);
     }
 
     @OnClick({R.id.btn_email, R.id.btn_register, R.id.btn_login, R.id.btn_lupa})
@@ -305,5 +305,9 @@ public class menu_login extends AppCompatActivity implements Validator.Validatio
     public void onViewClicked() {
 
         validator.validate();
+    }
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
     }
 }

@@ -1,6 +1,8 @@
 package goid.kotajambi.puskesmas_ngadu.view.menu;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -82,6 +84,8 @@ public class menu_detail_laporan extends AppCompatActivity implements view_komen
     CardView cardFoto;
     @BindView(R.id.txt_jumlah)
     TextView txtJumlah;
+    @BindView(R.id.txt_kode2)
+    TextView txtKode2;
 
 
     private adapter_komen adapter_komen;
@@ -98,7 +102,9 @@ public class menu_detail_laporan extends AppCompatActivity implements view_komen
         txtJudul.setText(Guru.getString("judul", "false"));
         txtTgl.setText(Guru.getString("tgl", "false"));
         txtIsi.setText(Guru.getString("isi", "false"));
+
         txtNama.setText(Guru.getString("nama", "false"));
+        txtKode2.setText(Guru.getString("kode_lp", "false"));
         no_hp = Guru.getString("no_hp", "false");
         txtJumlah.setText("( " + Guru.getString("jumlah", "false") + " Comment )");
 
@@ -171,10 +177,9 @@ public class menu_detail_laporan extends AppCompatActivity implements view_komen
     @Override
     public void komen(List<Result_komen> kom) {
         Log.i("isi_komen", "komen: " + kom.size());
-        for (int i =0;i<kom.size();i++){
-            Log.i("id_user", "komen: "+kom.get(i).getUsersId());
+        for (int i = 0; i < kom.size(); i++) {
+            Log.i("id_user", "komen: " + kom.get(i).getUsersId());
         }
-
 
 
         adapter_komen = new adapter_komen(this, kom, 1);
@@ -212,7 +217,8 @@ public class menu_detail_laporan extends AppCompatActivity implements view_komen
         if (no_hp.equals("false")) {
             Toast.makeText(this, "No Hp Tidak Ada", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "No Hp Ada", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + no_hp));
+            startActivity(intent);
         }
     }
 

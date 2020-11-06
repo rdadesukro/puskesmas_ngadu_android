@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <uses-feature
@@ -27,7 +28,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.menu.tes_menu"></activity>
+        <activity android:name=".view.menu.menu_detail_events"></activity>
+        <activity android:name=".view.menu.menu_cari" />
+        <activity android:name=".view.menu.tes_menu" />
         <activity
             android:name=".view.menu.menu_riset_password"
             android:windowSoftInputMode="stateVisible|adjustResize" />
@@ -67,7 +70,6 @@
         <activity android:name=".view.menu.menu_utama" />
         <activity
             android:name=".view.menu.menu_pembuka"
-            android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateVisible|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

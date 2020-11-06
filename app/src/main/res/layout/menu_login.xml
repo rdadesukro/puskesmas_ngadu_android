@@ -8,15 +8,16 @@
 
     <com.trncic.library.DottedProgressBar
         android:id="@+id/progress"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
         android:visibility="gone"
         app:activeDot="@color/deep_orange_600"
         app:dotSize="20dp"
         app:inactiveDot="@color/deep_orange_50"
         app:jumpingSpeed="250"
-        app:layout_constraintBottom_toTopOf="@+id/nestedScrollView2"
         app:layout_constraintEnd_toEndOf="@+id/nestedScrollView2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/nestedScrollView2"
@@ -32,7 +33,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:fillViewport="true"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -66,8 +66,9 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:backgroundTint="@color/bg_screen3"
                         android:layout_marginBottom="16dp"
+                        android:backgroundTint="@color/bg_screen3"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/linearLayout"
                         app:layout_constraintStart_toStartOf="@+id/linearLayout"
@@ -97,10 +98,10 @@
                                 android:layout_marginStart="8dp"
                                 android:layout_marginTop="8dp"
                                 android:layout_marginBottom="8dp"
+                                android:background="@drawable/common_full_open_on_phone"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                android:background="@drawable/common_full_open_on_phone"
                                 app:srcCompat="@drawable/common_full_open_on_phone" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </androidx.cardview.widget.CardView>
@@ -122,6 +123,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="32dp"
 
+                        android:layout_marginBottom="16dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/linearLayout"
                         app:layout_constraintStart_toStartOf="@+id/linearLayout"
                         app:layout_constraintTop_toBottomOf="@+id/linearLayout">

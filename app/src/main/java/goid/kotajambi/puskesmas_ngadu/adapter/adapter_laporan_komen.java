@@ -67,6 +67,7 @@ public class adapter_laporan_komen extends RecyclerView.Adapter<adapter_laporan_
         holder.txt_date.setText(dm.getCreatedAt());
         holder.txt_jenis.setText(dm.getIsiLaporan());
         holder.txt_judul.setText(dm.getJudul());
+        holder.kode.setText(dm.getKode());
         holder.txt_komen.setText(""+dm.getJumlahKoment());
 
         Glide.with(ctx)
@@ -87,7 +88,7 @@ public class adapter_laporan_komen extends RecyclerView.Adapter<adapter_laporan_
 
 
 
-        if (dm.getFotoLaporan()!=null){
+        if (dm.getFotoLaporan()!=""){
             holder.cardView.setVisibility(View.VISIBLE);
             Glide.with(ctx)
                     .load("https://ramahpkmhandil.jambikota.go.id/uploads/laporan/"+dm.getFotoLaporan())
@@ -109,6 +110,24 @@ public class adapter_laporan_komen extends RecyclerView.Adapter<adapter_laporan_
 
         }else {
            holder.cardView.setVisibility(View.GONE);
+            Glide.with(ctx)
+                    .load("https://ramahpkmhandil.jambikota.go.id/uploads/laporan/"+dm.getFotoLaporan())
+                    .listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            return false;
+                        }
+                    })
+                    .error(R.drawable.ic_baseline_broken_image_24)
+                    .into(holder.img_foto);
+
+
+
 
 
         }
@@ -146,6 +165,9 @@ public class adapter_laporan_komen extends RecyclerView.Adapter<adapter_laporan_
         @BindView(R.id.txt_komen)
         TextView txt_komen;
 
+        @BindView(R.id.txt_kode)
+        TextView kode;
+
         @BindView(R.id.img_foto)
         ImageView img_foto;
 
@@ -180,6 +202,7 @@ public class adapter_laporan_komen extends RecyclerView.Adapter<adapter_laporan_
                     Guru.putString("foto_laporan", dm.getFotoLaporan());
                     Guru.putString("tgl", dm.getCreatedAt());
                     Guru.putString("tgl", dm.getCreatedAt());
+                    Guru.putString("kode_lp", dm.getKode());
                     Guru.putString("foto_pelapor", dm.getUser().getFoto());
                     Guru.putString("nama", dm.getUser().getName());
                     Guru.putString("no_hp", String.valueOf(dm.getUser().getNoHp()));

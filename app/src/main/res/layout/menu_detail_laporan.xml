@@ -231,6 +231,39 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
+                    <View
+                        android:id="@+id/view9"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="24dp"
+                        android:background="@color/grey_5"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_tgl" />
+
+                    <TextView
+                        android:id="@+id/textView14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Kode : "
+                        android:textSize="12dp"
+                        app:layout_constraintEnd_toStartOf="@+id/txt_kode2"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_judul" />
+
+                    <TextView
+                        android:id="@+id/txt_kode2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="24dp"
+                        android:text="20041115"
+                        android:textColor="#F44336"
+                        android:textSize="12dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_judul" />
+
                     <TextView
                         android:id="@+id/txt_judul2"
                         android:layout_width="wrap_content"
@@ -251,9 +284,7 @@
                         android:id="@+id/view3"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
-                        android:layout_marginEnd="8dp"
                         android:background="@color/grey_5"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -295,7 +326,7 @@
                         android:layout_marginStart="24dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="16dp"
-                        android:text="Judu Laporan"
+                        android:text="Judu Laporan Tebaru Aku Hancur  Judu Laporan Tebaru Aku Hancur "
                         android:textColor="@color/grey_60"
                         android:textSize="16dp"
                         app:fontFamily="sans-serif-medium"

@@ -55,7 +55,7 @@ public class adapter_laporan_saya extends PaginatedAdapter<DataItem, adapter_lap
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tgl,judul;
+        TextView tgl,judul,kode;
         TextView jenis,detail,nama,komen;
         ImageView foto,foto_profi;
         CardView cardView;
@@ -65,6 +65,7 @@ public class adapter_laporan_saya extends PaginatedAdapter<DataItem, adapter_lap
             super(itemView);
             tgl = itemView.findViewById(R.id.txt_date);
             nama = itemView.findViewById(R.id.txt_nama);
+            kode = itemView.findViewById(R.id.txt_kode);
             jenis = itemView.findViewById(R.id.txt_jenis);
             foto = itemView.findViewById(R.id.img_foto);
             detail = itemView.findViewById(R.id.txt_detail);
@@ -80,9 +81,11 @@ public class adapter_laporan_saya extends PaginatedAdapter<DataItem, adapter_lap
             tgl.setText(user.getCreatedAt());
             jenis.setText(user.getIsiLaporan());
             judul.setText(user.getJudul());
+            kode.setText("Kode : "+user.getKode());
             komen.setText(user.getJumlahKoment()+" Comment");
 
             nama.setBackgroundResource(R.drawable.bg_nama);
+
 
             nama.setText(user.getUser().getName());
 
@@ -161,6 +164,7 @@ public class adapter_laporan_saya extends PaginatedAdapter<DataItem, adapter_lap
                     Guru.putString("tgl", user.getCreatedAt());
                     Guru.putString("foto_pelapor", user.getUser().getFoto());
                     Guru.putString("nama", user.getUser().getName());
+                    Guru.putString("kode_lp", user.getKode());
                     Guru.putString("no_hp", String.valueOf(user.getUser().getNoHp()));
                     Guru.putString("id_lapor", String.valueOf(user.getId()));
                     Guru.putString("jumlah", String.valueOf(user.getJumlahKoment()));

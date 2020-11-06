@@ -24,22 +24,31 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <TextView
+                android:id="@+id/txt_kode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20041115"
+                android:textColor="#F44336"
+                android:textSize="12dp"
+                app:layout_constraintStart_toStartOf="@+id/txt_judul"
+                app:layout_constraintTop_toBottomOf="@+id/txt_judul" />
+
             <View
                 android:id="@+id/view7"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:background="@color/grey_5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardViedadadw" />
+                app:layout_constraintTop_toBottomOf="@+id/txt_date" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardViedadadw"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:clipToPadding="true"
@@ -82,12 +91,11 @@
                 android:textAllCaps="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                 android:textColor="#FFFFFF"
-                android:textSize="14dp"
+                android:textSize="10dp"
                 android:textStyle="bold"
                 app:fontFamily="sans-serif-medium"
-                app:layout_constraintBottom_toTopOf="@+id/view7"
                 app:layout_constraintStart_toEndOf="@+id/cardViedadadw"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@+id/cardViedadadw" />
 
             <TextView
                 android:id="@+id/txt_komen"
@@ -117,7 +125,7 @@
                 app:cardUseCompatPadding="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_date"
+                app:layout_constraintTop_toBottomOf="@+id/txt_kode"
                 tools:visibility="visible">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -195,8 +203,8 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 android:textColor="@color/grey_40"
                 android:textSize="12dp"
-                app:layout_constraintStart_toStartOf="@+id/txt_judul"
-                app:layout_constraintTop_toBottomOf="@+id/txt_judul" />
+                app:layout_constraintStart_toStartOf="@+id/txt_nama"
+                app:layout_constraintTop_toBottomOf="@+id/txt_nama" />
 
             <TextView
                 android:id="@+id/txt_jenis"
@@ -221,7 +229,9 @@
                 android:id="@+id/txt_judul"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
                 android:maxLines="3"
                 android:text="Judul Laporan"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"

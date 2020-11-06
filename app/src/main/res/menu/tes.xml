@@ -2,9 +2,15 @@
 xmlns:app="http://schemas.android.com/apk/res-auto">
 
 <item
-    android:id="@+id/refres"
-    android:icon="@drawable/ic_baseline_loop_24"
+    android:id="@+id/cari"
+    android:icon="@drawable/ic_baseline_search_24"
     app:showAsAction="always"
     android:title="TODO">
 </item>
+    <item
+        android:id="@+id/refres"
+        android:icon="@drawable/ic_baseline_loop_24"
+        app:showAsAction="always"
+        android:title="TODO">
+    </item>
 </menu>

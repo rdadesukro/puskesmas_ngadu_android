@@ -45,6 +45,7 @@ import goid.kotajambi.puskesmas_ngadu.adapter.adapter_laporan_saya;
 import goid.kotajambi.puskesmas_ngadu.model.laporan_saya.DataItem;
 import goid.kotajambi.puskesmas_ngadu.model.laporan_saya.Response_laporan_saya;
 import goid.kotajambi.puskesmas_ngadu.model.laporan_saya.Result_laporan_saya;
+import goid.kotajambi.puskesmas_ngadu.view.menu.menu_cari;
 import goid.kotajambi.puskesmas_ngadu.view.menu.menu_utama;
 import maes.tech.intentanim.CustomIntent;
 import okhttp3.CipherSuite;
@@ -292,10 +293,22 @@ public class fragment_report extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.tes, menu);
         MenuItem refres = menu.findItem(R.id.refres);
+        MenuItem cari = menu.findItem(R.id.cari);
         refres.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 Intent intent = new Intent((Activity) getActivity(), menu_utama.class);
+                intent.putExtra("Fragmentone", 1); //pass zero for Fragmentone.
+                startActivity(intent);
+                CustomIntent.customType((Activity) getActivity(),"fadein-to-fadeout");
+
+                return false;
+            }
+        });
+        cari.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Intent intent = new Intent((Activity) getActivity(), menu_cari.class);
                 intent.putExtra("Fragmentone", 1); //pass zero for Fragmentone.
                 startActivity(intent);
                 CustomIntent.customType((Activity) getActivity(),"fadein-to-fadeout");

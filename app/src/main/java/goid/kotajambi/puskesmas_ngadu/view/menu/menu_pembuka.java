@@ -61,6 +61,7 @@ public class menu_pembuka extends AppCompatActivity {
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         progress2.setVisibility(View.VISIBLE);
         progress2.startProgress();
+        getSupportActionBar().hide();
         try {
             ProviderInstaller.installIfNeeded(this);
             SSLContext sslContext;

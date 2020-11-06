@@ -211,6 +211,66 @@ public class komen {
 
     }
 
+    public void cari_laporan(String kode){
+        Log.i("id_lapor", "get_komen: "+kode);
+        ApiRequest api = Retroserver_server_AUTH.getClient().create(ApiRequest.class);
+        Call<Response_laporan_komen> call = api.cari_laporan(kode);
+        call.enqueue(new Callback<Response_laporan_komen>() {
+            @Override
+            public void onResponse(Call<Response_laporan_komen> call, Response<Response_laporan_komen> response) {
+
+                try {
+
+                    if (response.isSuccessful()) {
+                        Response_laporan_komen data = response.body();
+                        Log.i("isi_komen", "onResponse: "+data);
+                        if (data != null && data.getResult() != null) {
+                            List<ResultItem_laporan_komen> result = data.getResult();
+                            countryView.laporan_komen(result);
+                        }
+
+
+
+                    } else {
+                        // error case
+                        switch (response.code()) {
+                            case 404:
+                                Toast.makeText(ctx, "not found", Toast.LENGTH_SHORT).show();
+                                break;
+                            case 500:
+                                Toast.makeText(ctx,"server broken", Toast.LENGTH_SHORT).show();
+                                break;
+                            default:
+                                Toast.makeText(ctx, "unknown error", Toast.LENGTH_SHORT).show();
+                                break;
+                        }
+                    }
+
+                } catch (Exception e) {
+                    Log.e("onResponse", "There is an error" + e);
+                    //data();
+                    e.printStackTrace();
+                }
+
+            }
+
+
+            @Override
+            public void onFailure(Call<Response_laporan_komen> call, Throwable t) {
+                t.printStackTrace();
+                //  sliderView_bener.setBackgroundResource(R.drawable.bg_no_item_city);
+                Log.i("ewkwkwkwkw", "onFailure: " + t);
+                if (t instanceof IOException) {
+
+                } else {
+
+                }
+
+            }
+        });
+
+    }
+
 
     }
 

@@ -124,6 +124,9 @@ public interface ApiRequest {
     @GET("tampil_lapor_komen")
     Call<Response_laporan_komen> tampil_lapor_komen(@Query("lapor_id") String lapor_id);
 
+    @GET("cari_laporan")
+    Call<Response_laporan_komen> cari_laporan(@Query("cari") String cari);
+
     @POST("tampil_layanan")
     Call<Response_layanan> get_layanan();
 

@@ -164,6 +164,7 @@ public class menu_utama extends AppCompatActivity {
         Dexter.withActivity(this)
                 .withPermissions(
                         Manifest.permission.CAMERA,
+                        Manifest.permission.CALL_PHONE,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE)
 
                 .withListener(new MultiplePermissionsListener() {
