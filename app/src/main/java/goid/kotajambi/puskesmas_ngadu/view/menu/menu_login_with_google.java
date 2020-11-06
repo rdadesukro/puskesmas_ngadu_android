@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 
 import com.github.squti.guru.Guru;
 import com.google.android.gms.auth.api.Auth;
@@ -21,8 +20,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.OptionalPendingResult;
-import com.google.android.gms.common.api.ResultCallback;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.jpegkit.Jpeg;
 import com.mobsandgeeks.saripaar.ValidationError;
@@ -39,6 +36,7 @@ import butterknife.OnClick;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import goid.kotajambi.puskesmas_ngadu.R;
 import goid.kotajambi.puskesmas_ngadu.presenter.login;
+import maes.tech.intentanim.CustomIntent;
 
 public class menu_login_with_google extends AppCompatActivity implements Validator.ValidationListener, CameraCapture.OnInputListener, GoogleApiClient.OnConnectionFailedListener {
     private static final int RC_SIGN_IN = 007;
@@ -66,6 +64,7 @@ public class menu_login_with_google extends AppCompatActivity implements Validat
     ProgressDialog progressDialog;
     Validator validator;
     String token;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +85,7 @@ public class menu_login_with_google extends AppCompatActivity implements Validat
         editUser.setText(Guru.getString("email", "false"));
         editPass.requestFocus();
         token = FirebaseInstanceId.getInstance().getToken();
-        Guru.putString("token",token);
+        Guru.putString("token", token);
 
     }
 
@@ -149,7 +148,7 @@ public class menu_login_with_google extends AppCompatActivity implements Validat
     @Override
     public void onValidationSucceeded() {
         login countryPresenter = new login(null, menu_login_with_google.this);
-        countryPresenter.login(editUser.getText().toString().trim(), editPass.getText().toString().trim(),token, progressDialog);
+        countryPresenter.login(editUser.getText().toString().trim(), editPass.getText().toString().trim(), token, progressDialog);
     }
 
     @Override
@@ -179,8 +178,16 @@ public class menu_login_with_google extends AppCompatActivity implements Validat
 
 
     @OnClick(R.id.btn_login)
-    public void onViewClicked()
-    {
+    public void onViewClicked() {
         validator.validate();
+    }
+
+    @OnClick(R.id.btn_lupa)
+    public void btn_lupa() {
+        Intent intent = new Intent(menu_login_with_google.this, menu_lupa_password.class);
+        intent.putExtra("Fragmentone", 3); //pass zero for Fragmentone.
+        startActivity(intent);
+        CustomIntent.customType(menu_login_with_google.this,"fadein-to-fadeout");
+
     }
 }

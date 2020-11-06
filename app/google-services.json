@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1048874869102-f4321tcvmgup4v7sg5rvs0rpnujo20ub.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "goid.kotajambi.puskesmas_ngadu",
+            "certificate_hash": "7f6d9af5e36dbf3ebc7e249b9586518a983a9d58"
+          }
+        },
+        {
           "client_id": "1048874869102-lbca4q92ucno2j5260cv6tfa971cujra.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

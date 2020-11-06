@@ -19,7 +19,9 @@ import androidx.cardview.widget.CardView;
 
 import com.github.squti.guru.Guru;
 import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
@@ -154,6 +156,7 @@ public class menu_login extends AppCompatActivity implements Validator.Validatio
     private void handleSignInResult(GoogleSignInResult result) {
         try {
             Log.i("status", "handleSignInResult: " + result.getStatus() + " " + result);
+
             if (result.isSuccess()) {
                 akitf();
                 new Handler().postDelayed(new Runnable() {
@@ -170,7 +173,7 @@ public class menu_login extends AppCompatActivity implements Validator.Validatio
                 }, 3000);
 
             } else {
-                Toast.makeText(this, "gagal", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(this, "gagal", Toast.LENGTH_SHORT).show();
 
             }
         } catch (Exception e) {
@@ -203,6 +206,26 @@ public class menu_login extends AppCompatActivity implements Validator.Validatio
     @Override
     public void onStart() {
         super.onStart();
+        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
+        if (opr.isDone()) {
+            // If the user's cached credentials are valid, the OptionalPendingResult will be "done"
+            // and the GoogleSignInResult will be available instantly.
+            //Log.d(TAG, "Got cached sign-in");
+            GoogleSignInResult result = opr.get();
+            handleSignInResult(result);
+        } else {
+            // If the user has not previously signed in on this device or the sign-in has expired,
+            // this asynchronous branch will attempt to sign in the user silently.  Cross-device
+            // single sign-on will occur in this branch.
+            akitf();
+            opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
+                @Override
+                public void onResult(GoogleSignInResult googleSignInResult) {
+                    mati();
+                    handleSignInResult(googleSignInResult);
+                }
+            });
+        }
         mati();
 
 
@@ -244,26 +267,26 @@ public class menu_login extends AppCompatActivity implements Validator.Validatio
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_email:
-                OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
-
-                if (opr.isDone()) {
-
-                            GoogleSignInResult result = opr.get();
-                            handleSignInResult(result);
-
-                } else {
-
-
-                            opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
-                                @Override
-                                public void onResult(GoogleSignInResult googleSignInResult) {
-                                    //hideProgressDialog();
-                                    handleSignInResult(googleSignInResult);
-                                }
-                            });
-
-
-                }
+//                OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
+//
+//                if (opr.isDone()) {
+//
+//                            GoogleSignInResult result = opr.get();
+//                            handleSignInResult(result);
+//
+//                } else {
+//
+//
+//                            opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
+//                                @Override
+//                                public void onResult(GoogleSignInResult googleSignInResult) {
+//                                    //hideProgressDialog();
+//                                    handleSignInResult(googleSignInResult);
+//                                }
+//                            });
+//
+//
+//                }
 
                 signIn();
                 break;

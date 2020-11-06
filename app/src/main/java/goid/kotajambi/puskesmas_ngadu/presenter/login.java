@@ -334,7 +334,7 @@ public class login {
         pDialog.show();
         ProgressDialog finalPDialog = pDialog;
 
-        ApiRequest api = Retroserver_server.getClient().create(ApiRequest.class);
+        ApiRequest api = Retroserver_server_AUTH.getClient().create(ApiRequest.class);
         Call<Response_simpan> sendbio = api.send_email(email);
 
         sendbio.enqueue(new Callback<Response_simpan>() {
@@ -376,7 +376,7 @@ public class login {
         pDialog.show();
         ProgressDialog finalPDialog = pDialog;
 
-        ApiRequest api = Retroserver_server.getClient().create(ApiRequest.class);
+        ApiRequest api = Retroserver_server_AUTH.getClient().create(ApiRequest.class);
         Call<Response_simpan> sendbio = api.edit_password(kode,password);
 
         sendbio.enqueue(new Callback<Response_simpan>() {
