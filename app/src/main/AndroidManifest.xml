@@ -39,7 +39,8 @@
             android:label="Events" />
         <activity android:name=".view.menu.menu_komen_laporan_masuk" />
         <activity android:name=".view.menu.menu_detail_layanan" />
-        <activity android:name=".view.menu.menu_layanan" />
+        <activity android:name=".view.menu.menu_layanan"
+            android:label="Layanan"/>
         <activity
             android:name=".view.menu.menu_login"
             android:windowSoftInputMode="stateVisible|adjustResize" />
@@ -92,6 +93,13 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>

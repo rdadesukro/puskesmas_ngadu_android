@@ -18,6 +18,7 @@ import java.util.List;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import goid.kotajambi.puskesmas_ngadu.Server.ApiRequest;
 import goid.kotajambi.puskesmas_ngadu.Server.Retroserver_api_berita;
+import goid.kotajambi.puskesmas_ngadu.Server.Retroserver_server;
 import goid.kotajambi.puskesmas_ngadu.Server.Retroserver_server_AUTH;
 import goid.kotajambi.puskesmas_ngadu.model.jumlah_laporan_saya.Response_jumlah;
 import goid.kotajambi.puskesmas_ngadu.model.laporan_saya.Response_laporan_saya;
@@ -308,7 +309,7 @@ public class home {
     public  void  edit_foto(MultipartBody.Part foto, ProgressDialog pDialog ){
         pDialog = new ProgressDialog(ctx);
         pDialog.setTitle("Mohon Tunggu!!!");
-        pDialog.setMessage("Simpan Laporan...");
+        pDialog.setMessage("Edit Foto Profil");
         pDialog.setCancelable(false);
         pDialog.setCanceledOnTouchOutside(false);
         pDialog.show();
@@ -338,6 +339,51 @@ public class home {
                     // Toast.makeText(ctx, ""+response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     finalPDialog.dismiss();
                    // sukses();
+                    new GlideToast.makeToast((Activity) ctx, "" + response.body().getMessage(), GlideToast.LENGTHLONG, GlideToast.SUCCESSTOAST, GlideToast.CENTER).show();
+
+                } else {
+                    // Toast.makeText(ctx, ""+response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    finalPDialog.dismiss();
+                    //gagal();
+                    new GlideToast.makeToast((Activity) ctx, "" + response.body().getMessage(), GlideToast.LENGTHLONG, GlideToast.WARNINGTOAST, GlideToast.CENTER).show();
+                }
+
+            }
+            @Override
+            public void onFailure(Call<Response_simpan> call, Throwable t) {
+                Log.i("cek_error", "onFailure: "+t);
+
+                Log.d("RETRO", "Falure : " + "Gagal Mengirim Request");
+            }
+        });
+
+    }
+
+    public  void  edit_no_hp(String no_hp, ProgressDialog pDialog ){
+        pDialog = new ProgressDialog(ctx);
+        pDialog.setTitle("Mohon Tunggu!!!");
+        pDialog.setMessage("Edit No Handphone");
+        pDialog.setCancelable(false);
+        pDialog.setCanceledOnTouchOutside(false);
+        pDialog.show();
+        ProgressDialog finalPDialog = pDialog;
+        ApiRequest api = Retroserver_server_AUTH.getClient().create(ApiRequest.class);
+
+        Call<Response_simpan> sendbio = api.edit_no_hp(no_hp);
+
+
+        sendbio.enqueue(new Callback<Response_simpan>() {
+            @Override
+            public void onResponse(Call<Response_simpan> call, Response<Response_simpan> response) {
+
+                String kode = response.body().getKode();
+                Log.i("kode", "onResponse: " + kode);
+
+                if (kode.equals("1")) {
+                    Guru.putString("no_hp", response.body().getNama());
+                    // Toast.makeText(ctx, ""+response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    finalPDialog.dismiss();
+                    // sukses();
                     new GlideToast.makeToast((Activity) ctx, "" + response.body().getMessage(), GlideToast.LENGTHLONG, GlideToast.SUCCESSTOAST, GlideToast.CENTER).show();
 
                 } else {

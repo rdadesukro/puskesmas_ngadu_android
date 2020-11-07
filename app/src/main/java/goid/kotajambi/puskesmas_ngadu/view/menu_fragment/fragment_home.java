@@ -4,7 +4,6 @@ package goid.kotajambi.puskesmas_ngadu.view.menu_fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -94,6 +93,10 @@ public class fragment_home extends Fragment implements view_home {
     SwipeRefreshLayout swifeRefresh;
     @BindView(R.id.card_event)
     CardView cardEvent;
+    @BindView(R.id.txt_jm_events)
+    TextView txtJmEvents;
+    @BindView(R.id.txt_jm_layanan)
+    TextView txtJmLayanan;
     private RecyclerView.LayoutManager mManager;
     private List<PostsItem> data = new ArrayList<>();
     private adapter_bener adapter_bener;
@@ -151,6 +154,8 @@ public class fragment_home extends Fragment implements view_home {
         countryPresenter.baner();
         countryPresenter.berita();
         get_jumlah();
+        get_jumlah_eveent();
+        get_jumlah_layanan();
 
         swifeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -158,6 +163,8 @@ public class fragment_home extends Fragment implements view_home {
                 countryPresenter.baner();
                 countryPresenter.berita();
                 get_jumlah();
+                get_jumlah_eveent();
+                get_jumlah_layanan();
 
 
             }
@@ -190,20 +197,19 @@ public class fragment_home extends Fragment implements view_home {
     public void berita(List<PostsItem> result) {
         try {
 
-                    Log.i("datasaadad", "berita: " + result.size());
+            Log.i("datasaadad", "berita: " + result.size());
 
-                    adapter = new adapter_berita_kota(getContext(), result, 1);
-                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
-                    RecyclerView.setLayoutManager(layoutManager);
-                    RecyclerView.setAdapter(adapter);
-                    if (result.size() == 0) {
+            adapter = new adapter_berita_kota(getContext(), result, 1);
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+            RecyclerView.setLayoutManager(layoutManager);
+            RecyclerView.setAdapter(adapter);
+            if (result.size() == 0) {
 
 
-                    } else {
-                        progressBar.setVisibility(View.GONE);
+            } else {
+                progressBar.setVisibility(View.GONE);
 
-                    }
-
+            }
 
 
         } catch (Exception E) {
@@ -266,6 +272,64 @@ public class fragment_home extends Fragment implements view_home {
                     int data = response.body().getJumlah();
                     Log.i("jumlah", "onResponse: " + data);
                     txtJumlah.setText(data + " Laporan");
+                } catch (Exception e) {
+                    Log.d("onResponse", "There is an error");
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Response_jumlah> call, Throwable t) {
+                Log.i("cek_cek", "onResponse: " + t);
+                t.printStackTrace();
+            }
+        });
+    }
+
+    public void get_jumlah_eveent() {
+
+
+        ApiRequest api = Retroserver_server_AUTH.getClient().create(ApiRequest.class);
+        Call<Response_jumlah> call = api.jumlah_event();
+
+        call.enqueue(new Callback<Response_jumlah>() {
+            @Override
+            public void onResponse(Call<Response_jumlah> call, Response<Response_jumlah> response) {
+
+                try {
+                    swifeRefresh.setRefreshing(false);
+                    int data = response.body().getJumlah();
+                    Log.i("jumlah_jumlah", "onResponse: " + data);
+                    txtJmEvents.setText(data + " Events");
+                } catch (Exception e) {
+                    Log.d("onResponse", "There is an error");
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Response_jumlah> call, Throwable t) {
+                Log.i("cek_cek", "onResponse: " + t);
+                t.printStackTrace();
+            }
+        });
+    }
+
+    public void get_jumlah_layanan() {
+
+
+        ApiRequest api = Retroserver_server_AUTH.getClient().create(ApiRequest.class);
+        Call<Response_jumlah> call = api.jumlah_layanan();
+
+        call.enqueue(new Callback<Response_jumlah>() {
+            @Override
+            public void onResponse(Call<Response_jumlah> call, Response<Response_jumlah> response) {
+
+                try {
+                    swifeRefresh.setRefreshing(false);
+                    int data = response.body().getJumlah();
+                    Log.i("jumlah_jumlah", "onResponse: " + data);
+                    txtJmLayanan.setText(data + " Service");
                 } catch (Exception e) {
                     Log.d("onResponse", "There is an error");
                     e.printStackTrace();

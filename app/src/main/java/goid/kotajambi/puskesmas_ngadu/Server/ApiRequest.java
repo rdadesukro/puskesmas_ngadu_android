@@ -39,6 +39,9 @@ public interface ApiRequest {
 
 
 
+    @GET("logout")
+    Call<Response_simpan> logout();
+
     @FormUrlEncoded
     @POST("signup")
     Call<Response_simpan> register(
@@ -109,6 +112,12 @@ public interface ApiRequest {
     @GET("jumlah_laporan_Saya")
     Call<Response_jumlah> get_jumlah();
 
+    @GET("jumlah_event")
+    Call<Response_jumlah> jumlah_event();
+
+    @GET("jumlah_layanan")
+    Call<Response_jumlah> jumlah_layanan();
+
     @GET("slider")
     Call<Response_slider> get_slider();
 
@@ -146,6 +155,11 @@ public interface ApiRequest {
     @Multipart
     @POST("edit_foto")
     Call<Response_simpan> edit_foto(@Part MultipartBody.Part foto_laporan);
+
+    @GET("edit_no_hp")
+    Call<Response_simpan> edit_no_hp(@Query("no_hp") String no_hp);
+
+
 
 }
 

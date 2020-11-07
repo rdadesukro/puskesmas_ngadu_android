@@ -17,7 +17,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import goid.kotajambi.puskesmas_ngadu.R;
+import goid.kotajambi.puskesmas_ngadu.adapter.PaginatedAdapter;
 import goid.kotajambi.puskesmas_ngadu.adapter.adapter_event;
+import goid.kotajambi.puskesmas_ngadu.adapter.adapter_laporan_saya;
 import goid.kotajambi.puskesmas_ngadu.model.event.IsiItem_events;
 import goid.kotajambi.puskesmas_ngadu.presenter.event;
 import goid.kotajambi.puskesmas_ngadu.view.view_event;
@@ -42,6 +44,13 @@ public class menu_event extends AppCompatActivity implements view_event {
         ButterKnife.bind(this);
         event countryPresenter = new event(this, menu_event.this);
         countryPresenter.get_event();
+        swifeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                countryPresenter.get_event();
+
+            }
+        });
     }
 
     @Override
@@ -51,6 +60,7 @@ public class menu_event extends AppCompatActivity implements view_event {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         rvAku.setLayoutManager(layoutManager);
         rvAku.setAdapter(adapter_event);
+        swifeRefresh.setRefreshing(false);
         if (events.size() == 0) {
             txtData2.setVisibility(View.VISIBLE);
             imgData2.setVisibility(View.VISIBLE);

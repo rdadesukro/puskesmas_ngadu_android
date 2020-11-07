@@ -184,10 +184,10 @@
                                         app:srcCompat="@drawable/ic_baseline_date_range_white" />
 
                                     <TextView
-                                        android:id="@+id/textView10"
+                                        android:id="@+id/txt_jm_layanan"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="3 Jadwal"
+                                        android:text="Jadwal"
                                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                                         android:textColor="@color/grey_5"
                                         app:layout_constraintStart_toStartOf="@+id/textView7"
@@ -255,10 +255,10 @@
                                         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
                                     <TextView
-                                        android:id="@+id/textView8"
+                                        android:id="@+id/txt_jm_events"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="3 Jadwal"
+                                        android:text="Jadwal"
                                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                                         android:textColor="@color/grey_5"
                                         app:layout_constraintStart_toStartOf="@+id/textView13"

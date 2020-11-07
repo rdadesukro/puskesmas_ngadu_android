@@ -129,23 +129,6 @@ public class adapter_laporan_saya extends PaginatedAdapter<DataItem, adapter_lap
 
             }else {
                 cardView.setVisibility(View.GONE);
-                Glide.with(ctx)
-                        .load("https://ramahpkmhandil.jambikota.go.id/uploads/laporan/"+user.getFotoLaporan())
-                        .listener(new RequestListener<Drawable>() {
-                            @Override
-                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                                return false;
-                            }
-
-                            @Override
-                            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                                return false;
-                            }
-                        })
-                        .error(R.drawable.ic_baseline_broken_image_24)
-                        .into(foto);
-
-
 
             }
 

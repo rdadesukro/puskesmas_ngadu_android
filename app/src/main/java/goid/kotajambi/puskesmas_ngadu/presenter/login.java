@@ -144,12 +144,6 @@ public class login {
     }
 
     public  void  register(String nama,String password,String email, String no_hp, String alamaat,String token, ProgressDialog pDialog ){
-//        pDialog = new SweetAlertDialog((Activity) ctx, SweetAlertDialog.PROGRESS_TYPE);
-//        pDialog.getProgressHelper().setBarColor(Color.parseColor("#3395ff"));
-//        pDialog.setTitleText("Simpan Data");
-//        pDialog.setContentText("Mohon tunggu sedang memproses...");
-//        pDialog.setCancelable(false);
-//        pDialog.show();
         pDialog = new ProgressDialog(ctx);
         pDialog.setMessage("Register...");
         pDialog.setCancelable(false);
@@ -462,6 +456,47 @@ public class login {
         });
         pDialog.setCanceledOnTouchOutside(false);
         pDialog.show();
+
+    }
+    public  void  keluar(ProgressDialog pDialog ){
+        pDialog = new ProgressDialog(ctx);
+        pDialog.setMessage("Register...");
+        pDialog.setCancelable(false);
+        pDialog.setCanceledOnTouchOutside(false);
+        pDialog.show();
+
+
+        ProgressDialog finalPDialog = pDialog;
+        ApiRequest api = Retroserver_server_AUTH.getClient().create(ApiRequest.class);
+
+        Call<Response_simpan> sendbio = api.logout();
+        sendbio.enqueue(new Callback<Response_simpan>() {
+            @Override
+            public void onResponse(Call<Response_simpan> call, Response<Response_simpan> response) {
+
+                String kode = response.body().getKode();
+                Log.i("kode", "onResponse: " + kode);
+
+                if (kode.equals("1")) {
+                    finalPDialog.dismiss();
+                    Intent goInput = new Intent(ctx, menu_login.class);
+                    Guru.putString("status_loign", "false");
+                    ctx.startActivity(goInput);
+                    CustomIntent.customType(ctx, "fadein-to-fadeout");
+                    new GlideToast.makeToast((Activity) ctx, "" + response.body().getMessage(), GlideToast.LENGTHLONG, GlideToast.SUCCESSTOAST, GlideToast.CENTER).show();
+
+                } else {
+                    finalPDialog.dismiss();
+                    new GlideToast.makeToast((Activity) ctx, "" + response.body().getMessage(), GlideToast.LENGTHLONG, GlideToast.WARNINGTOAST, GlideToast.CENTER).show();
+                }
+
+            }
+            @Override
+            public void onFailure(Call<Response_simpan> call, Throwable t) {
+
+                Log.d("RETRO", "Falure : " + "Gagal Mengirim Request");
+            }
+        });
 
     }
 

@@ -1,15 +1,12 @@
 package goid.kotajambi.puskesmas_ngadu.view.menu_fragment;
 
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -36,17 +33,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.loader.content.CursorLoader;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
@@ -61,7 +53,6 @@ import com.google.android.gms.security.ProviderInstaller;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.jeevandeshmukh.glidetoastlib.GlideToast;
 import com.jpegkit.Jpeg;
-import com.mobsandgeeks.saripaar.Validator;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -69,7 +60,6 @@ import java.io.File;
 import java.io.IOException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Objects;
 
 import javax.net.ssl.SSLContext;
 
@@ -79,12 +69,8 @@ import butterknife.OnClick;
 import goid.kotajambi.puskesmas_ngadu.R;
 import goid.kotajambi.puskesmas_ngadu.presenter.home;
 import goid.kotajambi.puskesmas_ngadu.presenter.login;
-
-import goid.kotajambi.puskesmas_ngadu.view.menu.CameraCapture;
 import goid.kotajambi.puskesmas_ngadu.view.menu.FileUtils;
-import goid.kotajambi.puskesmas_ngadu.view.menu.menu_lapor;
 import goid.kotajambi.puskesmas_ngadu.view.menu.menu_login;
-import goid.kotajambi.puskesmas_ngadu.view.menu.menu_utama;
 import maes.tech.intentanim.CustomIntent;
 import okhttp3.CipherSuite;
 import okhttp3.ConnectionSpec;
@@ -100,7 +86,7 @@ import static androidx.core.provider.FontsContractCompat.FontRequestCallback.RES
 /**
  * A simple {@link Fragment} subclass.
  */
-public class fragment_profil extends Fragment  implements CameraCapture_new.OnInputListener  {
+public class fragment_profil extends Fragment implements CameraCapture_new.OnInputListener {
 
 
     @BindView(R.id.btn_data)
@@ -144,18 +130,21 @@ public class fragment_profil extends Fragment  implements CameraCapture_new.OnIn
     private static final int CAMERA_CAPTURE_IMAGE_REQUEST_CODE = 100;
     private static String imageStoragePath;
     private FragmentActivity myContext;
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setHasOptionsMenu(true);
 
     }
+
     public fragment_profil() {
         // Required empty public constructor
     }
+
     @Override
     public void onAttach(Activity activity) {
-        myContext=(FragmentActivity) activity;
+        myContext = (FragmentActivity) activity;
         super.onAttach(activity);
     }
 
@@ -301,14 +290,11 @@ public class fragment_profil extends Fragment  implements CameraCapture_new.OnIn
 
     @OnClick(R.id.card_keluar)
     public void onViewClicked() {
-        Intent goInput = new Intent(getActivity(), menu_login.class);
-        Guru.putString("status_loign", "false");
-        startActivity(goInput);
-        CustomIntent.customType(getActivity(), "fadein-to-fadeout");
         login countryPresenter = new login(null, getActivity());
-        countryPresenter.hapus_token(Guru.getString("token", "false"));
+        countryPresenter.keluar(progressDialog);
 
     }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.edit, menu);
@@ -335,7 +321,7 @@ public class fragment_profil extends Fragment  implements CameraCapture_new.OnIn
 //                            dialo .show(getFragmentManager(), "fragment_camera");
 
                             CameraCapture_new add = new CameraCapture_new();
-                            add.show(getActivity().getSupportFragmentManager(),"fragment_camera");
+                            add.show(getActivity().getSupportFragmentManager(), "fragment_camera");
 
                         } else if (items[item].equals("Galeri")) {
                             Intent intent = new Intent();
@@ -422,6 +408,7 @@ public class fragment_profil extends Fragment  implements CameraCapture_new.OnIn
                         .error(R.drawable.us))
                 .into(imgFotoProfil);
     }
+
     @SuppressLint({"MissingSuperCall", "RestrictedApi"})
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -440,7 +427,7 @@ public class fragment_profil extends Fragment  implements CameraCapture_new.OnIn
                     Bitmap bm = BitmapFactory.decodeFile(imageStoragePath, opts);
                     ExifInterface exif = new ExifInterface(imageStoragePath);
                     String orientString = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
-                    int orientation = orientString != null ? Integer.parseInt(orientString) :  ExifInterface.ORIENTATION_NORMAL;
+                    int orientation = orientString != null ? Integer.parseInt(orientString) : ExifInterface.ORIENTATION_NORMAL;
 
                     int rotationAngle = 0;
                     if (orientation == ExifInterface.ORIENTATION_ROTATE_90) rotationAngle = 90;
@@ -456,17 +443,14 @@ public class fragment_profil extends Fragment  implements CameraCapture_new.OnIn
                     imgFotoProfil.setImageBitmap(rotatedBitmap);
 
 
-
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
 
             } else if (resultCode == RESULT_CANCELED) {
 
-            }
-            else {
+            } else {
 
             }
         }
@@ -504,10 +488,63 @@ public class fragment_profil extends Fragment  implements CameraCapture_new.OnIn
             }
         }
     }
+
     public Uri getImageUri(Context inContext, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
         return Uri.parse(path);
+    }
+
+    @OnClick(R.id.btn_no_hp)
+    public void btn_no_hp() {
+        dialog = new BottomSheetDialog(getActivity());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_edit_no_hp);
+        dialog.setCancelable(true);
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp = new WindowManager.LayoutParams();
+        lp.copyFrom(dialog.getWindow().getAttributes());
+        dialog.getWindow().setAttributes(lp);
+        dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        dialog.getWindow().setDimAmount(0.5f);
+        lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        EditText  edit_no_hp = (EditText) dialog.findViewById(R.id.edit_no_hp);
+        edit_no_hp.setText(txtNoHp.getText());
+        edit_no_hp.requestFocus();
+        Button btn_edit = (Button) dialog.findViewById(R.id.btn_edit);
+        ImageView btn_close = (ImageView) dialog.findViewById(R.id.btn_close);
+
+        btn_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+
+
+            }
+        });
+
+        btn_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (edit_no_hp.getText().toString().equals("")) {
+                    //  Toast.makeText(menu_profil_pejabat_pejabat.this, "Password lama tidak boleh kosong", Toast.LENGTH_SHORT);
+
+                    new GlideToast.makeToast(getActivity(), "Password lama tidak boleh kosong", GlideToast.LENGTHLONG, GlideToast.WARNINGTOAST, GlideToast.CENTER).show();
+                    edit_no_hp.requestFocus();
+                }else {
+                    home countryPresenter = new home(null, getActivity());
+                    countryPresenter.edit_no_hp(edit_no_hp.getText().toString().trim(), progressDialog);
+                }
+
+
+
+            }
+        });
+
+
+
+        dialog.show();
     }
 }
