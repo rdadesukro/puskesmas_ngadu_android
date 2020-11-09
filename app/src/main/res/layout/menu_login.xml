@@ -30,9 +30,13 @@
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -123,7 +127,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="32dp"
 
-                        android:layout_marginBottom="16dp"
+                        android:layout_marginBottom="32dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/linearLayout"
                         app:layout_constraintStart_toStartOf="@+id/linearLayout"
@@ -205,6 +209,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
+                        android:background="@color/grey_10"
                         android:layout_marginEnd="16dp"
                         android:textColorHint="@color/colorPrimaryDark"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -221,8 +226,7 @@
                             android:layout_centerVertical="true"
                             android:ems="10"
                             android:hint="Email"
-                            android:inputType="textPersonName"
-                            android:text="rdade@gmail.com" />
+                            android:inputType="textPersonName" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -269,8 +273,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
-                        android:text="Lupa Password??"
+                        android:text="@string/password"
                         android:textColor="#000000"
+                        android:autoLink="all"
                         app:layout_constraintEnd_toEndOf="@+id/username_text_input_layout"
                         app:layout_constraintTop_toBottomOf="@+id/username_text_input_layout" />
 
@@ -294,8 +299,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="8dp"
                         android:layout_marginEnd="16dp"
+                        android:background="@color/grey_10"
                         android:textColorHint="@color/colorPrimaryDark"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -311,8 +317,7 @@
                             android:layout_centerVertical="true"
                             android:ems="10"
                             android:hint="Password"
-                            android:inputType="textPassword"
-                            android:text="123456" />
+                            android:inputType="textPassword" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -321,7 +326,24 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        app:layout_constraintGuide_begin="170dp" />
+                        app:layout_constraintGuide_begin="131dp" />
+
+                    <TextView
+                        android:id="@+id/textView8"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:layout_marginBottom="16dp"
+                        android:autoLink="all"
+                        android:gravity="fill"
+                        android:text="@string/kebijakan"
+                        android:textColor="@color/grey_60"
+                        android:textSize="16dp"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/btn_email"
+                        app:layout_constraintStart_toStartOf="@+id/btn_email"
+                        app:layout_constraintTop_toBottomOf="@+id/btn_email" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 

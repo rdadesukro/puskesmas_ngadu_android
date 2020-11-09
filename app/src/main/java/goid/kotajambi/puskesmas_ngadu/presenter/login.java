@@ -66,7 +66,7 @@ public class login {
                     finalPDialog.dismiss();
                     Guru.putString("status_loign", "true");
                     Guru.putString("auth", response.body().getAccessToken());
-                    Guru.putString("nama", response.body().getNama());
+                    Guru.putString("nama_profil", response.body().getNama());
                     Guru.putString("alamat", response.body().getAlamat());
                     Guru.putString("no_hp", response.body().getNoHp());
                     Guru.putString("foto_profil", response.body().getFoto());
@@ -196,7 +196,7 @@ public class login {
                 if (kode.equals("1")) {
                     Guru.putString("status_loign", "true");
                     Guru.putString("auth", response.body().getAccessToken());
-                    Guru.putString("nama", response.body().getNama());
+                    Guru.putString("nama_profil", response.body().getNama());
                     Guru.putString("alamat", response.body().getAlamat());
                     Guru.putString("no_hp", response.body().getNoHp());
                     Guru.putString("foto_profil", response.body().getFoto());
@@ -460,7 +460,7 @@ public class login {
     }
     public  void  keluar(ProgressDialog pDialog ){
         pDialog = new ProgressDialog(ctx);
-        pDialog.setMessage("Register...");
+        pDialog.setMessage("Logout...");
         pDialog.setCancelable(false);
         pDialog.setCanceledOnTouchOutside(false);
         pDialog.show();

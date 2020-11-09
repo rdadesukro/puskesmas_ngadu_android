@@ -1,7 +1,9 @@
 package goid.kotajambi.puskesmas_ngadu.view.menu;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -72,5 +74,14 @@ public class menu_komen_laporan_masuk extends AppCompatActivity implements view_
             progressBar.setVisibility(View.GONE);
         }
 
+    }
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+            startActivity(new Intent(menu_komen_laporan_masuk.this, menu_utama.class));
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

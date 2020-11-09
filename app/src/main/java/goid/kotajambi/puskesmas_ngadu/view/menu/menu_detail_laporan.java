@@ -206,7 +206,8 @@ public class menu_detail_laporan extends AppCompatActivity implements view_komen
     public void btn_send() {
 
         komen countryPresenter = new komen(this, menu_detail_laporan.this);
-        countryPresenter.simpan_komen(Guru.getString("id_lapor", "false"), Guru.getString("id_user", "false"), textContent.getText().toString());
+        countryPresenter.simpan_komen(Guru.getString("id_lapor", "false"), Guru.getString("id_user", "false"), textContent.getText().toString(),
+                Guru.getString("nama_profil", "false"));
         textContent.setText("");
 
 

@@ -9,6 +9,8 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -65,10 +67,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="16dp"
+                        android:background="@color/grey_40"
                         android:clickable="false"
                         android:editable="false"
                         android:focusable="false"
-                        android:background="@color/blue_grey_50"
                         android:textColorHint="@color/colorPrimaryDark"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -80,15 +82,14 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
                             android:clickable="false"
                             android:editable="false"
-                            android:focusable="false"
 
-                            android:layout_centerVertical="true"
                             android:ems="10"
+                            android:focusable="false"
                             android:hint="Email"
-                            android:inputType="textPersonName"
-                            android:text="rdade@gmail.com" />
+                            android:inputType="textPersonName" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -137,7 +138,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
-                        android:text="Lupa Password??"
+                        android:text="@string/password"
                         android:textColor="#000000"
                         app:layout_constraintEnd_toEndOf="@+id/username_text_input_layout"
                         app:layout_constraintTop_toBottomOf="@+id/username_text_input_layout" />
@@ -164,6 +165,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
+                        android:background="@color/grey_10"
                         android:textColorHint="@color/colorPrimaryDark"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -179,8 +181,7 @@
                             android:layout_centerVertical="true"
                             android:ems="10"
                             android:hint="Password"
-                            android:inputType="textPassword"
-                            android:text="123456" />
+                            android:inputType="textPassword" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 

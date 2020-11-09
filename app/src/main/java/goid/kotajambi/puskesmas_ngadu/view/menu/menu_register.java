@@ -74,7 +74,7 @@ public class menu_register extends AppCompatActivity implements Validator.Valida
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_register);
         ButterKnife.bind(this);
-        editNama.setText(Guru.getString("nama", "false"));
+        editNama.setText(Guru.getString("nama_profil", "false"));
         editEmail.setText(Guru.getString("email", "false"));
         validator = new Validator(this);
         validator.setValidationListener(this);

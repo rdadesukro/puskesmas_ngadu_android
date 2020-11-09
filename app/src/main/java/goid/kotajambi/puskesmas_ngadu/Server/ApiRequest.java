@@ -101,7 +101,8 @@ public interface ApiRequest {
     @POST("simpan_komen")
     Call<Response_simpan> simpan_komen(@Field("lapor_id") String lapor_id,
                                        @Field("user_id") String users_id,
-                                       @Field("konten") String konten);
+                                       @Field("konten") String konten,
+                                       @Field("nama") String nama);
 
 
 

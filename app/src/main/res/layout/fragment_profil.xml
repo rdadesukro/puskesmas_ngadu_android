@@ -399,12 +399,12 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:textStyle="bold"
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="8dp"
                         android:text="Profil Setting"
                         android:textColor="#7E7676"
                         android:textSize="18dp"
+                        android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -428,12 +428,11 @@
                         android:id="@+id/imageView4"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
+                        android:background="@color/colorPrimaryDark"
                         app:layout_constraintBottom_toBottomOf="@+id/img_profil"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        android:background="@color/colorPrimaryDark"
-                        app:layout_constraintTop_toTopOf="parent"
-                        />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
                         android:id="@+id/img_profil"
@@ -456,8 +455,7 @@
                         android:background="@drawable/us"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                      />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <ProgressBar
                         android:id="@+id/progres_foto"

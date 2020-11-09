@@ -37,8 +37,10 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
@@ -60,6 +62,7 @@ import java.io.File;
 import java.io.IOException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Objects;
 
 import javax.net.ssl.SSLContext;
 
@@ -69,6 +72,7 @@ import butterknife.OnClick;
 import goid.kotajambi.puskesmas_ngadu.R;
 import goid.kotajambi.puskesmas_ngadu.presenter.home;
 import goid.kotajambi.puskesmas_ngadu.presenter.login;
+import goid.kotajambi.puskesmas_ngadu.view.menu.CameraCapture;
 import goid.kotajambi.puskesmas_ngadu.view.menu.FileUtils;
 import goid.kotajambi.puskesmas_ngadu.view.menu.menu_login;
 import maes.tech.intentanim.CustomIntent;
@@ -179,7 +183,7 @@ public class fragment_profil extends Fragment implements CameraCapture_new.OnInp
         txtAlamat.setText(Guru.getString("alamat", "false"));
         txtEmail.setText(Guru.getString("email", "false"));
         txtNoHp.setText(Guru.getString("no_hp", "false"));
-        txtNama.setText(Guru.getString("nama", "false"));
+        txtNama.setText(Guru.getString("nama_profil", "false"));
         txtEmail.setText(Guru.getString("email", "false"));
         Log.i("isi_foto", "onCreateView: " + Guru.getString("foto", "false"));
         Glide.with(this)
@@ -313,15 +317,14 @@ public class fragment_profil extends Fragment implements CameraCapture_new.OnInp
                     public void onClick(DialogInterface dialog, int item) {
                         if (items[item].equals("Camera")) {
 
-//                            FragmentManager fm = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
+//                            FragmentManager fm = getActivity().getSupportFragmentManager();
 //                            CameraCapture_new editNameDialogFragment = new  CameraCapture_new();
 //                            editNameDialogFragment.show(fm, "fragment_camera");
 
-//                            CameraCapture_new dialo = new CameraCapture_new ();
-//                            dialo .show(getFragmentManager(), "fragment_camera");
 
-                            CameraCapture_new add = new CameraCapture_new();
-                            add.show(getActivity().getSupportFragmentManager(), "fragment_camera");
+                            CameraCapture_new dialog1 = new CameraCapture_new();
+                            dialog1.setTargetFragment(fragment_profil.this, 22); // in case of fragment to activity communication we do not need this line. But must write this i case of fragment to fragment communication
+                            dialog1.show(getFragmentManager(), "fragment_camera");
 
                         } else if (items[item].equals("Galeri")) {
                             Intent intent = new Intent();
@@ -385,13 +388,24 @@ public class fragment_profil extends Fragment implements CameraCapture_new.OnInp
     public void onSimpanClick(Jpeg data, File file1) {
         try {
             file = file1;
-
-
             String filePath = file1.getPath();
             decoded = BitmapFactory.decodeFile(filePath);
             imgFotoProfil.setImageBitmap(decoded);
             int file_size = Integer.parseInt(String.valueOf(file1.length() / 1024));
             Log.i("isi_foto", "onSimpanClick: " + file1.getName() + " " + file_size);
+            Uri tempUri = getImageUri(getActivity().getApplicationContext(), decoded);
+            foto(tempUri);
+
+            MultipartBody.Part body = null;
+            RequestBody requestFile;
+            if (file == null) {
+                Toast.makeText(getActivity(), "File Kosong", Toast.LENGTH_SHORT).show();
+            } else {
+                requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+                body = MultipartBody.Part.createFormData("foto_laporan", file.getName(), requestFile);
+            }
+            home countryPresenter = new home(null, getActivity());
+            countryPresenter.edit_foto(body, progressDialog);
 
         } catch (Exception e) {
             Log.i("eeee", "onSimpanClick: " + e);

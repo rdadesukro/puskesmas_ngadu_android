@@ -64,10 +64,13 @@ public class adapter_komen extends RecyclerView.Adapter<adapter_komen.HolderData
         String year =dm.getCreatedAt().substring(0,4);
         holder.tanggal.setText(date+"-"+month+"-"+year);
 
-        if (dm.getName().equals("admin")){
+        if (dm.getJenis().equals("admin")){
             holder.nama.setBackgroundResource(R.drawable.bg_admin);
+            holder.nama.setText(dm.getJenis());
+        }else {
+            holder.nama.setText(dm.getName());
         }
-        holder.nama.setText(dm.getName());
+
         holder.isi.setText(dm.getKonten());
 
             Glide.with(ctx)

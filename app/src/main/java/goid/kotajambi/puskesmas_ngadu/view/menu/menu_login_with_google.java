@@ -102,7 +102,7 @@ public class menu_login_with_google extends AppCompatActivity implements Validat
                 GoogleSignInAccount acct = result.getSignInAccount();
                 nama = acct.getDisplayName();
                 email = acct.getEmail();
-                Guru.putString("nama", nama);
+                Guru.putString("nama_profil", nama);
                 Guru.putString("email", email);
                 login countryPresenter = new login(null, menu_login_with_google.this);
                 countryPresenter.cek_email(email);

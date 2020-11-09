@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Ramah</string>
+    <string name="password"><u>Lupa Password ???</u></string>
+    <string name="kebijakan">Dengan menggunakan aplikasi RAMAH, Maka data anda akan di tampilkan di aplikasi RAMAH secara umum</string>
 </resources>

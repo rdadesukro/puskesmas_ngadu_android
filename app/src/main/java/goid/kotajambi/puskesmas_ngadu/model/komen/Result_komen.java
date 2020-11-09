@@ -7,6 +7,19 @@ public class Result_komen {
 	@SerializedName("foto")
 	private String foto;
 
+	public String getJenis() {
+		return jenis;
+	}
+
+	public void setJenis(String jenis) {
+		this.jenis = jenis;
+	}
+
+	@SerializedName("jenis")
+	private String jenis;
+
+
+
 	@SerializedName("updated_at")
 	private Object updatedAt;
 

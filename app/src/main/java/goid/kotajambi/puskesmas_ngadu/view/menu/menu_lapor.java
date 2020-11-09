@@ -200,7 +200,7 @@ public class menu_lapor extends AppCompatActivity implements Validator.Validatio
 
     @OnClick(R.id.btn_lapor)
     public void btn_lapor() {
-        Toast.makeText(this, "ade", Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, "ade", Toast.LENGTH_SHORT).show();
         validator.validate();
 
     }

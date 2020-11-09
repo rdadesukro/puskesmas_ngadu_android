@@ -96,7 +96,7 @@ public class komen {
         });
 
     }
-    public void simpan_komen(String id_lapor,String id_user,String isi){
+    public void simpan_komen(String id_lapor,String id_user,String isi, String nama){
         Log.i("data_komen", "simpan_komen: "+id_lapor+" "+id_user+" "+isi);
         ProgressDialog   pDialog = new ProgressDialog(ctx);
         pDialog.setTitle("Mohon Tunggu!!!");
@@ -106,7 +106,7 @@ public class komen {
         pDialog.show();
         ProgressDialog finalPDialog = pDialog;
         ApiRequest api = Retroserver_server_AUTH.getClient().create(ApiRequest.class);
-        Call<Response_simpan> sendbio = api.simpan_komen(id_lapor,id_user,isi);
+        Call<Response_simpan> sendbio = api.simpan_komen(id_lapor,id_user,isi,nama);
         sendbio.enqueue(new Callback<Response_simpan>() {
             @Override
             public void onResponse(Call<Response_simpan> call, retrofit2.Response<Response_simpan> response) {

@@ -208,6 +208,7 @@ CameraCapture extends DialogFragment {
                                 @Override
                                 public void run() {
                                     // imageView.setJpeg(jpeg);
+                                    Log.i("isi_foto_camera", "run: "+jpeg);
                                     File savedPhoto = new File(Environment.getExternalStorageDirectory(), "photo.jpg");
                                     try {
                                         FileOutputStream outputStream = new FileOutputStream(savedPhoto.getPath());
@@ -215,9 +216,10 @@ CameraCapture extends DialogFragment {
                                         outputStream.close();
                                         onInputListener.onSimpanClick(jpeg, savedPhoto);
                                         getDialog().cancel();
+                                        Log.i("dat_camera", "run: "+jpeg+" "+savedPhoto);
                                     } catch (IOException e) {
-                                        Log.i("cek_eror_foto", "run: "+e);
                                         e.printStackTrace();
+                                        Log.i("cek_error_camera", "run: "+e);
                                     }
 
                                     Log.i("cek_foto", "run: "+jpeg+" "+savedPhoto);

@@ -42,7 +42,7 @@ CameraCapture_new extends DialogFragment {
 
     private CameraKitView cameraView;
     private Toolbar toolbar;
-
+    private static final String TAG = "fragment_camera";
     private AppCompatTextView facingText;
     private AppCompatTextView flashText;
     private AppCompatTextView previewSizeText;
@@ -311,9 +311,14 @@ CameraCapture_new extends DialogFragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         try {
-            onInputListener = (OnInputListener) getActivity();
+            /* this line is main difference for fragment to fragment communication & fragment to activity communication
+            fragment to fragment: onInputListener = (OnInputListener) getTargetFragment();
+            fragment to activity: onInputListener = (OnInputListener) getActivity();
+             */
+            onInputListener = (OnInputListener) getTargetFragment();
+            Log.d(TAG, "onAttach: " + onInputListener );
         } catch (ClassCastException e) {
-//            Log.e(TAG, "onAttach: " + e.getMessage());
+            Log.d(TAG, "onAttach: ClassCastException : " + e.getMessage());
         }
     }
 

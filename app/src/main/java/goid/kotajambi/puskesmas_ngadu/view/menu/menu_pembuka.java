@@ -195,9 +195,9 @@ public class menu_pembuka extends AppCompatActivity {
                 //  sliderView_bener.setBackgroundResource(R.drawable.bg_no_item_city);
                 Log.i("ewkwkwkwkw", "onFailure: " + t);
                 if (t instanceof IOException) {
-
+                    dioalog("Tidak Ada Paket Data");
                 } else {
-
+                    dioalog("Tidak Ada Paket Data");
                 }
 
             }

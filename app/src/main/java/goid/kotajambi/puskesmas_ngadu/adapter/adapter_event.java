@@ -1,6 +1,7 @@
 package goid.kotajambi.puskesmas_ngadu.adapter;
 
 import android.annotation.TargetApi;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -154,12 +155,16 @@ public class adapter_event extends RecyclerView.Adapter<adapter_event.HolderData
 
                     locationAddress.getAddressFromLocation(dm.getLokasi(),
                             ctx, new GeocoderHandler());
+                    Log.i("isi", "onClick: "+lat_new+" "+lng_new);
+                    ProgressDialog dialog = new ProgressDialog(ctx);
+                    dialog.setMessage("please wait...");
+                    dialog.show();
 
                     final Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-
+                            dialog.dismiss();
                             Intent goInput = new Intent(ctx, menu_detail_events.class);
                             Guru.putString("jd_event", dm.getNama());
                             Guru.putString("isi_event", dm.getKonten());

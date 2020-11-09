@@ -97,61 +97,61 @@ public class layanan {
         });
 
     }
-    public void simpan_komen(String id_lapor,String id_user,String isi){
-        Log.i("data_komen", "simpan_komen: "+id_lapor+" "+id_user+" "+isi);
-        ProgressDialog   pDialog = new ProgressDialog(ctx);
-        pDialog.setTitle("Mohon Tunggu!!!");
-        pDialog.setMessage("Simpan Komen..");
-        pDialog.setCancelable(false);
-        pDialog.setCanceledOnTouchOutside(false);
-        pDialog.show();
-        ProgressDialog finalPDialog = pDialog;
-        ApiRequest api = Retroserver_server_AUTH.getClient().create(ApiRequest.class);
-        Call<Response_simpan> sendbio = api.simpan_komen(id_lapor,id_user,isi);
-        sendbio.enqueue(new Callback<Response_simpan>() {
-            @Override
-            public void onResponse(Call<Response_simpan> call, Response<Response_simpan> response) {
-
-                String kode = response.body().getKode();
-                String pesan = response.body().getMessage();
-                Log.i("kode", "onResponse: "+kode);
-
-                if (kode.equals("1")){
-                    pDialog.dismiss();
-                    new GlideToast.makeToast((Activity) ctx, ""+pesan, GlideToast.LENGTHLONG, GlideToast.SUCCESSTOAST, GlideToast.BOTTOM).show();
-
-                }
-                else if (kode.equals("0")){
-                    pDialog.dismiss();
-                    new GlideToast.makeToast((Activity) ctx, ""+pesan, GlideToast.LENGTHLONG, GlideToast.WARNINGTOAST, GlideToast.BOTTOM).show();
-                }
-
-
-            }
-
-            @Override
-            public void onFailure(Call<Response_simpan> call, Throwable t) {
-                t.printStackTrace();
-                if (t instanceof IOException) {
-                    // pDialog.dismiss();
-                    //Toast.makeText(ErrorHandlingActivity.this, "this is an actual network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
-                    // logging probably not necessary
-                    // Toast.makeText(menu_lupa_password.this, "Jaringan Anda Bermasalah", Toast.LENGTH_SHORT).show();
-
-                }
-                else {
-                    // pDialog.dismiss();
-                    //  Toast.makeText(ErrorHandlingActivity.this, "conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
-                    // todo log to some central bug tracking service
-                    // Toast.makeText(menu_lupa_password.this, "Jaringan Anda Bermasalah", Toast.LENGTH_SHORT).show();
-
-                }
-
-            }
-        });
-
-
-    }
+//    public void simpan_komen(String id_lapor,String id_user,String isi){
+//        Log.i("data_komen", "simpan_komen: "+id_lapor+" "+id_user+" "+isi);
+//        ProgressDialog   pDialog = new ProgressDialog(ctx);
+//        pDialog.setTitle("Mohon Tunggu!!!");
+//        pDialog.setMessage("Simpan Komen..");
+//        pDialog.setCancelable(false);
+//        pDialog.setCanceledOnTouchOutside(false);
+//        pDialog.show();
+//        ProgressDialog finalPDialog = pDialog;
+//        ApiRequest api = Retroserver_server_AUTH.getClient().create(ApiRequest.class);
+//        Call<Response_simpan> sendbio = api.simpan_komen(id_lapor,id_user,isi);
+//        sendbio.enqueue(new Callback<Response_simpan>() {
+//            @Override
+//            public void onResponse(Call<Response_simpan> call, Response<Response_simpan> response) {
+//
+//                String kode = response.body().getKode();
+//                String pesan = response.body().getMessage();
+//                Log.i("kode", "onResponse: "+kode);
+//
+//                if (kode.equals("1")){
+//                    pDialog.dismiss();
+//                    new GlideToast.makeToast((Activity) ctx, ""+pesan, GlideToast.LENGTHLONG, GlideToast.SUCCESSTOAST, GlideToast.BOTTOM).show();
+//
+//                }
+//                else if (kode.equals("0")){
+//                    pDialog.dismiss();
+//                    new GlideToast.makeToast((Activity) ctx, ""+pesan, GlideToast.LENGTHLONG, GlideToast.WARNINGTOAST, GlideToast.BOTTOM).show();
+//                }
+//
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Response_simpan> call, Throwable t) {
+//                t.printStackTrace();
+//                if (t instanceof IOException) {
+//                    // pDialog.dismiss();
+//                    //Toast.makeText(ErrorHandlingActivity.this, "this is an actual network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
+//                    // logging probably not necessary
+//                    // Toast.makeText(menu_lupa_password.this, "Jaringan Anda Bermasalah", Toast.LENGTH_SHORT).show();
+//
+//                }
+//                else {
+//                    // pDialog.dismiss();
+//                    //  Toast.makeText(ErrorHandlingActivity.this, "conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+//                    // todo log to some central bug tracking service
+//                    // Toast.makeText(menu_lupa_password.this, "Jaringan Anda Bermasalah", Toast.LENGTH_SHORT).show();
+//
+//                }
+//
+//            }
+//        });
+//
+//
+//    }
 
 
     }
