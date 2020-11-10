@@ -28,7 +28,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.menu.menu_detail_events"></activity>
+        <activity android:name=".view.menu.menu_detail_notif"></activity>
+        <activity android:name=".view.menu.menu_detail_events" />
         <activity android:name=".view.menu.menu_cari" />
         <activity android:name=".view.menu.tes_menu" />
         <activity
@@ -37,10 +38,10 @@
         <activity
             android:name=".view.menu.menu_event"
             android:label="Events" />
-
         <activity android:name=".view.menu.menu_detail_layanan" />
-        <activity android:name=".view.menu.menu_layanan"
-            android:label="Layanan"/>
+        <activity
+            android:name=".view.menu.menu_layanan"
+            android:label="Layanan" />
         <activity
             android:name=".view.menu.menu_login"
             android:windowSoftInputMode="stateVisible|adjustResize" />
@@ -86,6 +87,7 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
         <activity
             android:name=".view.menu.menu_komen_laporan_masuk"
             android:label="Notif Masuk"
@@ -103,7 +105,6 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />

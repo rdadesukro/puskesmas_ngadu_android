@@ -83,7 +83,7 @@ public class menu_pembuka extends AppCompatActivity {
                         if (isUpdateAvailable){
                             new AppUpdater(menu_pembuka.this)
                                     .setTitleOnUpdateAvailable("Pembaruan apikasi tersedia")
-                                    .setContentOnUpdateAvailable("Silahkan perbarui Aplikasi PakarKasih melalui playstore ")
+                                    .setContentOnUpdateAvailable("Silahkan perbarui Aplikasi RAMAH melalui playstore ")
                                     .setUpdateFrom(UpdateFrom.GOOGLE_PLAY)
                                     .setDisplay(Display.DIALOG)
                                     .setCancelable(false)

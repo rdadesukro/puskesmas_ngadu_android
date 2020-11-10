@@ -73,9 +73,9 @@ public class menu_utama extends AppCompatActivity {
                                 vg.setCurrentItem(1);
                                 getSupportActionBar().setTitle("Report");
                                 break;
-                            case R.id.histori:
+                            case R.id.Notifikasi:
                                 vg.setCurrentItem(2);
-                                getSupportActionBar().setTitle("History");
+                                getSupportActionBar().setTitle("Notifikasi");
                                 break;
                             case R.id.profil:
                                 vg.setCurrentItem(3);

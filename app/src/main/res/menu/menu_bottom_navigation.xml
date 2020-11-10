@@ -17,10 +17,10 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/histori"
+        android:id="@+id/Notifikasi"
         android:checked="false"
-        android:icon="@drawable/ic_baseline_add_circle_outline_24"
-        android:title="News"
+        android:icon="@drawable/ic_baseline_notifications_active_24"
+        android:title="Notifikasi"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/profil"

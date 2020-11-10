@@ -296,6 +296,7 @@ public class fragment_profil extends Fragment implements CameraCapture_new.OnInp
     public void onViewClicked() {
         login countryPresenter = new login(null, getActivity());
         countryPresenter.keluar(progressDialog);
+        countryPresenter.hapus_token(Guru.getString("token", "false"));
 
     }
 

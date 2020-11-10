@@ -10,6 +10,7 @@ import goid.kotajambi.puskesmas_ngadu.model.laporan_saya.Response_laporan_saya;
 import goid.kotajambi.puskesmas_ngadu.model.layanan.Response_layanan;
 import goid.kotajambi.puskesmas_ngadu.model.login.Response_login;
 import goid.kotajambi.puskesmas_ngadu.model.model_berita.Response_berita;
+import goid.kotajambi.puskesmas_ngadu.model.notif.Response_notif;
 import goid.kotajambi.puskesmas_ngadu.model.simpan.Response_simpan;
 import goid.kotajambi.puskesmas_ngadu.model.slider.Response_slider;
 import okhttp3.MultipartBody;
@@ -98,6 +99,12 @@ public interface ApiRequest {
             @Field("token") String token);
 
     @FormUrlEncoded
+    @POST("edit_status")
+    Call<Response_simpan> edit_status(
+            @Field("id") String id,
+            @Field("status") String status);
+
+    @FormUrlEncoded
     @POST("simpan_komen")
     Call<Response_simpan> simpan_komen(@Field("lapor_id") String lapor_id,
                                        @Field("user_id") String users_id,
@@ -130,6 +137,9 @@ public interface ApiRequest {
 
     @POST("tampil_event")
     Call<Response_events> get_event();
+
+    @GET("tampil_notif")
+    Call<Response_notif> get_notif();
 
     @GET("tampil_lapor_komen")
     Call<Response_laporan_komen> tampil_lapor_komen(@Query("lapor_id") String lapor_id);
