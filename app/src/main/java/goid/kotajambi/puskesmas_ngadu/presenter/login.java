@@ -73,6 +73,7 @@ public class login {
                     Guru.putString("email", response.body().getEmail());
                     Guru.putString("id_user", String.valueOf(response.body().getIdUser()));
                     Intent intent = new Intent((Activity) ctx, menu_utama.class);
+                    Guru.putString("Fragmentone", "0");
                     intent.putExtra("Fragmentone", 3); //pass zero for Fragmentone.
                     ctx.startActivity(intent);
                     CustomIntent.customType((Activity) ctx,"fadein-to-fadeout");
@@ -115,6 +116,7 @@ public class login {
                     GoogleSignInClient googleSignInClient= GoogleSignIn.getClient(ctx,gso);
                     googleSignInClient.signOut();
                     Intent intent = new Intent((Activity) ctx, menu_login_with_google.class);
+                    Guru.putString("Fragmentone", "3");
                     intent.putExtra("Fragmentone", 3); //pass zero for Fragmentone.
                     ctx.startActivity(intent);
                     Guru.putString("email", email);
@@ -128,6 +130,7 @@ public class login {
                     GoogleSignInClient googleSignInClient= GoogleSignIn.getClient(ctx,gso);
                     googleSignInClient.signOut();
                     Intent intent = new Intent((Activity) ctx, menu_register.class);
+                    Guru.putString("Fragmentone", "3");
                     intent.putExtra("Fragmentone", 3); //pass zero for Fragmentone.
                     ctx.startActivity(intent);
                 }
@@ -202,6 +205,7 @@ public class login {
                     Guru.putString("foto_profil", response.body().getFoto());
                     Guru.putString("id_user", String.valueOf(response.body().getIdUser()));
                     Intent intent = new Intent((Activity) ctx, menu_utama.class);
+                    Guru.putString("Fragmentone", "0");
                     intent.putExtra("Fragmentone", 3); //pass zero for Fragmentone.
                     ctx.startActivity(intent);
                     CustomIntent.customType((Activity) ctx,"fadein-to-fadeout");

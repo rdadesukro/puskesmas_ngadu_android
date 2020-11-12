@@ -5,6 +5,7 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.github.squti.guru.Guru;
 import com.jeevandeshmukh.glidetoastlib.GlideToast;
 
 import java.io.IOException;
@@ -52,6 +53,7 @@ public class notif {
                         Log.i("isi_komen", "onResponse: "+data);
                         if (data != null && data.getIsi() != null) {
                             List<IsiItem_notif> result = data.getIsi();
+                           // badge.setNumber(jumlah_notif);
                             countryView.notif(result);
                         }
 

@@ -123,6 +123,7 @@ public class menu_login extends AppCompatActivity implements Validator.Validatio
 
         if (status_login.equals("true")){
             Intent intent  = new Intent(menu_login.this, menu_utama.class);
+            Guru.putString("Fragmentone", "0");
             intent.putExtra("Fragmentone", 3); //pass zero for Fragmentone.
             startActivity(intent);
         }else {

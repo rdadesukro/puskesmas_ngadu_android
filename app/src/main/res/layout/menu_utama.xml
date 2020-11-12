@@ -14,7 +14,7 @@
         android:layout_alignParentBottom="true"
         app:itemBackground="@color/overlay_light_90"
         app:itemIconTint="@drawable/bottom_navigation_color_selector"
-        app:itemTextColor="#000000"
+        app:itemTextColor="@color/colorPrimaryDark"
         app:menu="@menu/menu_bottom_navigation" />
 
 

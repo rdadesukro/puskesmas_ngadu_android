@@ -34,9 +34,11 @@
         <item name="android:textColor">@color/colorPrimaryDark</item>
     </style>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.Bridge">
         <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:windowEnterAnimation">@anim/dialog_show</item>
+        <item name="android:windowExitAnimation">@anim/dialog_dismiss</item>
         <item name="colorAccent">@color/colorPrimaryDark</item>
         <item name="toolbarStyle">@style/CustomToolBarStyle</item>
     </style>
@@ -44,4 +46,12 @@
     <style name="CustomToolBarStyle" parent="@style/Widget.AppCompat.Toolbar">
         <item name="titleTextColor">@color/colorPrimaryDark</item>
     </style>
+    <style name="BottomDialogTheme1" parent="@android:style/Theme.Dialog">
+        <item name="android:windowAnimationStyle">@style/BottomDialogsAnimation</item>
+    </style>
+    <style name="BottomDialogsAnimation1" >
+        <item name="android:windowEnterAnimation">@anim/dialog_show</item>
+        <item name="android:windowExitAnimation">@anim/dialog_dismiss</item>
+    </style>
+
 </resources>

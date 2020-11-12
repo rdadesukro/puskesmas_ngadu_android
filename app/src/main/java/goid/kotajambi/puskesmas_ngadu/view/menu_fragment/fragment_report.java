@@ -24,6 +24,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.github.squti.guru.Guru;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.security.ProviderInstaller;
@@ -298,6 +299,7 @@ public class fragment_report extends Fragment {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 Intent intent = new Intent((Activity) getActivity(), menu_utama.class);
+                Guru.putString("Fragmentone", "1");
                 intent.putExtra("Fragmentone", 1); //pass zero for Fragmentone.
                 startActivity(intent);
                 CustomIntent.customType((Activity) getActivity(),"fadein-to-fadeout");

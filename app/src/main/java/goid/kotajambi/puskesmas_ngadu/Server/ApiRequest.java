@@ -120,6 +120,9 @@ public interface ApiRequest {
     @GET("jumlah_laporan_Saya")
     Call<Response_jumlah> get_jumlah();
 
+    @GET("jumlah_notif")
+    Call<Response_jumlah> jumlah_notif();
+
     @GET("jumlah_event")
     Call<Response_jumlah> jumlah_event();
 

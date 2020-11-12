@@ -24,6 +24,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import goid.kotajambi.puskesmas_ngadu.R;
+import goid.kotajambi.puskesmas_ngadu.Util.ItemAnimation;
 import goid.kotajambi.puskesmas_ngadu.model.komen.Result_komen;
 import goid.kotajambi.puskesmas_ngadu.model.layanan.IsiItem_layanan;
 import goid.kotajambi.puskesmas_ngadu.view.menu.menu_detail_laporan;
@@ -63,7 +64,7 @@ public class adapter_layanan extends RecyclerView.Adapter<adapter_layanan.Holder
 
 
         holder.dm = dm;
-
+        setAnimation(holder.itemView,position);
 
 
     }
@@ -117,4 +118,14 @@ public class adapter_layanan extends RecyclerView.Adapter<adapter_layanan.Holder
         }
 
 
-    }}
+    }
+    private int lastPosition = -1;
+    private boolean on_attach = true;
+
+    private void setAnimation(View view, int position) {
+        if (position > lastPosition) {
+            ItemAnimation.animate(view, on_attach ? position : -1, animation_type);
+            lastPosition = position;
+        }
+    }
+}

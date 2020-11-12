@@ -5,14 +5,19 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 
+import com.github.squti.guru.Guru;
+import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -24,14 +29,24 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import goid.kotajambi.puskesmas_ngadu.R;
+import goid.kotajambi.puskesmas_ngadu.Server.ApiRequest;
+import goid.kotajambi.puskesmas_ngadu.Server.Retroserver_server_AUTH;
 import goid.kotajambi.puskesmas_ngadu.adapter.ViewPagerAdapter;
+import goid.kotajambi.puskesmas_ngadu.adapter.adapter_notif;
+import goid.kotajambi.puskesmas_ngadu.model.jumlah_laporan_saya.Response_jumlah;
+import goid.kotajambi.puskesmas_ngadu.model.notif.IsiItem_notif;
+import goid.kotajambi.puskesmas_ngadu.presenter.notif;
 import goid.kotajambi.puskesmas_ngadu.view.menu_fragment.fragment_home;
 import goid.kotajambi.puskesmas_ngadu.view.menu_fragment.fragment_report;
 import goid.kotajambi.puskesmas_ngadu.view.menu_fragment.fragment_news;
 import goid.kotajambi.puskesmas_ngadu.view.menu_fragment.fragment_profil;
+import goid.kotajambi.puskesmas_ngadu.view.view_notif;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-public class menu_utama extends AppCompatActivity {
-    BottomNavigationView bottomNavigationView;
+public class menu_utama extends AppCompatActivity implements view_notif {
+    BottomNavigationView bottomNavigationView ;
 
 
     fragment_home home;
@@ -44,7 +59,11 @@ public class menu_utama extends AppCompatActivity {
     public static final int MEDIA_TYPE_IMAGE = 1;
     private ActionBar toolbar;
     int value;
-
+    public static BadgeDrawable badge;
+    String id_status_notif,id_user;
+    int jumlah_notif=0,total_notif;
+    notif countryPresenter;
+    boolean cek;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,9 +74,15 @@ public class menu_utama extends AppCompatActivity {
         toolbar = getSupportActionBar();
         toolbar.setTitle("Home");
         toolbar.setIcon(R.drawable.ic_baseline_add_circle_outline_24);
-        value = getIntent().getIntExtra("Fragmentone", 3);
-
+        value = Integer.parseInt(Guru.getString("Fragmentone", "3"));
+//        countryPresenter = new notif(this, menu_utama.this);
+//        countryPresenter.get_notif();
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+
+
+        badge = bottomNavigationView.getOrCreateBadge(R.id.Notifikasi);
+      //  badge.setNumber(3);
+       // badge.setNumber(Integer.parseInt(Guru.getString("badge", "1")));
         vg = (ViewPager) findViewById(R.id.vg);
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -123,15 +148,15 @@ public class menu_utama extends AppCompatActivity {
         });
         setupViewPager(vg);
         vg.setCurrentItem(value);
-    }
 
+
+    }
     private void setupViewPager(ViewPager vg) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         home = new fragment_home();
         myreport = new fragment_report();
         news = new fragment_news();
         profil = new fragment_profil();
-
 
         adapter.addFragment(home);
         adapter.addFragment(myreport);
@@ -187,5 +212,27 @@ public class menu_utama extends AppCompatActivity {
                         token.continuePermissionRequest();
                     }
                 }).check();
+    }
+
+    @Override
+    public void notif(List<IsiItem_notif> notif) {
+        Log.i("isi_event", "event: "+notif.size());
+
+        for (int i = 0; i < notif.size(); i++) {
+            id_status_notif = notif.get(i).getUserStatusRead();
+            Log.i("id_status_notif", "notif: "+id_status_notif);
+            cek = id_status_notif.contains(Guru.getString("id_user", "false"));
+            if (cek){
+                Log.i("jumlah_notif", "notif: "+"0");
+            }else {
+                jumlah_notif=jumlah_notif+1;
+                Log.i("jumlah_notif", "notif: "+jumlah_notif);
+
+            }
+
+
+        }
+        Log.i("hasil_jumlah_notif", "notif: "+jumlah_notif +" "+cek);
+        //badge.setNumber(jumlah_notif);
     }
 }

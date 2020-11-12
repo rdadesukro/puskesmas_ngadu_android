@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,11 +64,13 @@ public class adapter_komen extends RecyclerView.Adapter<adapter_komen.HolderData
         String month= Mydate.konversi_bulan(dm.getCreatedAt().substring(5,7));
         String year =dm.getCreatedAt().substring(0,4);
         holder.tanggal.setText(date+"-"+month+"-"+year);
+        Log.i("jenis", "onBindViewHolder: "+dm.getJenis());
 
         if (dm.getJenis().equals("admin")){
             holder.nama.setBackgroundResource(R.drawable.bg_admin);
             holder.nama.setText(dm.getJenis());
-        }else {
+        }else if (dm.getJenis().equals("pengguna")){
+            holder.nama.setBackgroundResource(R.drawable.bg_nama);
             holder.nama.setText(dm.getName());
         }
 

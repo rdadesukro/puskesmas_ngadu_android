@@ -1,5 +1,6 @@
 package goid.kotajambi.puskesmas_ngadu.firebase;
 
+import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -22,6 +23,7 @@ import org.jetbrains.annotations.NotNull;
 import goid.kotajambi.puskesmas_ngadu.R;
 import goid.kotajambi.puskesmas_ngadu.view.menu.menu_komen_laporan_masuk;
 import goid.kotajambi.puskesmas_ngadu.view.menu.menu_utama;
+import maes.tech.intentanim.CustomIntent;
 
 
 public class NotificationService extends FirebaseMessagingService {
@@ -80,9 +82,10 @@ public class NotificationService extends FirebaseMessagingService {
                 pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
             }
 
-            else if (click_action.equals("user")) {
-                intent = new Intent(this, menu_komen_laporan_masuk.class);
+            else if (click_action.equals("broadcast")) {
+                intent = new Intent(this, menu_utama.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                Guru.putString("Fragmentone", "2");
                 pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
             }
 

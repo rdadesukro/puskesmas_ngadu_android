@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.github.squti.guru.Guru;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -27,6 +29,8 @@ import goid.kotajambi.puskesmas_ngadu.presenter.event;
 import goid.kotajambi.puskesmas_ngadu.presenter.notif;
 import goid.kotajambi.puskesmas_ngadu.view.menu.menu_event;
 import goid.kotajambi.puskesmas_ngadu.view.view_notif;
+
+import static goid.kotajambi.puskesmas_ngadu.view.menu.menu_utama.badge;
 
 
 /**
@@ -46,6 +50,9 @@ public class fragment_news extends Fragment implements view_notif {
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
     notif countryPresenter;
+    int jumlah_notif=0;
+    String id_status_notif;
+    Boolean cek;
     private adapter_notif adapter_notif;
     public fragment_news() {
         // Required empty public constructor
@@ -92,6 +99,20 @@ public class fragment_news extends Fragment implements view_notif {
             progressBar.setVisibility(View.GONE);
 
         }
+        jumlah_notif=0;
+        for (int i = 0; i < notif.size(); i++) {
+            id_status_notif = notif.get(i).getUserStatusRead();
+            cek = id_status_notif.contains(Guru.getString("id_user", "false"));
+            if (cek){
+
+            }else {
+                jumlah_notif=jumlah_notif+1;
+
+            }
+
+        }
+        badge.setNumber(jumlah_notif);
+        Log.i("jumlah_notif_baru", "notif: "+jumlah_notif);
     }
     @Override
     public void onStart() {

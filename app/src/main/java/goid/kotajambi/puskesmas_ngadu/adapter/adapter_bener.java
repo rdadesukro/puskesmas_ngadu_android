@@ -93,7 +93,7 @@ public class adapter_bener extends SliderViewAdapter<adapter_bener.SliderAdapter
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, ""+sliderItem.getId(), Toast.LENGTH_SHORT).show();
+               // Toast.makeText(context, ""+sliderItem.getId(), Toast.LENGTH_SHORT).show();
                 Intent goInput = new Intent(context, menu_detail_slider.class);
                 Guru.putString("judul", sliderItem.getJudul());
                 Guru.putString("isi", sliderItem.getKonten());

@@ -21,6 +21,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.transition.AutoTransition;
 import androidx.transition.TransitionManager;
 
+import com.github.squti.guru.Guru;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.security.ProviderInstaller;
@@ -46,13 +47,17 @@ import goid.kotajambi.puskesmas_ngadu.adapter.adapter_bener;
 import goid.kotajambi.puskesmas_ngadu.adapter.adapter_berita_kota;
 import goid.kotajambi.puskesmas_ngadu.model.jumlah_laporan_saya.Response_jumlah;
 import goid.kotajambi.puskesmas_ngadu.model.model_berita.PostsItem;
+import goid.kotajambi.puskesmas_ngadu.model.notif.IsiItem_notif;
 import goid.kotajambi.puskesmas_ngadu.model.slider.IsiItem_slider;
 import goid.kotajambi.puskesmas_ngadu.presenter.home;
+import goid.kotajambi.puskesmas_ngadu.presenter.notif;
 import goid.kotajambi.puskesmas_ngadu.view.menu.menu_event;
 import goid.kotajambi.puskesmas_ngadu.view.menu.menu_lapor;
 import goid.kotajambi.puskesmas_ngadu.view.menu.menu_laporan_saya;
 import goid.kotajambi.puskesmas_ngadu.view.menu.menu_layanan;
+import goid.kotajambi.puskesmas_ngadu.view.menu.menu_utama;
 import goid.kotajambi.puskesmas_ngadu.view.view_home;
+import goid.kotajambi.puskesmas_ngadu.view.view_notif;
 import maes.tech.intentanim.CustomIntent;
 import okhttp3.CipherSuite;
 import okhttp3.ConnectionSpec;
@@ -61,11 +66,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static goid.kotajambi.puskesmas_ngadu.view.menu.menu_utama.badge;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class fragment_home extends Fragment implements view_home {
+public class fragment_home extends Fragment implements view_home, view_notif {
 
 
     FloatingActionButton btnLapor;
@@ -100,7 +107,10 @@ public class fragment_home extends Fragment implements view_home {
     private RecyclerView.LayoutManager mManager;
     private List<PostsItem> data = new ArrayList<>();
     private adapter_bener adapter_bener;
-
+    notif notif;
+    int jumlah_notif=0;
+    String id_status_notif;
+    Boolean cek;
     public fragment_home() {
         // Required empty public constructor
     }
@@ -153,6 +163,8 @@ public class fragment_home extends Fragment implements view_home {
         home countryPresenter = new home(this, getActivity());
         countryPresenter.baner();
         countryPresenter.berita();
+        notif = new notif(this, getActivity());
+        notif.get_notif();
         get_jumlah();
         get_jumlah_eveent();
         get_jumlah_layanan();
@@ -162,6 +174,7 @@ public class fragment_home extends Fragment implements view_home {
             public void onRefresh() {
                 countryPresenter.baner();
                 countryPresenter.berita();
+                notif.get_notif();
                 get_jumlah();
                 get_jumlah_eveent();
                 get_jumlah_layanan();
@@ -351,5 +364,26 @@ public class fragment_home extends Fragment implements view_home {
         getActivity().startActivity(goInput);
         CustomIntent.customType(getActivity(), "bottom-to-up");
 
+    }
+
+    @Override
+    public void notif(List<IsiItem_notif> notif) {
+        jumlah_notif=0;
+        for (int i = 0; i < notif.size(); i++) {
+            id_status_notif = notif.get(i).getUserStatusRead();
+            cek = id_status_notif.contains(Guru.getString("id_user", "false"));
+            if (cek){
+
+            }else {
+                jumlah_notif=jumlah_notif+1;
+
+
+            }
+
+
+
+        }
+        badge.setNumber(jumlah_notif);
+        Log.i("jumlah_notif_baru", "notif: "+jumlah_notif);
     }
 }

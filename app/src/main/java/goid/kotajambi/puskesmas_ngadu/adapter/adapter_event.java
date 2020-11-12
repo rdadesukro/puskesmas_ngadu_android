@@ -34,6 +34,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import goid.kotajambi.puskesmas_ngadu.R;
+import goid.kotajambi.puskesmas_ngadu.Util.ItemAnimation;
 import goid.kotajambi.puskesmas_ngadu.model.event.IsiItem_events;
 import goid.kotajambi.puskesmas_ngadu.view.menu.menu_detail_events;
 import goid.kotajambi.puskesmas_ngadu.view.menu.menu_detail_layanan;
@@ -95,7 +96,7 @@ public class adapter_event extends RecyclerView.Adapter<adapter_event.HolderData
 
         holder.dm = dm;
 
-
+        setAnimation(holder.itemView,position);
 
     }
 
@@ -127,6 +128,7 @@ public class adapter_event extends RecyclerView.Adapter<adapter_event.HolderData
 
 
         IsiItem_events dm;
+
 
         public HolderData(View v) {
             super(v);
@@ -209,6 +211,16 @@ public class adapter_event extends RecyclerView.Adapter<adapter_event.HolderData
             lat_new = String.valueOf(lat);
             lng_new = String.valueOf(lng);
 
+        }
+    }
+
+    private int lastPosition = -1;
+    private boolean on_attach = true;
+
+    private void setAnimation(View view, int position) {
+        if (position > lastPosition) {
+            ItemAnimation.animate(view, on_attach ? position : -1, animation_type);
+            lastPosition = position;
         }
     }
 }

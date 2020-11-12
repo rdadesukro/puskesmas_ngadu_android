@@ -282,6 +282,7 @@ public class home {
                 sweetAlertDialog.dismissWithAnimation();
                 CustomIntent.customType(ctx, "fadein-to-fadeout");
                 Intent intent = new Intent((Activity) ctx, menu_utama.class);
+                Guru.putString("Fragmentone", "0");
                 intent.putExtra("Fragmentone", 0); //pass zero for Fragmentone.
                 ctx.startActivity(intent);
             }
