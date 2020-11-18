@@ -166,7 +166,7 @@ public class menu_login extends AppCompatActivity implements Validator.Validatio
                         GoogleSignInAccount acct = result.getSignInAccount();
                         nama = acct.getDisplayName();
                         email = acct.getEmail();
-                        Guru.putString("nama", nama);
+                        Guru.putString("nama_profil", nama);
                         Guru.putString("email", email);
                         login countryPresenter = new login(null, menu_login.this);
                         countryPresenter.cek_email(email);

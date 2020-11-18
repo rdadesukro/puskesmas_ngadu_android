@@ -45,7 +45,7 @@ public class menu_detail_notif extends AppCompatActivity {
         data_satus = Guru.getString("status_notif", "false");
         boolean cek = status_baca.contains(Guru.getString("id_user", "false"));
         if (cek){
-            Toast.makeText(this, "udah di baca", Toast.LENGTH_SHORT).show();
+          //  Toast.makeText(this, "udah di baca", Toast.LENGTH_SHORT).show();
 
         }else {
             if (data_satus!=""){

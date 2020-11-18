@@ -162,26 +162,46 @@ public class adapter_event extends RecyclerView.Adapter<adapter_event.HolderData
                     dialog.setMessage("please wait...");
                     dialog.show();
 
-                    final Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            dialog.dismiss();
-                            Intent goInput = new Intent(ctx, menu_detail_events.class);
-                            Guru.putString("jd_event", dm.getNama());
-                            Guru.putString("isi_event", dm.getKonten());
-                            Guru.putString("tgl_mulai", dm.getTglMulai());
-                            Guru.putString("tgl_akhir", dm.getTglAkhir());
-                            Guru.putString("lat", lat);
-                            Guru.putString("lng", lng);
-                            Guru.putString("foto_event", dm.getThumbnail());
-                            Guru.putString("lokasi", dm.getLokasi());
-                    Guru.putString("waktu_event", dm.getWaktu());
-                    ctx.startActivity(goInput);
-                    CustomIntent.customType(ctx, "fadein-to-fadeout");
+                    if (lat!=null && lng!=null){
+                        dialog.dismiss();
+                        Intent goInput = new Intent(ctx, menu_detail_events.class);
+                        Guru.putString("jd_event", dm.getNama());
+                        Guru.putString("isi_event", dm.getKonten());
+                        Guru.putString("tgl_mulai", dm.getTglMulai());
+                        Guru.putString("tgl_akhir", dm.getTglAkhir());
+                        Guru.putString("lat", lat);
+                        Guru.putString("lng", lng);
+                        Guru.putString("foto_event", dm.getThumbnail());
+                        Guru.putString("lokasi", dm.getLokasi());
+                        Guru.putString("waktu_event", dm.getWaktu());
+                        ctx.startActivity(goInput);
+                        CustomIntent.customType(ctx, "fadein-to-fadeout");
+                    }else {
+                        dialog.dismiss();
+                        Intent goInput = new Intent(ctx, menu_detail_events.class);
+                        Guru.putString("jd_event", dm.getNama());
+                        Guru.putString("isi_event", dm.getKonten());
+                        Guru.putString("tgl_mulai", dm.getTglMulai());
+                        Guru.putString("tgl_akhir", dm.getTglAkhir());
+                        Guru.putString("lat", "-1.631356");
+                        Guru.putString("lng", "103.620843");
+                        Guru.putString("foto_event", dm.getThumbnail());
+                        Guru.putString("lokasi", dm.getLokasi());
+                        Guru.putString("waktu_event", dm.getWaktu());
+                        ctx.startActivity(goInput);
+                        CustomIntent.customType(ctx, "fadein-to-fadeout");
+                    }
 
 
-                        } }, 2000L); //3000 L = 3 detik
+
+//                    final Handler handler = new Handler();
+//                    handler.postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//
+//
+//
+//                        } }, 2000L); //3000 L = 3 detik
 
                     Log.i("isiisisisi", "onClick: "+lat+" "+lng);
 //

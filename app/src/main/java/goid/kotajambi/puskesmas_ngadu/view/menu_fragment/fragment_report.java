@@ -4,7 +4,6 @@ package goid.kotajambi.puskesmas_ngadu.view.menu_fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,14 +14,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.appcompat.widget.SearchView;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.github.squti.guru.Guru;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -45,7 +40,6 @@ import goid.kotajambi.puskesmas_ngadu.adapter.PaginatedAdapter;
 import goid.kotajambi.puskesmas_ngadu.adapter.adapter_laporan_saya;
 import goid.kotajambi.puskesmas_ngadu.model.laporan_saya.DataItem;
 import goid.kotajambi.puskesmas_ngadu.model.laporan_saya.Response_laporan_saya;
-import goid.kotajambi.puskesmas_ngadu.model.laporan_saya.Result_laporan_saya;
 import goid.kotajambi.puskesmas_ngadu.view.menu.menu_cari;
 import goid.kotajambi.puskesmas_ngadu.view.menu.menu_utama;
 import maes.tech.intentanim.CustomIntent;
@@ -64,7 +58,6 @@ public class fragment_report extends Fragment {
 
 
     RecyclerView rvAku;
-    SwipeRefreshLayout swifeRefresh;
     @BindView(R.id.relativeLayout)
     ConstraintLayout relativeLayout;
     @BindView(R.id.txt_data2)
@@ -118,7 +111,6 @@ public class fragment_report extends Fragment {
                 .allEnabledCipherSuites()
                 .build();
         rvAku = (RecyclerView) view.findViewById(R.id.rv_aku);
-        swifeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.swifeRefresh);
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         adapter = new adapter_laporan_saya(getActivity());
         adapter.setDefaultRecyclerView(getActivity(), rvAku);
@@ -153,46 +145,46 @@ public class fragment_report extends Fragment {
 
         getNewItems(adapter.getStartPage());
 
-        swifeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                adapter.clear();
-                adapter = new adapter_laporan_saya(getActivity());
-                adapter.setDefaultRecyclerView(getActivity(), rvAku);
-
-                adapter.setOnPaginationListener(new PaginatedAdapter.OnPaginationListener() {
-                    @Override
-                    public void onCurrentPage(int page) {
-                        //  Toast.makeText(getActivity(), "Page " + page + " loaded!", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onNextPage(int page) {
-                        new_page=page;
-                        imgData2.setVisibility(View.GONE);
-                        txtData2.setVisibility(View.GONE);
-                        if (sama!=new_page){
-                            progressBar.setVisibility(View.VISIBLE);
-                        }else {
-                            progressBar.setVisibility(View.GONE);
-                        }
-                        progressBar.setVisibility(View.VISIBLE);
-                        getNewItems(page);
-
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        // Toast.makeText(getActivity(), "finish", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-
-                getNewItems(1);
-
-
-            }
-        });
+//        swifeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                adapter.clear();
+//                adapter = new adapter_laporan_saya(getActivity());
+//                adapter.setDefaultRecyclerView(getActivity(), rvAku);
+//
+//                adapter.setOnPaginationListener(new PaginatedAdapter.OnPaginationListener() {
+//                    @Override
+//                    public void onCurrentPage(int page) {
+//                        //  Toast.makeText(getActivity(), "Page " + page + " loaded!", Toast.LENGTH_SHORT).show();
+//                    }
+//
+//                    @Override
+//                    public void onNextPage(int page) {
+//                        new_page=page;
+//                        imgData2.setVisibility(View.GONE);
+//                        txtData2.setVisibility(View.GONE);
+//                        if (sama!=new_page){
+//                            progressBar.setVisibility(View.VISIBLE);
+//                        }else {
+//                            progressBar.setVisibility(View.GONE);
+//                        }
+//                        progressBar.setVisibility(View.VISIBLE);
+//                        getNewItems(page);
+//
+//                    }
+//
+//                    @Override
+//                    public void onFinish() {
+//                        // Toast.makeText(getActivity(), "finish", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//
+//
+//                getNewItems(1);
+//
+//
+//            }
+//        });
 
         return view;
 
@@ -219,7 +211,7 @@ public class fragment_report extends Fragment {
                             if (response.isSuccessful()) {
 
                                 progressBar.setVisibility(View.VISIBLE);
-                                swifeRefresh.setRefreshing(false);
+                                //swifeRefresh.setRefreshing(false);
                                 // Pd.hide();
                                 data = response.body().getResult().getData();
                                 int page1 = response.body().getResult().getTotal();
@@ -292,7 +284,7 @@ public class fragment_report extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.tes, menu);
+        inflater.inflate(R.menu.menu_report, menu);
         MenuItem refres = menu.findItem(R.id.refres);
         MenuItem cari = menu.findItem(R.id.cari);
         refres.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {

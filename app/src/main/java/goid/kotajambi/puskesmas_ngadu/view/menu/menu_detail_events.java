@@ -2,6 +2,7 @@ package goid.kotajambi.puskesmas_ngadu.view.menu;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,6 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import goid.kotajambi.puskesmas_ngadu.R;
 import goid.kotajambi.puskesmas_ngadu.adapter.GeocodingLocation;
+import goid.kotajambi.puskesmas_ngadu.adapter.Mydate;
 
 public class menu_detail_events extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -49,6 +51,7 @@ public class menu_detail_events extends AppCompatActivity implements OnMapReadyC
     double lat_new, lng_new;
     MapFragment mapFragment;
     GeocodingLocation locationAddress;
+    String tgl_mulai,tgl_akhir;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +63,16 @@ public class menu_detail_events extends AppCompatActivity implements OnMapReadyC
         mapFragment.getMapAsync(this);
         txtJudul.setText(Guru.getString("jd_event", "false"));
         txtLokasi.setText(Guru.getString("lokasi", "false"));
-        txtTgl.setText(Guru.getString("tgl_mulai", "false") + "-" + Guru.getString("tgl_akhir", "false"));
+        tgl_mulai = (Guru.getString("tgl_mulai", "false"));
+        tgl_akhir = (Guru.getString("tgl_akhir", "false"));
+        String date =tgl_mulai.substring(0,2);
+        String month= Mydate.konversi_bulan(tgl_mulai.substring(3,5));
+        String year =tgl_mulai.substring(5,10);
+        String date1 =tgl_akhir.substring(8,10);
+        String month1= Mydate.konversi_bulan(tgl_akhir.substring(5,7));
+        String year1 =tgl_akhir.substring(0,4);
+        Log.i("isi_tgl", "onCreate: "+date+" "+tgl_akhir);
+        txtTgl.setText(date+"-"+month+"-"+year);
         txtJam.setText(Guru.getString("waktu_event", "false")+" Wib");
         webview.requestFocus();
         webview.getSettings().setLightTouchEnabled(true);
@@ -88,6 +100,9 @@ public class menu_detail_events extends AppCompatActivity implements OnMapReadyC
     @Override
     protected void onResume() {
         super.onResume();
+//        if (lat1==""){
+//
+//        }
 
 
         mapFragment.getMapAsync(this);

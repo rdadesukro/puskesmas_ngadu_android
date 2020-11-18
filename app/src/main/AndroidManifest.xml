@@ -44,7 +44,7 @@
             android:screenOrientation="portrait"
             android:label="Events" />
         <activity android:name=".view.menu.menu_detail_layanan"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".view.menu.menu_layanan"
             android:screenOrientation="portrait"

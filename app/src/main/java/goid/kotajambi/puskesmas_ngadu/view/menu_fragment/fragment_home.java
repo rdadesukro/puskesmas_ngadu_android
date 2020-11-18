@@ -237,7 +237,7 @@ public class fragment_home extends Fragment implements view_home, view_notif {
         Log.i("isi_bener", "bener: " + bener);
         adapter_bener = new adapter_bener(getActivity(), bener, "mas_1");
         SliderView.setSliderAdapter(adapter_bener);
-        SliderView.setIndicatorAnimation(IndicatorAnimations.THIN_WORM);
+        SliderView.setIndicatorAnimation(IndicatorAnimations.SWAP);
         SliderView.setSliderTransformAnimation(SliderAnimations.CUBEOUTSCALINGTRANSFORMATION);
         SliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
         SliderView.setIndicatorSelectedColor(Color.WHITE);
@@ -383,7 +383,14 @@ public class fragment_home extends Fragment implements view_home, view_notif {
 
 
         }
-        badge.setNumber(jumlah_notif);
+        if (jumlah_notif==0){
+            badge.setVisible(false);
+
+        }else {
+            badge.setVisible(true);
+            badge.setNumber(jumlah_notif);
+        }
+
         Log.i("jumlah_notif_baru", "notif: "+jumlah_notif);
     }
 }

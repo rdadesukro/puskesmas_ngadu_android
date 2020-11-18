@@ -76,11 +76,9 @@
                             android:id="@+id/con_foto"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:visibility="gone"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/arrowBtn"
-                            tools:visibility="visible">
+                            app:layout_constraintTop_toBottomOf="@+id/arrowBtn">
 
                             <androidx.constraintlayout.widget.Guideline
                                 android:id="@+id/guideline"
@@ -152,11 +150,9 @@
                         android:inputType="textMultiLine"
                         android:maxLines="12"
                         android:minLines="7"
-                        android:text="jambi"
                         android:textColor="#000000"
                         android:textSize="24sp"
-                        android:theme="@style/EditText.Yellow"
-                        tools:text="jambi" />
+                        android:theme="@style/EditText.Yellow" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -182,7 +178,6 @@
                         android:ems="10"
                         android:hint="Judul Laporan"
                         android:inputType="textPersonName"
-                        android:text="ade"
                         android:textColor="#000000"
                         android:textColorHint="#000000"
                         android:textSize="24sp" />

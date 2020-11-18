@@ -73,7 +73,7 @@ public class adapter_notif extends RecyclerView.Adapter<adapter_notif.HolderData
         String month= Mydate.konversi_bulan(dm.getCreatedAt().substring(5,7));
         String year =dm.getCreatedAt().substring(0,4);
         tgl = date+"-"+month+"-"+year;
-        holder.tgl.setText(date+"-"+month+"-"+year);
+        holder.tgl.setText(dm.getCreatedAt());
 
 
 

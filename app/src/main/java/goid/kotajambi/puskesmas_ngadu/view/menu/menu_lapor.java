@@ -39,6 +39,7 @@ import androidx.transition.AutoTransition;
 import androidx.transition.TransitionManager;
 
 import com.github.squti.guru.Guru;
+import com.jeevandeshmukh.glidetoastlib.GlideToast;
 import com.jpegkit.Jpeg;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -72,7 +73,7 @@ public class menu_lapor extends AppCompatActivity implements Validator.Validatio
 
     @NotEmpty
     @BindView(R.id.edit_judul)
-    EditText editJudul;
+      EditText editJudul;
 
     @NotEmpty
     @BindView(R.id.edit_jenis)
@@ -88,7 +89,7 @@ public class menu_lapor extends AppCompatActivity implements Validator.Validatio
     AppCompatEditText editIsi;
     SweetAlertDialog pd_new;
 
-    File file;
+    public static  File file;
     @BindView(R.id.btn_foto)
     ImageView btnFoto;
     Bitmap decoded;
@@ -152,8 +153,8 @@ public class menu_lapor extends AppCompatActivity implements Validator.Validatio
 
         home countryPresenter = new home(null, menu_lapor.this);
         countryPresenter.lapor(id_user, kode, judul, isi, body, progressDialog);
-        editIsi.setText("");
-        editJudul.setText("");
+//        editIsi.setText("");
+//        editJudul.setText("");
         file=null;
 
     }
@@ -236,6 +237,7 @@ public class menu_lapor extends AppCompatActivity implements Validator.Validatio
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @SuppressLint("MissingSuperCall")
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -291,20 +293,42 @@ public class menu_lapor extends AppCompatActivity implements Validator.Validatio
 
                 // mengambil gambar dari Gallery
                 bitmap = MediaStore.Images.Media.getBitmap(menu_lapor.this.getContentResolver(), data.getData());
-                setToImageView(getResizedBitmap(bitmap, max_resolution_image));
-                getStringImage(decoded);
+
+
                 Uri tempUri = getImageUri(getApplicationContext(), bitmap);
                 file = FileUtils.getFile(this, tempUri);
+                int file_size = Integer.parseInt(String.valueOf(file.length()/1024));
+
+                Log.i("ukuran_file", "onActivityResult: "+file_size);
+
+                String val = ""+file;
+                String extension = val.substring(val.lastIndexOf(".") + 1);
+
+
+                    if (file_size>5024){
+                        new GlideToast.makeToast((Activity) this,"File Terlau Besar",GlideToast.LENGTHTOOLONG,GlideToast.WARNINGTOAST,GlideToast.CENTER).show();
+
+                        file=null;
+                    }  else if (file_size==0){
+                        file=null;
+                        new GlideToast.makeToast((Activity) this,"File Rusak",GlideToast.LENGTHTOOLONG,GlideToast.WARNINGTOAST,GlideToast.CENTER).show();
+
+                    } else{
+                        setToImageView(getResizedBitmap(bitmap, max_resolution_image));
+                        getStringImage(decoded);
+                    }
+//
                 //  foto(tempUri);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public Uri getImageUri(Context inContext, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Img"+Calendar.getInstance().getTime(), null);
         return Uri.parse(path);
     }
 

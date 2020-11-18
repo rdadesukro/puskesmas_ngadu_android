@@ -129,6 +129,9 @@ public interface ApiRequest {
     @GET("jumlah_layanan")
     Call<Response_jumlah> jumlah_layanan();
 
+    @GET("cek_status")
+    Call<Response_simpan> cek_status();
+
     @GET("slider")
     Call<Response_slider> get_slider();
 

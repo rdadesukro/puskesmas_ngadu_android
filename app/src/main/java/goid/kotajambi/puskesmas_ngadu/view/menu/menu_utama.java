@@ -1,7 +1,10 @@
 package goid.kotajambi.puskesmas_ngadu.view.menu;
 
 import android.Manifest;
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -28,6 +31,7 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import java.util.List;
 
 import butterknife.ButterKnife;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import goid.kotajambi.puskesmas_ngadu.R;
 import goid.kotajambi.puskesmas_ngadu.Server.ApiRequest;
 import goid.kotajambi.puskesmas_ngadu.Server.Retroserver_server_AUTH;
@@ -35,12 +39,15 @@ import goid.kotajambi.puskesmas_ngadu.adapter.ViewPagerAdapter;
 import goid.kotajambi.puskesmas_ngadu.adapter.adapter_notif;
 import goid.kotajambi.puskesmas_ngadu.model.jumlah_laporan_saya.Response_jumlah;
 import goid.kotajambi.puskesmas_ngadu.model.notif.IsiItem_notif;
+import goid.kotajambi.puskesmas_ngadu.model.simpan.Response_simpan;
+import goid.kotajambi.puskesmas_ngadu.presenter.login;
 import goid.kotajambi.puskesmas_ngadu.presenter.notif;
 import goid.kotajambi.puskesmas_ngadu.view.menu_fragment.fragment_home;
 import goid.kotajambi.puskesmas_ngadu.view.menu_fragment.fragment_report;
 import goid.kotajambi.puskesmas_ngadu.view.menu_fragment.fragment_news;
 import goid.kotajambi.puskesmas_ngadu.view.menu_fragment.fragment_profil;
 import goid.kotajambi.puskesmas_ngadu.view.view_notif;
+import maes.tech.intentanim.CustomIntent;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -53,7 +60,7 @@ public class menu_utama extends AppCompatActivity implements view_notif {
     fragment_report myreport;
     fragment_profil profil;
     fragment_news news;
-
+    ProgressDialog progressDialog;
     MenuItem prevMenuItem;
     ViewPager vg;
     public static final int MEDIA_TYPE_IMAGE = 1;
@@ -79,8 +86,9 @@ public class menu_utama extends AppCompatActivity implements view_notif {
 //        countryPresenter.get_notif();
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
-
+        get_status();
         badge = bottomNavigationView.getOrCreateBadge(R.id.Notifikasi);
+        badge.setVisible(false);
       //  badge.setNumber(3);
        // badge.setNumber(Integer.parseInt(Guru.getString("badge", "1")));
         vg = (ViewPager) findViewById(R.id.vg);
@@ -149,6 +157,63 @@ public class menu_utama extends AppCompatActivity implements view_notif {
         setupViewPager(vg);
         vg.setCurrentItem(value);
 
+
+    }
+    public void get_status() {
+
+
+        ApiRequest api = Retroserver_server_AUTH.getClient().create(ApiRequest.class);
+        Call<Response_simpan> call = api.cek_status();
+
+        call.enqueue(new Callback<Response_simpan>() {
+            @Override
+            public void onResponse(Call<Response_simpan> call, Response<Response_simpan> response) {
+
+                try {
+                    String kode = response.body().getKode();
+                    Log.i("status_akun", "onResponse: "+kode);
+                    if (kode.equals("0")){
+                        dialog_status("Akun Anda Di Nonaktifkan","");
+
+                    }else {
+
+                    }
+
+                } catch (Exception e) {
+                    Log.d("onResponse", "There is an error");
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Response_simpan> call, Throwable t) {
+                Log.i("cek_cek", "onResponse: " + t);
+                t.printStackTrace();
+            }
+        });
+    }
+    void dialog_status(String judul,String pesan) {
+        SweetAlertDialog pDialog = new SweetAlertDialog(menu_utama.this, SweetAlertDialog.WARNING_TYPE);
+        pDialog.setCancelable(false);
+        pDialog.setTitleText("");
+        pDialog.setContentText(judul);
+        pDialog.setConfirmText("Ok");
+        pDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                sweetAlertDialog.dismissWithAnimation();
+                login countryPresenter = new login(null, menu_utama.this);
+                countryPresenter.hapus_token(Guru.getString("token", "false"));
+                countryPresenter.keluar(progressDialog);
+                CustomIntent.customType(menu_utama.this, "fadein-to-fadeout");
+                Intent intent = new Intent((Activity) menu_utama.this, menu_login.class);
+                Guru.putString("Fragmentone", "0");
+                intent.putExtra("Fragmentone", 0); //pass zero for Fragmentone.
+                startActivity(intent);
+            }
+        });
+        pDialog.setCanceledOnTouchOutside(false);
+        pDialog.show();
 
     }
     private void setupViewPager(ViewPager vg) {

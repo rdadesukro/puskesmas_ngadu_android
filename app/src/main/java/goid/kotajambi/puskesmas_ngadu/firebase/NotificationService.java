@@ -21,7 +21,9 @@ import com.google.firebase.messaging.RemoteMessage;
 import org.jetbrains.annotations.NotNull;
 
 import goid.kotajambi.puskesmas_ngadu.R;
+import goid.kotajambi.puskesmas_ngadu.view.menu.menu_event;
 import goid.kotajambi.puskesmas_ngadu.view.menu.menu_komen_laporan_masuk;
+import goid.kotajambi.puskesmas_ngadu.view.menu.menu_layanan;
 import goid.kotajambi.puskesmas_ngadu.view.menu.menu_utama;
 import maes.tech.intentanim.CustomIntent;
 
@@ -80,10 +82,18 @@ public class NotificationService extends FirebaseMessagingService {
                 intent = new Intent(this, menu_komen_laporan_masuk.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
-            }
-
-            else if (click_action.equals("broadcast")) {
+            }else if (click_action.equals("broadcast")) {
                 intent = new Intent(this, menu_utama.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                Guru.putString("Fragmentone", "2");
+                pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+            }else if (click_action.equals("events")){
+                intent = new Intent(this, menu_event.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                Guru.putString("Fragmentone", "2");
+                pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+            }else if (click_action.equals("service")){
+                intent = new Intent(this, menu_layanan.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 Guru.putString("Fragmentone", "2");
                 pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
@@ -126,7 +136,7 @@ public class NotificationService extends FirebaseMessagingService {
         String channelId = "ini";
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "ini";
-            String description = "tes";
+            String description = "menu_report";
             int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel channel = new NotificationChannel(channelId, name, NotificationManager.IMPORTANCE_DEFAULT);
             channel.setDescription(description);

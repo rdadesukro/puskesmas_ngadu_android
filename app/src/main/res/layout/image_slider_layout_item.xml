@@ -50,9 +50,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="6dp"
+
+
             android:text="Tessss"
             android:textColor="#FFF"
-            android:textSize="18dp"
+            android:textSize="16dp"
             android:textStyle="bold"
             tools:ignore="WebViewLayout">
 

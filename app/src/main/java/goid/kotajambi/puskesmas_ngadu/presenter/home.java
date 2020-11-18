@@ -36,6 +36,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+
+import static goid.kotajambi.puskesmas_ngadu.view.menu.menu_lapor.file;
 import static java.util.Collections.singletonList;
 
 public class home {
@@ -122,6 +124,7 @@ public class home {
                 Log.i("kode", "onResponse: " + kode);
 
                 if (kode.equals("1")) {
+                    file=null;
                    // Toast.makeText(ctx, ""+response.body().getMessage(), Toast.LENGTH_SHORT).show();
                    finalPDialog.dismiss();
                     dialog_berhasil("Berhasil Lapor","");
@@ -130,8 +133,8 @@ public class home {
                 } else {
                    // Toast.makeText(ctx, ""+response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     finalPDialog.dismiss();
-                    gagal();
-                    new GlideToast.makeToast((Activity) ctx, "" + response.body().getMessage(), GlideToast.LENGTHLONG, GlideToast.WARNINGTOAST, GlideToast.CENTER).show();
+                    gagal(response.body().getMessage());
+                    //new GlideToast.makeToast((Activity) ctx, "" + response.body().getMessage(), GlideToast.LENGTHLONG, GlideToast.WARNINGTOAST, GlideToast.CENTER).show();
                 }
 
             }
@@ -299,10 +302,10 @@ public class home {
         pDialog.setCancelable(false);
         pDialog.show();
     }
-    void  gagal(){
+    void  gagal(String pesan){
         SweetAlertDialog  pDialog = new SweetAlertDialog((Activity) ctx, SweetAlertDialog.WARNING_TYPE);
         pDialog.getProgressHelper().setBarColor(Color.parseColor("#3395ff"));
-        pDialog.setTitleText("Gagal Lapor");
+        pDialog.setTitleText(pesan);
         pDialog.setCancelable(false);
         pDialog.show();
     }

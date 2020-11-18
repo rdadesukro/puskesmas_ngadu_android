@@ -111,7 +111,14 @@ public class fragment_news extends Fragment implements view_notif {
             }
 
         }
-        badge.setNumber(jumlah_notif);
+        if (jumlah_notif==0){
+            badge.setVisible(false);
+
+        }else {
+            badge.setVisible(true);
+            badge.setNumber(jumlah_notif);
+        }
+
         Log.i("jumlah_notif_baru", "notif: "+jumlah_notif);
     }
     @Override
