@@ -13,6 +13,17 @@ public class IsiItem_notif {
 	@SerializedName("created_at")
 	private String createdAt;
 
+	public String getWaktu() {
+		return waktu;
+	}
+
+	public void setWaktu(String waktu) {
+		this.waktu = waktu;
+	}
+
+	@SerializedName("waktu")
+	private String waktu;
+
 	@SerializedName("id")
 	private int id;
 

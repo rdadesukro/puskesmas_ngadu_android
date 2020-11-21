@@ -126,6 +126,9 @@ public interface ApiRequest {
     @GET("jumlah_event")
     Call<Response_jumlah> jumlah_event();
 
+    @GET("jumlah_komen")
+    Call<Response_jumlah> jumlah_komen(@Query("id_lapor") String id_lapor);
+
     @GET("jumlah_layanan")
     Call<Response_jumlah> jumlah_layanan();
 

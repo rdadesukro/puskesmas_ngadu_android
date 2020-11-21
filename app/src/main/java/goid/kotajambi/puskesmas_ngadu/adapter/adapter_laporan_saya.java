@@ -35,12 +35,14 @@ import maes.tech.intentanim.CustomIntent;
 
 
 public class adapter_laporan_saya extends PaginatedAdapter<DataItem, adapter_laporan_saya.ViewHolder> {
-    public adapter_laporan_saya(Context ctx) {
+    public adapter_laporan_saya(Context ctx,String jenis_laporan) {
         this.ctx = ctx;
+        this.jenis_laporan = jenis_laporan;
 
     }
 
     private Context ctx;
+    private  String jenis_laporan;
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -78,7 +80,7 @@ public class adapter_laporan_saya extends PaginatedAdapter<DataItem, adapter_lap
         }
 
         public void render(DataItem user) {
-            tgl.setText(user.getCreatedAt());
+            tgl.setText(user.getWaktu());
             jenis.setText(user.getIsiLaporan());
             judul.setText(user.getJudul());
             kode.setText("Kode : "+user.getKode());
@@ -145,6 +147,7 @@ public class adapter_laporan_saya extends PaginatedAdapter<DataItem, adapter_lap
                     Guru.putString("foto_laporan", user.getFotoLaporan());
                     Guru.putString("tgl", user.getCreatedAt());
                     Guru.putString("tgl", user.getCreatedAt());
+                    Guru.putString("jenis_laporan", jenis_laporan);
                     Guru.putString("foto_pelapor", user.getUser().getFoto());
                     Guru.putString("nama", user.getUser().getName());
                     Guru.putString("kode_lp", user.getKode());

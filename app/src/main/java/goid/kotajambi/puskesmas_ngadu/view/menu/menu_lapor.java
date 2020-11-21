@@ -145,7 +145,7 @@ public class menu_lapor extends AppCompatActivity implements Validator.Validatio
         MultipartBody.Part body = null;
         RequestBody requestFile;
         if (file == null) {
-            Toast.makeText(this, "File Kosong", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "File Kosong", Toast.LENGTH_SHORT).show();
         } else {
             requestFile = RequestBody.create(MediaType.parse("image/*"), file);
             body = MultipartBody.Part.createFormData("foto_laporan", file.getName(), requestFile);

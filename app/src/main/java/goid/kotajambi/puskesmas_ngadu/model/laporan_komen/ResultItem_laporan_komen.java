@@ -22,6 +22,17 @@ public class ResultItem_laporan_komen {
 	@SerializedName("isi_laporan")
 	private String isiLaporan;
 
+	public String getWaktu() {
+		return waktu;
+	}
+
+	public void setWaktu(String waktu) {
+		this.waktu = waktu;
+	}
+
+	@SerializedName("waktu")
+	private String waktu;
+
 	@SerializedName("id")
 	private int id;
 

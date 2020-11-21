@@ -313,7 +313,7 @@ public class fragment_home extends Fragment implements view_home, view_notif {
                     swifeRefresh.setRefreshing(false);
                     int data = response.body().getJumlah();
                     Log.i("jumlah_jumlah", "onResponse: " + data);
-                    txtJmEvents.setText(data + " Events");
+                    txtJmEvents.setText(data + " Kegiatan");
                 } catch (Exception e) {
                     Log.d("onResponse", "There is an error");
                     e.printStackTrace();
@@ -342,7 +342,7 @@ public class fragment_home extends Fragment implements view_home, view_notif {
                     swifeRefresh.setRefreshing(false);
                     int data = response.body().getJumlah();
                     Log.i("jumlah_jumlah", "onResponse: " + data);
-                    txtJmLayanan.setText(data + " Service");
+                    txtJmLayanan.setText(data + " Layanan");
                 } catch (Exception e) {
                     Log.d("onResponse", "There is an error");
                     e.printStackTrace();

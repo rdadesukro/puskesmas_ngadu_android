@@ -90,7 +90,7 @@ public class menu_laporan_saya extends AppCompatActivity {
                 .build();
         rvAku = (RecyclerView) findViewById(R.id.rv_aku);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        adapter = new adapter_laporan_saya(menu_laporan_saya.this);
+        adapter = new adapter_laporan_saya(menu_laporan_saya.this,"myreport");
         adapter.setDefaultRecyclerView(menu_laporan_saya.this, rvAku);
 
         adapter.setOnPaginationListener(new PaginatedAdapter.OnPaginationListener() {

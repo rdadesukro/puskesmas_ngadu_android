@@ -168,7 +168,6 @@ public class adapter_event extends RecyclerView.Adapter<adapter_event.HolderData
                         Guru.putString("jd_event", dm.getNama());
                         Guru.putString("isi_event", dm.getKonten());
                         Guru.putString("tgl_mulai", dm.getTglMulai());
-                        Guru.putString("tgl_akhir", dm.getTglAkhir());
                         Guru.putString("lat", lat);
                         Guru.putString("lng", lng);
                         Guru.putString("foto_event", dm.getThumbnail());
@@ -182,7 +181,6 @@ public class adapter_event extends RecyclerView.Adapter<adapter_event.HolderData
                         Guru.putString("jd_event", dm.getNama());
                         Guru.putString("isi_event", dm.getKonten());
                         Guru.putString("tgl_mulai", dm.getTglMulai());
-                        Guru.putString("tgl_akhir", dm.getTglAkhir());
                         Guru.putString("lat", "-1.631356");
                         Guru.putString("lng", "103.620843");
                         Guru.putString("foto_event", dm.getThumbnail());

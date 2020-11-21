@@ -22,6 +22,7 @@ public interface view_komen {
 
 
     void komen(List<Result_komen> bener);
+    void  jumlah(String jumlah);
     void laporan_komen(List<ResultItem_laporan_komen> laporan_komen);
 
 

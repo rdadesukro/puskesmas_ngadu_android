@@ -64,16 +64,13 @@ public class menu_detail_events extends AppCompatActivity implements OnMapReadyC
         txtJudul.setText(Guru.getString("jd_event", "false"));
         txtLokasi.setText(Guru.getString("lokasi", "false"));
         tgl_mulai = (Guru.getString("tgl_mulai", "false"));
-        tgl_akhir = (Guru.getString("tgl_akhir", "false"));
         String date =tgl_mulai.substring(0,2);
         String month= Mydate.konversi_bulan(tgl_mulai.substring(3,5));
-        String year =tgl_mulai.substring(5,10);
-        String date1 =tgl_akhir.substring(8,10);
-        String month1= Mydate.konversi_bulan(tgl_akhir.substring(5,7));
-        String year1 =tgl_akhir.substring(0,4);
-        Log.i("isi_tgl", "onCreate: "+date+" "+tgl_akhir);
+        String year =tgl_mulai.substring(6,10);
+
         txtTgl.setText(date+"-"+month+"-"+year);
-        txtJam.setText(Guru.getString("waktu_event", "false")+" Wib");
+        Log.i("monthhhh", "onCreate: "+year);
+        txtJam.setText(Guru.getString("waktu_event", "false")+" WIB");
         webview.requestFocus();
         webview.getSettings().setLightTouchEnabled(true);
         webview.getSettings().setJavaScriptEnabled(true);

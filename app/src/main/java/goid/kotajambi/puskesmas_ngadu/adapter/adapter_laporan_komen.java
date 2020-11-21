@@ -64,7 +64,7 @@ public class adapter_laporan_komen extends RecyclerView.Adapter<adapter_laporan_
         final ResultItem_laporan_komen dm = mList.get(position);
 
         holder.nama.setText(dm.getUser().getName());
-        holder.txt_date.setText(dm.getCreatedAt());
+        holder.txt_date.setText(dm.getWaktu());
         holder.txt_jenis.setText(dm.getIsiLaporan());
         holder.txt_judul.setText(dm.getJudul());
         holder.kode.setText(dm.getKode());

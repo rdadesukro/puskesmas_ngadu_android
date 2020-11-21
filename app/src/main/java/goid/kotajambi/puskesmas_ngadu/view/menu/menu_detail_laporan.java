@@ -1,11 +1,14 @@
 package goid.kotajambi.puskesmas_ngadu.view.menu;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -37,19 +40,26 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import goid.kotajambi.puskesmas_ngadu.R;
+import goid.kotajambi.puskesmas_ngadu.Server.ApiRequest;
+import goid.kotajambi.puskesmas_ngadu.Server.Retroserver_server_AUTH;
 import goid.kotajambi.puskesmas_ngadu.Util.PhotoFullPopupWindow;
 import goid.kotajambi.puskesmas_ngadu.adapter.adapter_komen;
+import goid.kotajambi.puskesmas_ngadu.model.jumlah_laporan_saya.Response_jumlah;
 import goid.kotajambi.puskesmas_ngadu.model.komen.Result_komen;
 import goid.kotajambi.puskesmas_ngadu.model.laporan_komen.ResultItem_laporan_komen;
 import goid.kotajambi.puskesmas_ngadu.presenter.komen;
 import goid.kotajambi.puskesmas_ngadu.view.view_komen;
+import maes.tech.intentanim.CustomIntent;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class menu_detail_laporan extends AppCompatActivity implements view_komen {
 
     @BindView(R.id.img_foto)
     ImageView imgFoto;
     @BindView(R.id.txt_isi)
-    TextView txtIsi;
+    WebView txtIsi;
     @BindView(R.id.txt_tgl)
     TextView txtTgl;
     @BindView(R.id.txt_judul)
@@ -89,7 +99,7 @@ public class menu_detail_laporan extends AppCompatActivity implements view_komen
 
 
     private adapter_komen adapter_komen;
-    String foto, no_hp;
+    String foto, no_hp,jenis_laporan;
 
 
     @Override
@@ -101,12 +111,23 @@ public class menu_detail_laporan extends AppCompatActivity implements view_komen
 
         txtJudul.setText(Guru.getString("judul", "false"));
         txtTgl.setText(Guru.getString("tgl", "false"));
-        txtIsi.setText(Guru.getString("isi", "false"));
+        jenis_laporan = Guru.getString("jenis_laporan", "false");
+
+
+        String text;
+        text = "<html><body><p align=\"justify\">";
+        text+= Guru.getString("isi", "false");
+        text+= "</p></body></html>";
+        txtIsi.loadData(text, "text/html", "utf-8");
+        //txtIsi.setText(Guru.getString("isi", "false"));
 
         txtNama.setText(Guru.getString("nama", "false"));
         txtKode2.setText(Guru.getString("kode_lp", "false"));
         no_hp = Guru.getString("no_hp", "false");
-        txtJumlah.setText("( " + Guru.getString("jumlah", "false") + " Comment )");
+        komen countryPresenter = new komen(this, menu_detail_laporan.this);
+        countryPresenter.get_jumlah_komen(Guru.getString("id_lapor", "false"));
+       // txtJumlah.setText("( " + Guru.getString("jumlah", "false") + " Comment )");
+        //get_jumlah_komen();
 
         if (no_hp.equals("false")) {
             txtNo.setText("No Hp : -");
@@ -160,12 +181,13 @@ public class menu_detail_laporan extends AppCompatActivity implements view_komen
     @OnClick(R.id.arrowBtn)
     public void onViewClicked() {
         if (conBerita.getVisibility() == View.GONE) {
+           // get_jumlah_komen();
             TransitionManager.beginDelayedTransition(cardData, new AutoTransition());
             conBerita.setVisibility(View.VISIBLE);
             arrowBtn.setBackgroundResource(R.drawable.ic_baseline_arrow_drop_up_24);
             komen countryPresenter = new komen(this, menu_detail_laporan.this);
             countryPresenter.get_komen(Guru.getString("id_lapor", "false"));
-
+            countryPresenter.get_jumlah_komen(Guru.getString("id_lapor", "false"));
         } else {
             TransitionManager.beginDelayedTransition(cardData, new AutoTransition());
             conBerita.setVisibility(View.GONE);
@@ -197,6 +219,11 @@ public class menu_detail_laporan extends AppCompatActivity implements view_komen
     }
 
     @Override
+    public void jumlah(String jumlah) {
+        txtJumlah.setText(jumlah+" Comment");
+    }
+
+    @Override
     public void laporan_komen(List<ResultItem_laporan_komen> laporan_komen) {
 
     }
@@ -209,6 +236,7 @@ public class menu_detail_laporan extends AppCompatActivity implements view_komen
         countryPresenter.simpan_komen(Guru.getString("id_lapor", "false"), Guru.getString("id_user", "false"), textContent.getText().toString(),
                 Guru.getString("nama_profil", "false"));
         textContent.setText("");
+        //get_jumlah_komen();
 
 
     }
@@ -236,5 +264,67 @@ public class menu_detail_laporan extends AppCompatActivity implements view_komen
 
                 break;
         }
+    }
+    public void get_jumlah_komen() {
+
+
+        ApiRequest api = Retroserver_server_AUTH.getClient().create(ApiRequest.class);
+        Call<Response_jumlah> call = api.jumlah_komen(Guru.getString("id_lapor", "false"));
+
+        call.enqueue(new Callback<Response_jumlah>() {
+            @Override
+            public void onResponse(Call<Response_jumlah> call, Response<Response_jumlah> response) {
+
+                try {
+                    int data = response.body().getJumlah();
+                    Log.i("jumlah_jumlah", "onResponse: " + data);
+                    txtJumlah.setText(data + " Comment");
+                } catch (Exception e) {
+                    Log.d("onResponse", "There is an error");
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Response_jumlah> call, Throwable t) {
+                Log.i("cek_cek", "onResponse: " + t);
+                t.printStackTrace();
+            }
+        });
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        komen countryPresenter = new komen(this, menu_detail_laporan.this);
+        countryPresenter.get_jumlah_komen(Guru.getString("id_lapor", "false"));
+      //get_jumlah_komen();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        komen countryPresenter = new komen(this, menu_detail_laporan.this);
+        countryPresenter.get_jumlah_komen(Guru.getString("id_lapor", "false"));
+       // get_jumlah_komen();
+    }
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+            if (jenis_laporan.equals("report")){
+                Intent intent = new Intent((Activity) menu_detail_laporan.this, menu_utama.class);
+                Guru.putString("Fragmentone", "1");
+                intent.putExtra("Fragmentone", 1); //pass zero for Fragmentone.
+                startActivity(intent);
+                CustomIntent.customType((Activity) menu_detail_laporan.this,"fadein-to-fadeout");
+            }else {
+                Intent intent = new Intent((Activity) menu_detail_laporan.this, menu_utama.class);
+                Guru.putString("Fragmentone", "0");
+                intent.putExtra("Fragmentone", 0); //pass zero for Fragmentone.
+                startActivity(intent);
+                CustomIntent.customType((Activity) menu_detail_laporan.this,"fadein-to-fadeout");
+            }
+
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

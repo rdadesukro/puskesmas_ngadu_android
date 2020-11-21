@@ -112,7 +112,7 @@ public class fragment_report extends Fragment {
                 .build();
         rvAku = (RecyclerView) view.findViewById(R.id.rv_aku);
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
-        adapter = new adapter_laporan_saya(getActivity());
+        adapter = new adapter_laporan_saya(getActivity(),"report");
         adapter.setDefaultRecyclerView(getActivity(), rvAku);
 
         adapter.setOnPaginationListener(new PaginatedAdapter.OnPaginationListener() {
@@ -311,6 +311,16 @@ public class fragment_report extends Fragment {
             }
         });
         super.onCreateOptionsMenu(menu, inflater);
+    }
+    public void onStart() {
+        super.onStart();
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
     }
 
 }

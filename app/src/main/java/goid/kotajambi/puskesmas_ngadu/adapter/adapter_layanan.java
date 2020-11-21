@@ -59,8 +59,12 @@ public class adapter_layanan extends RecyclerView.Adapter<adapter_layanan.Holder
     @Override
     public void onBindViewHolder(final HolderData holder, int position) {
         final IsiItem_layanan dm = mList.get(position);
-
+        String date =dm.getCreatedAt().substring(8,10);
+        String month= Mydate.konversi_bulan(dm.getCreatedAt().substring(5,7));
+        String year =dm.getCreatedAt().substring(0,4);
+        holder.txt_tgl.setText(date+"-"+month+"-"+year);
         holder.nama.setText(dm.getNama());
+
 
 
         holder.dm = dm;
@@ -80,6 +84,9 @@ public class adapter_layanan extends RecyclerView.Adapter<adapter_layanan.Holder
         @BindView(R.id.txt_nama)
         TextView nama;
 
+        @BindView(R.id.txt_tgl)
+        TextView txt_tgl;
+
         @BindView(R.id.card)
         CardView cardView;
 
@@ -94,8 +101,9 @@ public class adapter_layanan extends RecyclerView.Adapter<adapter_layanan.Holder
                 @Override
                 public void onClick(View v) {
                     Intent goInput = new Intent(ctx, menu_detail_layanan.class);
-                    Guru.putString("nama", dm.getNama());
-                    Guru.putString("isi", dm.getData());
+                    Guru.putString("nama_layanan", dm.getNama());
+                    Guru.putString("isi_layanan", dm.getData());
+                    Guru.putString("tgl_layanan", dm.getCreatedAt());
                     ctx.startActivity(goInput);
                     CustomIntent.customType(ctx, "fadein-to-fadeout");
 
@@ -109,6 +117,7 @@ public class adapter_layanan extends RecyclerView.Adapter<adapter_layanan.Holder
                     Intent goInput = new Intent(ctx, menu_detail_layanan.class);
                     Guru.putString("nama_layanan", dm.getNama());
                     Guru.putString("isi_layanan", dm.getData());
+                    Guru.putString("tgl_layanan", dm.getCreatedAt());
                     ctx.startActivity(goInput);
                     CustomIntent.customType(ctx, "fadein-to-fadeout");
 

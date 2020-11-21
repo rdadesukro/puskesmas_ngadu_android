@@ -251,6 +251,7 @@
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
                         android:text="081272168388"
+                        android:textSize="14dp"
                         app:layout_constraintEnd_toStartOf="@+id/btn_no_hp"
                         app:layout_constraintStart_toStartOf="@+id/textView29"
                         app:layout_constraintTop_toBottomOf="@+id/textView29" />
@@ -304,6 +305,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="081272168388"
+                        android:textSize="14dp"
                         app:layout_constraintEnd_toStartOf="@+id/btn_no_hp"
                         app:layout_constraintStart_toStartOf="@+id/textView24"
                         app:layout_constraintTop_toBottomOf="@+id/textView24" />
@@ -357,8 +359,10 @@
                         android:id="@+id/txt_email"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="rdade@gmail.com"
-                        app:layout_constraintEnd_toStartOf="@+id/btn_keluar"
+                        android:layout_marginEnd="8dp"
+                        android:text="rdade@gmail.com rdade@gmail.com rdade@gmail.com"
+                        android:textSize="14dp"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/textView22"
                         app:layout_constraintTop_toBottomOf="@+id/textView22" />
 
@@ -501,6 +505,7 @@
                         android:text="San Francisco, CA"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                         android:textColor="@color/grey_40"
+                        android:textSize="14dp"
                         app:layout_constraintStart_toEndOf="@+id/imageView2"
                         app:layout_constraintTop_toBottomOf="@+id/txt_nama" />
 
@@ -513,6 +518,7 @@
                         android:text="Betty C Wilson"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="@color/overlay_dark_90"
+                        android:textSize="18dp"
                         app:fontFamily="sans-serif-medium"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />

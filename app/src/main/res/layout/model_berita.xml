@@ -67,7 +67,7 @@
                 android:layout_marginBottom="8dp"
                 android:text="30-Januari-2020"
                 android:textColor="@color/grey_700"
-                android:textSize="12sp"
+                android:textSize="12dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_judul" />
@@ -100,6 +100,7 @@
                 android:maxLines="3"
                 android:text="Apresiasi Pejuang Al-Quran, Pemkot Jambi Kembali Serahkan Bonus MTQ dan FASI Kota Jambi"
                 android:textColor="@color/grey_900"
+                android:textSize="14dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/cardView"
                 app:layout_constraintTop_toTopOf="parent">

@@ -58,6 +58,11 @@ public class menu_komen_laporan_masuk extends AppCompatActivity implements view_
     }
 
     @Override
+    public void jumlah(String jumlah) {
+
+    }
+
+    @Override
     public void laporan_komen(List<ResultItem_laporan_komen> laporan_komen) {
         Log.i("laporan_komen", "komen: " + laporan_komen.size());
         adapter = new adapter_laporan_komen(this,laporan_komen,1);

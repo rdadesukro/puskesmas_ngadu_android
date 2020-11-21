@@ -5,13 +5,13 @@
         android:id="@+id/data"
         android:checked="true"
         android:icon="@drawable/ic_baseline_house_24"
-        android:title="Home"
+            android:title="Beranda"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/lokasi"
         android:checked="false"
         android:icon="@drawable/ic_baseline_report_24"
-        android:title="Report"
+        android:title="Laporan"
         android:iconTint="@color/bg_screen3"
 
         app:showAsAction="ifRoom" />

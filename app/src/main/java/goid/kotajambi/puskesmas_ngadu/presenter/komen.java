@@ -6,6 +6,7 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.github.squti.guru.Guru;
 import com.jeevandeshmukh.glidetoastlib.GlideToast;
 
 import java.io.IOException;
@@ -13,6 +14,7 @@ import java.util.List;
 
 import goid.kotajambi.puskesmas_ngadu.Server.ApiRequest;
 import goid.kotajambi.puskesmas_ngadu.Server.Retroserver_server_AUTH;
+import goid.kotajambi.puskesmas_ngadu.model.jumlah_laporan_saya.Response_jumlah;
 import goid.kotajambi.puskesmas_ngadu.model.komen.Response_komen;
 import goid.kotajambi.puskesmas_ngadu.model.komen.Result_komen;
 import goid.kotajambi.puskesmas_ngadu.model.laporan_komen.Response_laporan_komen;
@@ -116,6 +118,8 @@ public class komen {
                 Log.i("kode", "onResponse: "+kode);
 
                 if (kode.equals("1")){
+                    get_komen(id_lapor);
+                    get_jumlah_komen(id_lapor);
                     pDialog.dismiss();
                     new GlideToast.makeToast((Activity) ctx, ""+pesan, GlideToast.LENGTHLONG, GlideToast.SUCCESSTOAST, GlideToast.BOTTOM).show();
 
@@ -270,7 +274,33 @@ public class komen {
         });
 
     }
+    public void get_jumlah_komen(String id_lapor) {
 
+
+        ApiRequest api = Retroserver_server_AUTH.getClient().create(ApiRequest.class);
+        Call<Response_jumlah> call = api.jumlah_komen(id_lapor);
+
+        call.enqueue(new Callback<Response_jumlah>() {
+            @Override
+            public void onResponse(Call<Response_jumlah> call, Response<Response_jumlah> response) {
+
+                try {
+                    int data = response.body().getJumlah();
+                    countryView.jumlah(String.valueOf(data));
+
+                } catch (Exception e) {
+                    Log.d("onResponse", "There is an error");
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Response_jumlah> call, Throwable t) {
+                Log.i("cek_cek", "onResponse: " + t);
+                t.printStackTrace();
+            }
+        });
+    }
 
     }
 

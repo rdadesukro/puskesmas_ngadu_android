@@ -32,6 +32,20 @@ public class DataItem{
 	@SerializedName("jumlah_koment")
 	private int jumlahKoment;
 
+	public String getWaktu() {
+		return waktu;
+	}
+
+	public void setWaktu(String waktu) {
+		this.waktu = waktu;
+	}
+
+	@SerializedName("waktu")
+	private String waktu;
+
+
+
+
 	@SerializedName("judul")
 	private String judul;
 
