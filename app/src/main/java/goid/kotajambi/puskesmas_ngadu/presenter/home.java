@@ -218,7 +218,7 @@ public class home {
                                 Toast.makeText(ctx,"server broken", Toast.LENGTH_SHORT).show();
                                 break;
                             default:
-                                Toast.makeText(ctx, "unknown error", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ctx, "Slider Error", Toast.LENGTH_SHORT).show();
                                 break;
                         }
                     }

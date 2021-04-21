@@ -16,6 +16,7 @@ import com.jeevandeshmukh.glidetoastlib.GlideToast;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import goid.kotajambi.puskesmas_ngadu.Server.ApiRequest;
+import goid.kotajambi.puskesmas_ngadu.Server.Retroserver_lokal;
 import goid.kotajambi.puskesmas_ngadu.Server.Retroserver_server;
 import goid.kotajambi.puskesmas_ngadu.Server.Retroserver_server_AUTH;
 import goid.kotajambi.puskesmas_ngadu.model.login.Response_login;
@@ -45,6 +46,7 @@ public class login {
         }
     }
     public void login(String email, String password,String token, ProgressDialog pDialog) {
+        Log.i("isi_email", "login: "+email+" "+password);
 
         pDialog = new ProgressDialog(ctx);
         pDialog.setMessage("Logging In...");

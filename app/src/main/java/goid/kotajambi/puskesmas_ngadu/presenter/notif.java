@@ -69,7 +69,7 @@ public class notif {
                                 Toast.makeText(ctx,"server broken", Toast.LENGTH_SHORT).show();
                                 break;
                             default:
-                                Toast.makeText(ctx, "unknown error", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ctx, "Notif error", Toast.LENGTH_SHORT).show();
                                 break;
                         }
                     }

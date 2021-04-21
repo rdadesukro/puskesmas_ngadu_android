@@ -224,6 +224,11 @@ public class menu_detail_laporan extends AppCompatActivity implements view_komen
     }
 
     @Override
+    public void status(String status) {
+
+    }
+
+    @Override
     public void laporan_komen(List<ResultItem_laporan_komen> laporan_komen) {
 
     }

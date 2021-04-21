@@ -56,6 +56,7 @@ public class adapter_notif extends RecyclerView.Adapter<adapter_notif.HolderData
     private List<IsiItem_notif> mList ;
     private Context ctx;
 
+
     @Override
     public HolderData onCreateViewHolder(ViewGroup parent, int viewType) {
             View layout = LayoutInflater.from(parent.getContext()).inflate(R.layout.model_notif,parent, false);

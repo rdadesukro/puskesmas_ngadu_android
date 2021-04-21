@@ -31,6 +31,8 @@ public abstract class PaginatedAdapter<ITEM, VH extends RecyclerView.ViewHolder>
         return mDataSet.size();
     }
 
+
+
     public void submitItems(Collection<? extends ITEM> collection) {
         mDataSet.addAll(collection);
         notifyDataSetChanged();

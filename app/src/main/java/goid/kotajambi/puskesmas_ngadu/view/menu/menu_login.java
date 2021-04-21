@@ -87,6 +87,7 @@ public class menu_login extends AppCompatActivity implements Validator.Validatio
     Validator validator;
     String status_login;
     String token;
+    login countryPresenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,7 +121,7 @@ public class menu_login extends AppCompatActivity implements Validator.Validatio
         progressDialog = new ProgressDialog(this);
 
         status_login = Guru.getString("status_loign", "false");
-
+         countryPresenter = new login(null, menu_login.this);
         if (status_login.equals("true")){
             Intent intent  = new Intent(menu_login.this, menu_utama.class);
             Guru.putString("Fragmentone", "0");
@@ -235,7 +236,7 @@ public class menu_login extends AppCompatActivity implements Validator.Validatio
     @Override
     public void onValidationSucceeded() {
        //progressBar2.setVisibility(View.VISIBLE);
-        login countryPresenter = new login(null, menu_login.this);
+
         countryPresenter.login(editUser.getText().toString().trim(), editPass.getText().toString().trim(),token, progressDialog);
     }
 

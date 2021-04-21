@@ -4,6 +4,7 @@ package goid.kotajambi.puskesmas_ngadu.view.menu_fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.github.squti.guru.Guru;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -35,12 +37,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import goid.kotajambi.puskesmas_ngadu.R;
 import goid.kotajambi.puskesmas_ngadu.Server.ApiRequest;
+import goid.kotajambi.puskesmas_ngadu.Server.Retroserver_lokal;
 import goid.kotajambi.puskesmas_ngadu.Server.Retroserver_server_AUTH;
 import goid.kotajambi.puskesmas_ngadu.adapter.PaginatedAdapter;
 import goid.kotajambi.puskesmas_ngadu.adapter.adapter_laporan_saya;
 import goid.kotajambi.puskesmas_ngadu.model.laporan_saya.DataItem;
 import goid.kotajambi.puskesmas_ngadu.model.laporan_saya.Response_laporan_saya;
 import goid.kotajambi.puskesmas_ngadu.view.menu.menu_cari;
+import goid.kotajambi.puskesmas_ngadu.view.menu.menu_login;
 import goid.kotajambi.puskesmas_ngadu.view.menu.menu_utama;
 import maes.tech.intentanim.CustomIntent;
 import okhttp3.CipherSuite;
@@ -64,6 +68,8 @@ public class fragment_report extends Fragment {
     TextView txtData2;
     @BindView(R.id.img_data2)
     ImageView imgData2;
+    @BindView(R.id.swifeRefresh)
+    SwipeRefreshLayout swifeRefresh;
 
     private RecyclerView.LayoutManager mManager, manager;
     List<DataItem> data;
@@ -78,6 +84,7 @@ public class fragment_report extends Fragment {
         super.onActivityCreated(savedInstanceState);
         setHasOptionsMenu(true);
     }
+
     public fragment_report() {
         // Required empty public constructor
     }
@@ -112,7 +119,7 @@ public class fragment_report extends Fragment {
                 .build();
         rvAku = (RecyclerView) view.findViewById(R.id.rv_aku);
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
-        adapter = new adapter_laporan_saya(getActivity(),"report");
+        adapter = new adapter_laporan_saya(getActivity(), "report");
         adapter.setDefaultRecyclerView(getActivity(), rvAku);
 
         adapter.setOnPaginationListener(new PaginatedAdapter.OnPaginationListener() {
@@ -123,15 +130,7 @@ public class fragment_report extends Fragment {
 
             @Override
             public void onNextPage(int page) {
-                new_page=page;
-                imgData2.setVisibility(View.GONE);
-                txtData2.setVisibility(View.GONE);
-                if (sama!=new_page){
-                    progressBar.setVisibility(View.VISIBLE);
-                }else {
-                    progressBar.setVisibility(View.GONE);
-                }
-                // progressBar.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
                 getNewItems(page);
 
             }
@@ -142,64 +141,39 @@ public class fragment_report extends Fragment {
             }
         });
 
-
         getNewItems(adapter.getStartPage());
+        swifeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                adapter.clear();
+                adapter.setStartPage(1);
+                getNewItems(1);
 
-//        swifeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                adapter.clear();
-//                adapter = new adapter_laporan_saya(getActivity());
-//                adapter.setDefaultRecyclerView(getActivity(), rvAku);
-//
-//                adapter.setOnPaginationListener(new PaginatedAdapter.OnPaginationListener() {
-//                    @Override
-//                    public void onCurrentPage(int page) {
-//                        //  Toast.makeText(getActivity(), "Page " + page + " loaded!", Toast.LENGTH_SHORT).show();
-//                    }
-//
-//                    @Override
-//                    public void onNextPage(int page) {
-//                        new_page=page;
-//                        imgData2.setVisibility(View.GONE);
-//                        txtData2.setVisibility(View.GONE);
-//                        if (sama!=new_page){
-//                            progressBar.setVisibility(View.VISIBLE);
-//                        }else {
-//                            progressBar.setVisibility(View.GONE);
-//                        }
-//                        progressBar.setVisibility(View.VISIBLE);
-//                        getNewItems(page);
-//
-//                    }
-//
-//                    @Override
-//                    public void onFinish() {
-//                        // Toast.makeText(getActivity(), "finish", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//
-//
-//                getNewItems(1);
-//
-//
-//            }
-//        });
+
+            }
+        });
 
         return view;
 
 
     }
 
+
     public void onGetDate(List<DataItem> users) {
 
         adapter.submitItems(users);
+        swifeRefresh.setRefreshing(false);
     }
+
+
 
     private void getNewItems(final int page) {
 
-
-                ApiRequest api = Retroserver_server_AUTH.getClient().create(ApiRequest.class);
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                ApiRequest api = Retroserver_lokal.getClient().create(ApiRequest.class);
                 Call<Response_laporan_saya> call = api.pagni(page);
 
                 call.enqueue(new Callback<Response_laporan_saya>() {
@@ -209,33 +183,25 @@ public class fragment_report extends Fragment {
                         try {
 
                             if (response.isSuccessful()) {
-
                                 progressBar.setVisibility(View.VISIBLE);
-                                //swifeRefresh.setRefreshing(false);
                                 // Pd.hide();
                                 data = response.body().getResult().getData();
                                 int page1 = response.body().getResult().getTotal();
-                                Log.i("isi_data", "onResponse: " + data);
-                                Log.i("data_size", "onResponse: " + data.size());
-                               // Toast.makeText(getActivity(), "" + response.body().getResult().getTo(), Toast.LENGTH_SHORT).show();
+                                Log.i("isi_data_laporan", "onResponse: " + data);
+                                //Toast.makeText(getActivity(), ""+response.body().getResult().getTo(), Toast.LENGTH_SHORT).show();
                                 int jumlah = response.body().getResult().getPerPage();
-                                adapter.setPageSize(response.body().getResult().getPerPage());
-                                sama = response.body().getResult().getLastPage();
+
+//                        adapter.setPageSize(response.body().getResult().getPerPage());
 
                                 onGetDate(data);
+//                                swifeRefresh.setRefreshing(false);
 
 
-                                if (response.body().getResult().getLastPage()!=new_page){
-                                    progressBar.setVisibility(View.VISIBLE);
-                                }else {
-                                    progressBar.setVisibility(View.GONE);
-                                }
-
-
-                                if (data.size() == 0 && page1==0 ) {
+                                if (data.size() == 0 && page1 == 0) {
                                     txtData2.setVisibility(View.VISIBLE);
                                     imgData2.setVisibility(View.VISIBLE);
                                     progressBar.setVisibility(View.GONE);
+
                                 } else {
                                     txtData2.setVisibility(View.GONE);
                                     imgData2.setVisibility(View.GONE);
@@ -279,8 +245,13 @@ public class fragment_report extends Fragment {
                         }
                     }
                 });
-
+            }
+        }, 0); //3000 L = 3 detik
     }
+
+
+
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -290,11 +261,12 @@ public class fragment_report extends Fragment {
         refres.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
+
                 Intent intent = new Intent((Activity) getActivity(), menu_utama.class);
                 Guru.putString("Fragmentone", "1");
                 intent.putExtra("Fragmentone", 1); //pass zero for Fragmentone.
                 startActivity(intent);
-                CustomIntent.customType((Activity) getActivity(),"fadein-to-fadeout");
+                CustomIntent.customType((Activity) getActivity(), "fadein-to-fadeout");
 
                 return false;
             }
@@ -305,13 +277,16 @@ public class fragment_report extends Fragment {
                 Intent intent = new Intent((Activity) getActivity(), menu_cari.class);
                 intent.putExtra("Fragmentone", 1); //pass zero for Fragmentone.
                 startActivity(intent);
-                CustomIntent.customType((Activity) getActivity(),"fadein-to-fadeout");
+                CustomIntent.customType((Activity) getActivity(), "fadein-to-fadeout");
 
                 return false;
             }
         });
         super.onCreateOptionsMenu(menu, inflater);
     }
+
+
+
     public void onStart() {
         super.onStart();
 
@@ -322,5 +297,12 @@ public class fragment_report extends Fragment {
         super.onResume();
 
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+    }
+
 
 }
